@@ -37,8 +37,8 @@
 	--sl-text-h4: 1.0625rem;
 	--sl-line-height: 1.7;
 	--sl-sidebar-width: 14rem;
-	--sl-content-width: 62rem;
-	--sl-nav-height: 3.25rem;
+	--sl-content-width: 68rem;
+	--sl-nav-height: 4.25rem;
 	--sl-nav-pad-x: 1rem;
 	--sl-content-pad-x: 1.5rem;
 }
@@ -90,20 +90,20 @@
 .content-panel .sl-container {
 	max-width: min(100%, var(--sl-content-width));
 	margin-inline: auto;
-	padding: 0 1.75rem;
+	padding: 0 1.9rem 0 1.75rem;
 	border: 0;
 	border-radius: 0;
 	background: transparent;
 }
 
 html[data-has-hero] .content-panel .sl-container {
-	max-width: min(100%, 74rem);
+	max-width: min(100%, 82rem);
 	margin-inline: auto;
 }
 
 html[data-has-hero] .hero {
-	max-width: 56rem;
-	padding-block: 0.45rem 1.75rem;
+	max-width: 70rem;
+	padding-block: 0.6rem 2rem;
 }
 
 html[data-has-hero] .hero .tagline {
@@ -230,13 +230,13 @@ mobile-starlight-toc a {
 }
 
 .right-sidebar-container {
-	flex: 0 0 13.5rem;
-	width: 13.5rem;
+	flex: 0 0 11.5rem;
+	width: 11.5rem;
 }
 
 .right-sidebar-panel .sl-container {
-	max-width: 12.75rem;
-	padding-inline: 0.35rem 0.85rem;
+	max-width: 10.75rem;
+	padding-inline: 0.15rem 0.7rem;
 }
 
 .right-sidebar a:hover,
@@ -309,7 +309,7 @@ html[data-has-hero] .right-sidebar-container {
 	display: none !important;
 }
 
-@media (max-width: 96rem) {
+@media (max-width: 86rem) {
 	html[data-has-sidebar]:not([data-has-hero]) .right-sidebar-container {
 		display: none;
 	}
@@ -318,6 +318,7 @@ html[data-has-hero] .right-sidebar-container {
 .header {
 	border-bottom: 1px solid var(--wcb-border);
 	background: var(--wcb-bg);
+	overflow: clip;
 }
 
 .wcb-docs-header {
