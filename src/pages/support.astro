@@ -1,0 +1,78 @@
+---
+import GitHubStarsBadge from '../components/common/GitHubStarsBadge.astro';
+import Icon from '../components/common/Icon.astro';
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+import { site } from '../data/site';
+
+export const prerender = true;
+---
+
+<MarketingLayout
+	title="Support"
+	description="If Wix CLI Bible saves you time, here's how you can help keep it going."
+	canonicalPath="/support/"
+>
+	<section class="page-hero">
+		<p class="eyebrow">Support</p>
+		<h1>If this saves you time, consider sponsoring.</h1>
+		<p>
+			This project is free and open source. Sponsorship helps cover hosting, the AI costs behind the Ask feature, and the time it takes to keep the content accurate as the platform changes.
+		</p>
+		<div class="button-row page-hero__actions">
+			<a class="button" href={site.githubSponsorsUrl} target="_blank" rel="noreferrer">
+				<Icon name="sparkles" size="0.9rem" />
+				Sponsor
+			</a>
+			<a class="button-secondary" href={site.repoUrl} target="_blank" rel="noreferrer">
+				<Icon name="githubLogo" size="0.9rem" />
+				View source
+			</a>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="card-grid compact-card-grid" data-stagger>
+			<article class="info-card info-card--compact">
+				<div class="feature-icon">
+					<Icon name="messageCircle" size="0.9rem" />
+				</div>
+				<h3>Ask AI costs</h3>
+				<p>The Ask feature runs on real inference. Sponsorship keeps it available.</p>
+			</article>
+			<article class="info-card info-card--compact">
+				<div class="feature-icon">
+					<Icon name="clock" size="0.9rem" />
+				</div>
+				<h3>Keeping it current</h3>
+				<p>The Wix CLI evolves. Docs need regular updates to stay accurate.</p>
+			</article>
+			<article class="info-card info-card--compact">
+				<div class="feature-icon">
+					<Icon name="server" size="0.9rem" />
+				</div>
+				<h3>Hosting</h3>
+				<p>The site, build pipeline, and AI gateway all have running costs.</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="support-surface support-surface--compact" data-reveal="card">
+			<div class="support-surface__copy">
+				<span class="pill">
+					<Icon name="githubLogo" size="0.85rem" />
+					GitHub Sponsors
+				</span>
+				<h2>No pressure. No paywall. Just a way to help if you want to.</h2>
+				<p>Everything on this site is free. Sponsoring is entirely optional and goes directly toward keeping the project running.</p>
+			</div>
+			<div class="support-surface__actions">
+				<GitHubStarsBadge />
+				<a class="button" href={site.githubSponsorsUrl} target="_blank" rel="noreferrer">
+					<Icon name="arrowUpRight" size="0.85rem" />
+					Sponsor
+				</a>
+			</div>
+		</div>
+	</section>
+</MarketingLayout>

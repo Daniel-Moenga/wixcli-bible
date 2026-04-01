@@ -1,0 +1,66 @@
+---
+import Icon from '../components/common/Icon.astro';
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+import { site } from '../data/site';
+
+export const prerender = true;
+---
+
+<MarketingLayout
+	title="Credits"
+	description="The teams and tools behind the Wix CLI Bible project."
+	canonicalPath="/credits/"
+>
+	<section class="page-hero">
+		<p class="eyebrow">Credits</p>
+		<h1>Built on the work of great teams.</h1>
+		<p>
+			This project depends on upstream teams who built the platform and the tools we use every day.
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="collection-grid">
+			<article class="collection-card credit-card" data-reveal="card">
+				<div class="credit-card__logo">
+					<img class="logo-dark" src="/brand/wix-light.svg" alt="Wix" height="18" />
+					<img class="logo-light" src="/brand/wix-dark.svg" alt="Wix" height="18" />
+				</div>
+				<div class="collection-card__meta">
+					<span class="meta-chip">Platform</span>
+				</div>
+				<h3>Wix</h3>
+				<p>The platform and source of truth for all CLI documentation.</p>
+				<a href="https://dev.wix.com/docs/wix-cli" target="_blank" rel="noreferrer" class="changelog-item__link">
+					Official docs <Icon name="arrowUpRight" size="0.75rem" />
+				</a>
+			</article>
+
+			<article class="collection-card credit-card" data-reveal="card">
+				<div class="credit-card__logo">
+					<img class="logo-dark" src="/brand/astro-light.svg" alt="Astro" height="16" />
+					<img class="logo-light" src="/brand/astro-dark.svg" alt="Astro" height="16" />
+				</div>
+				<div class="collection-card__meta">
+					<span class="meta-chip">Framework</span>
+				</div>
+				<h3>Astro + Starlight</h3>
+				<p>The framework and documentation engine powering this site.</p>
+				<a href="https://starlight.astro.build/" target="_blank" rel="noreferrer" class="changelog-item__link">
+					Starlight <Icon name="arrowUpRight" size="0.75rem" />
+				</a>
+			</article>
+
+			<article class="collection-card credit-card" data-reveal="card">
+				<div class="collection-card__meta">
+					<span class="meta-chip">Maintainer</span>
+				</div>
+				<h3>Moenga Space</h3>
+				<p>Building open developer infrastructure for the Wix ecosystem.</p>
+				<a href={site.repoUrl} target="_blank" rel="noreferrer" class="changelog-item__link">
+					GitHub <Icon name="arrowUpRight" size="0.75rem" />
+				</a>
+			</article>
+		</div>
+	</section>
+</MarketingLayout>
