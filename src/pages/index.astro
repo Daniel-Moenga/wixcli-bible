@@ -35,16 +35,9 @@ const changelog = (await getCollection('changelog'))
 						<Icon name="bookOpen" size="0.9rem" />
 						Read the Docs
 					</a>
-					<a class="button-secondary" href="/community/">
-						<Icon name="users" size="0.9rem" />
-						Community
-					</a>
-				</div>
-				<div class="signal-row" data-hero-reveal>
-					<GitHubStarsBadge />
-					<a class="signal-pill" href="/open-source/">
-						<Icon name="gitBranch" size="0.85rem" />
-						Open-Source
+					<a class="button-secondary" href="/guides/">
+						<Icon name="terminal" size="0.9rem" />
+						Guides
 					</a>
 				</div>
 			</div>
@@ -54,36 +47,70 @@ const changelog = (await getCollection('changelog'))
 					<span class="hero-shell__dot"></span>
 					<span class="hero-shell__dot"></span>
 					<span class="hero-shell__dot"></span>
+					<span class="hero-shell__window-title">wixcli-bible/docs</span>
 					<div class="hero-shell__search">
 						<Icon name="command" size="0.85rem" />
-						<span>Ctrl + K</span>
+						<span>Search docs</span>
+						<span class="hero-shell__keycap">Ctrl + K</span>
 					</div>
 				</div>
 				<div class="hero-shell__body">
 					<aside class="hero-shell__sidebar">
-						<span class="hero-shell__sidebar-title">Docs</span>
+						<span class="hero-shell__sidebar-title">Handbook</span>
 						<span class="hero-shell__sidebar-item hero-shell__sidebar-item--active">Start Here</span>
 						<span class="hero-shell__sidebar-item">Mental Model</span>
-						<span class="hero-shell__sidebar-item">Workflow</span>
-						<span class="hero-shell__sidebar-item">Surfaces</span>
+						<span class="hero-shell__sidebar-item">Preview vs Release</span>
+						<span class="hero-shell__sidebar-item">Extensions</span>
+						<span class="hero-shell__sidebar-item">Ask Beta</span>
 					</aside>
 					<div class="hero-shell__content">
 						<div class="hero-shell__content-head">
+							<span class="meta-chip">Docs</span>
 							<span class="meta-chip">Wix CLI</span>
-							<span class="meta-chip">Open-Source</span>
 						</div>
-						<h2>The Shortest Path to the Right Mental Model.</h2>
+						<h2>Start Here: build the right Wix CLI mental model.</h2>
 						<p>
-							Structured docs. Practical guides. Grounded AI. One place to learn everything the official docs leave scattered.
+							Learn the three Wix CLI tracks, where extensions actually live, and when preview is not enough for a real release check.
 						</p>
-						<div class="hero-shell__line-group" aria-hidden="true">
-							<span></span><span></span><span></span><span></span>
+						<div class="hero-shell__feature-grid" aria-hidden="true">
+							<div class="hero-shell__feature hero-shell__feature--command">
+								<span class="hero-shell__feature-label">Command flow</span>
+								<div class="hero-shell__command-list">
+									<span class="hero-shell__command-step">npm create wix-app</span>
+									<span class="hero-shell__command-step">wix login</span>
+									<span class="hero-shell__command-step hero-shell__command-step--active">wix app preview</span>
+								</div>
+								<div class="hero-shell__status">
+									<span class="hero-shell__status-dot"></span>
+									<span>Preview connected</span>
+								</div>
+							</div>
+							<div class="hero-shell__feature hero-shell__feature--release">
+								<span class="hero-shell__feature-label">When release matters</span>
+								<svg viewBox="0 0 230 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path
+										class="hero-shell__flow-path"
+										d="M34 86C58 86 63 42 93 42H120C146 42 152 77 177 77H198"
+										stroke="currentColor"
+										stroke-width="1.4"
+										stroke-linecap="round"
+										stroke-dasharray="5 5"
+									/>
+									<circle cx="34" cy="86" r="7" class="hero-shell__flow-node hero-shell__flow-node--muted" />
+									<circle cx="93" cy="42" r="7" class="hero-shell__flow-node hero-shell__flow-node--active" />
+									<circle cx="177" cy="77" r="7" class="hero-shell__flow-node hero-shell__flow-node--muted" />
+									<text x="22" y="107" class="hero-shell__flow-label">Preview</text>
+									<text x="77" y="21" class="hero-shell__flow-label">Install</text>
+									<text x="165" y="98" class="hero-shell__flow-label">Release</text>
+								</svg>
+								<p class="hero-shell__feature-note">Widgets and dashboard pages often need a real release pass before they show up where you expect.</p>
+							</div>
 						</div>
 						<div class="hero-shell__chips" aria-hidden="true">
-							<span>dashboard</span>
-							<span>site</span>
-							<span>backend</span>
-							<span>release</span>
+							<span>guides</span>
+							<span>ask beta</span>
+							<span>source-linked</span>
+							<span>release checks</span>
 						</div>
 					</div>
 				</div>

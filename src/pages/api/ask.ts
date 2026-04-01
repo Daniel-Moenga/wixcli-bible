@@ -4,6 +4,11 @@ import aiIndex from '../../generated/ai-index.json';
 
 export const prerender = false;
 
+type ChatMessage = {
+	role: 'user' | 'assistant';
+	content: string;
+};
+
 const systemPrompt = `You are the Wix CLI Bible assistant.
 
 Answer only from the provided evidence. Prefer the local handbook when it already answers the question clearly.
@@ -51,10 +56,43 @@ function buildCitations(matches: (typeof aiIndex.documents)[number][]) {
 	return Array.from(citations.values()).slice(0, 6);
 }
 
+function normalizeMessages(input: unknown): ChatMessage[] {
+	if (!Array.isArray(input)) return [];
+
+	return input
+		.map((entry) => {
+			if (!entry || typeof entry !== 'object') return null;
+
+			const role = 'role' in entry ? entry.role : null;
+			const content = 'content' in entry ? entry.content : null;
+			if (
+				(role !== 'user' && role !== 'assistant') ||
+				typeof content !== 'string' ||
+				content.trim().length === 0
+			) {
+				return null;
+			}
+
+			return {
+				role,
+				content: content.trim(),
+			} satisfies ChatMessage;
+		})
+		.filter((message): message is ChatMessage => Boolean(message))
+		.slice(-8);
+}
+
 export const POST: APIRoute = async ({ request }) => {
 	try {
-		const { question } = await request.json();
-		if (!question || typeof question !== 'string') {
+		const body = await request.json();
+		const messages = normalizeMessages(body?.messages);
+		const latestUserMessage = [...messages].reverse().find((message) => message.role === 'user');
+		const question =
+			typeof body?.question === 'string' && body.question.trim().length > 0
+				? body.question.trim()
+				: latestUserMessage?.content ?? '';
+
+		if (!question) {
 			return new Response(JSON.stringify({ error: 'Question is required.' }), { status: 400 });
 		}
 
@@ -111,10 +149,20 @@ Excerpt: ${document.content.slice(0, 1800)}`
 			)
 			.join('\n\n');
 
+		const conversationContext =
+			messages.length > 0
+				? messages
+						.map(
+							(message, index) =>
+								`[Message ${index + 1}] ${message.role === 'assistant' ? 'Assistant' : 'User'}: ${message.content}`
+						)
+						.join('\n')
+				: 'No prior conversation context.';
+
 		const result = await generateText({
 			model: import.meta.env.AI_GATEWAY_MODEL || 'openai/gpt-5.4',
 			system: systemPrompt,
-			prompt: `Question: ${question}\n\nEvidence:\n${context}\n\nAnswer with a concise explanation grounded in the evidence. End by reminding the reader that Wix remains the source of truth when platform behavior matters.`,
+			prompt: `Conversation so far:\n${conversationContext}\n\nLatest user question: ${question}\n\nEvidence:\n${context}\n\nAnswer with a concise explanation grounded in the evidence. If the prior conversation helps clarify the user's intent, use it. End by reminding the reader that Wix remains the source of truth when platform behavior matters.`,
 			providerOptions: {
 				gateway: {
 					tags: ['feature:ask-beta', 'project:wix-cli-bible'],
