@@ -1,0 +1,33 @@
+---
+import config from 'virtual:starlight/user-config';
+import Search from 'virtual:starlight/components/Search';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import { isActivePath, site, topNavigation } from '../../data/site';
+import GitHubStarsBadge from '../common/GitHubStarsBadge.astro';
+
+const currentPath = Astro.url.pathname;
+const shouldRenderSearch =
+	config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
+---
+
+<div class="wcb-docs-header">
+	<div class="wcb-docs-header__brand">
+		<SiteTitle />
+	</div>
+
+	<nav class="wcb-docs-header__nav" aria-label="Primary">
+		{
+			topNavigation.map((item) => (
+				<a class:list={{ active: isActivePath(currentPath, item.href) }} href={item.href}>
+					{item.label}
+					{item.badge && <span class="nav-badge">{item.badge}</span>}
+				</a>
+			))
+		}
+	</nav>
+
+	<div class="wcb-docs-header__actions">
+		{shouldRenderSearch && <Search />}
+		<GitHubStarsBadge compact={true} />
+	</div>
+</div>

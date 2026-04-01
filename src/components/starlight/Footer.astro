@@ -1,0 +1,23 @@
+---
+import EditLink from 'virtual:starlight/components/EditLink';
+import LastUpdated from 'virtual:starlight/components/LastUpdated';
+import Pagination from 'virtual:starlight/components/Pagination';
+import MotionEnhancements from '../common/MotionEnhancements.astro';
+import ThemeDock from '../common/ThemeDock.astro';
+---
+
+<footer class="wcb-docs-footer">
+	<div class="wcb-docs-footer__meta">
+		<EditLink />
+		<LastUpdated />
+	</div>
+
+	<Pagination />
+
+	<p class="wcb-docs-footer__note">
+		Wix remains the source of truth. This handbook is the learning layer.
+	</p>
+
+	<ThemeDock />
+	<MotionEnhancements />
+</footer>

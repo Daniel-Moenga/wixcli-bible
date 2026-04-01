@@ -1,0 +1,33 @@
+<script is:inline>
+	(() => {
+		const storageKey = 'starlight-theme';
+		const parseTheme = (theme) =>
+			theme === 'auto' || theme === 'light' || theme === 'dark' ? theme : 'dark';
+		const getPreferredColorScheme = () =>
+			window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+		const loadTheme = () => parseTheme(localStorage.getItem(storageKey) || 'dark');
+		const resolveTheme = (theme) => (theme === 'auto' ? getPreferredColorScheme() : theme);
+		const syncToggles = (theme = loadTheme()) => {
+			document.querySelectorAll('[data-theme-toggle]').forEach((toggle) => {
+				toggle.querySelectorAll('[data-theme-option]').forEach((button) => {
+					const active = button.getAttribute('data-theme-option') === theme;
+					button.setAttribute('aria-pressed', active ? 'true' : 'false');
+					button.toggleAttribute('data-active', active);
+				});
+			});
+		};
+		const applyTheme = (theme = loadTheme()) => {
+			document.documentElement.dataset.theme = resolveTheme(theme);
+			syncToggles(theme);
+		};
+		const setTheme = (theme) => {
+			localStorage.setItem(storageKey, parseTheme(theme));
+			applyTheme(parseTheme(theme));
+		};
+		window.WCBTheme = { applyTheme, getPreferredColorScheme, loadTheme, setTheme, syncToggles };
+		applyTheme(loadTheme());
+		window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+			if (loadTheme() === 'auto') applyTheme('auto');
+		});
+	})();
+</script>

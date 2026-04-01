@@ -1,0 +1,31 @@
+---
+import { icons, type IconName } from '../../data/icons';
+
+interface Props {
+	name: IconName;
+	label?: string;
+	size?: number | string;
+	class?: string;
+	decorative?: boolean;
+}
+
+const {
+	name,
+	label,
+	size = '1rem',
+	class: className,
+	decorative = true,
+} = Astro.props as Props;
+
+const svg = icons[name];
+---
+
+<span
+	class:list={['ui-icon', className]}
+	style={`--ui-icon-size:${typeof size === 'number' ? `${size}px` : size};`}
+	role={decorative ? undefined : 'img'}
+	aria-label={decorative ? undefined : label ?? name}
+	aria-hidden={decorative ? 'true' : undefined}
+>
+	<span set:html={svg} />
+</span>

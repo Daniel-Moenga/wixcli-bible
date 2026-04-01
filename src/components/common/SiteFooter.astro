@@ -1,0 +1,51 @@
+---
+import { footerNavigation, site } from '../../data/site';
+import Icon from './Icon.astro';
+---
+
+<footer class="site-footer">
+	<div class="site-footer__top">
+		<div class="site-footer__brand">
+			<a class="site-footer__logo" href="/" aria-label={`${site.name} home`}>
+				<img class="logo-dark site-mark__logo" src="/brand/moenga-light-transparent.png" alt={site.name} />
+				<img class="logo-light site-mark__logo" src="/brand/moenga-dark-transparent.png" alt={site.name} />
+			</a>
+			<p class="site-footer__tagline">{site.tagline}</p>
+		</div>
+
+		<div class="site-footer__nav">
+			{
+				footerNavigation.map((group) => (
+					<section>
+						<h3>{group.title}</h3>
+						<ul>
+							{group.links.map((link) => (
+								<li>
+									<a href={link.href}>{link.label}</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				))
+			}
+			<section>
+				<h3>Connect</h3>
+				<ul>
+					<li><a href={site.repoUrl} target="_blank" rel="noreferrer">GitHub</a></li>
+					<li><a href={site.githubSponsorsUrl} target="_blank" rel="noreferrer">Sponsors</a></li>
+					<li><a href="/credits/">Credits</a></li>
+				</ul>
+			</section>
+		</div>
+	</div>
+
+	<div class="site-footer__bottom">
+		<p>{site.openSource.codeLicense} &middot; {site.openSource.docsLicense}</p>
+		<div class="site-footer__bottom-right">
+			<a href="/404/" class="footer-easter-egg" title="Play a game">
+				<Icon name="rocket" size="0.75rem" />
+			</a>
+			<p>&copy; {new Date().getFullYear()} Moenga Space</p>
+		</div>
+	</div>
+</footer>

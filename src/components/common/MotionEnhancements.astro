@@ -1,0 +1,66 @@
+<script>
+	import { animate, inView, stagger } from 'motion';
+
+	if (!window.__wcbMotionReady) {
+		window.__wcbMotionReady = true;
+
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		if (!reduceMotion) {
+			const fadeUp = (element, delay = 0) =>
+				animate(
+					element,
+					{ opacity: [0, 1], y: [16, 0], filter: ['blur(6px)', 'blur(0px)'] },
+					{ duration: 0.55, delay, ease: 'ease-out' }
+				);
+
+			document
+				.querySelectorAll('[data-stagger]')
+				.forEach((group) =>
+					animate(
+						Array.from(group.children),
+						{ opacity: [0, 1], y: [18, 0] },
+						{ delay: stagger(0.08), duration: 0.45, ease: 'ease-out' }
+					)
+				);
+
+			document.querySelectorAll('[data-hero-reveal]').forEach((element, index) => {
+				fadeUp(element, index * 0.08);
+			});
+
+			document.querySelectorAll('[data-reveal="dock"]').forEach((element) => {
+				animate(
+					element,
+					{ opacity: [0, 1], y: [18, 0], scale: [0.96, 1] },
+					{ delay: 0.25, duration: 0.45, ease: 'ease-out' }
+				);
+			});
+
+		document.querySelectorAll('[data-reveal="card"]').forEach((element) => {
+			inView(
+				element,
+				() => {
+					fadeUp(element);
+				},
+				{ margin: '-15% 0px -10% 0px' }
+			);
+		});
+
+		const heroShell = document.querySelector('.hero-shell');
+		if (heroShell) {
+			let ticking = false;
+			window.addEventListener('scroll', () => {
+				if (!ticking) {
+					requestAnimationFrame(() => {
+						const y = window.scrollY * 0.08;
+						const o = Math.max(0, 1 - window.scrollY / 600);
+						heroShell.style.transform = `translateY(${y}px)`;
+						heroShell.style.opacity = String(o);
+						ticking = false;
+					});
+					ticking = true;
+				}
+			});
+		}
+	}
+}
+</script>

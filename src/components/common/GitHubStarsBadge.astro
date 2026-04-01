@@ -1,0 +1,47 @@
+---
+import { site } from '../../data/site';
+import Icon from './Icon.astro';
+
+const { compact = false } = Astro.props;
+---
+
+<wcb-github-stars class:list={['github-stars', { compact }]}>
+	<a class="github-stars__link" href={site.repoUrl} target="_blank" rel="noreferrer" aria-label="Open Wix CLI Bible on GitHub">
+		<span class="github-stars__logo">
+			<Icon name="githubLogo" size="1rem" />
+		</span>
+		<span class="github-stars__count" data-stars-count>&mdash;</span>
+		<span class="github-stars__star" aria-hidden="true">
+			<Icon name="star" size="0.9rem" />
+		</span>
+	</a>
+</wcb-github-stars>
+
+<script is:inline>
+	if (!customElements.get('wcb-github-stars')) {
+		class WCBGitHubStars extends HTMLElement {
+			async connectedCallback() {
+				const target = this.querySelector('[data-stars-count]');
+				if (!target) return;
+
+				const fetchStars =
+					window.__wcbGitHubStarsPromise ||
+					(window.__wcbGitHubStarsPromise = fetch('/api/github-stars', {
+						headers: { accept: 'application/json' },
+					})
+						.then((response) => (response.ok ? response.json() : null))
+						.catch(() => null));
+
+				const data = await fetchStars;
+				if (!data || typeof data.stars !== 'number') return;
+
+				target.textContent = new Intl.NumberFormat('en', {
+					maximumFractionDigits: 1,
+					notation: data.stars > 999 ? 'compact' : 'standard',
+				}).format(data.stars);
+			}
+		}
+
+		customElements.define('wcb-github-stars', WCBGitHubStars);
+	}
+</script>

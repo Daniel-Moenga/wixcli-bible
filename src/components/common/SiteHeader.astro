@@ -1,0 +1,47 @@
+---
+import Search from 'virtual:starlight/components/Search';
+import { isActivePath, site, topNavigation } from '../../data/site';
+import GitHubStarsBadge from './GitHubStarsBadge.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+	<div class="site-header__inner">
+		<a class="site-mark" href="/" aria-label={`${site.name} home`}>
+			<img class="logo-dark site-mark__logo" src="/brand/moenga-light-transparent.png" alt="Moenga Space" />
+			<img class="logo-light site-mark__logo" src="/brand/moenga-dark-transparent.png" alt="Moenga Space" />
+		</a>
+
+		<nav class="site-nav" aria-label="Primary">
+			{
+				topNavigation.map((item) => (
+					<a class:list={{ active: isActivePath(currentPath, item.href) }} href={item.href}>
+						{item.label}
+						{item.badge && <span class="nav-badge">{item.badge}</span>}
+					</a>
+				))
+			}
+		</nav>
+
+		<div class="site-header__actions">
+			<Search />
+			<GitHubStarsBadge compact={true} />
+		</div>
+
+		<details class="site-mobile-nav">
+			<summary>Menu</summary>
+			<div class="site-mobile-nav__panel">
+				{
+					topNavigation.map((item) => (
+						<a class:list={{ active: isActivePath(currentPath, item.href) }} href={item.href}>
+							{item.label}
+							{item.badge && <span class="nav-badge">{item.badge}</span>}
+						</a>
+					))
+				}
+				<GitHubStarsBadge />
+			</div>
+		</details>
+	</div>
+</header>

@@ -1,0 +1,30 @@
+---
+interface Props {
+	size?: string;
+}
+const { size = '1.25rem' } = Astro.props;
+---
+
+<span class="ask-icon" style={`--ask-icon-size: ${size};`} aria-hidden="true">
+	<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+		<circle cx="19" cy="19" r="14" fill="#F8F7F2" />
+		<circle cx="45" cy="19" r="14" fill="#18181b" />
+		<circle cx="19" cy="45" r="14" fill="#34C787" />
+		<circle cx="45" cy="45" r="14" fill="#ffffff" />
+	</svg>
+</span>
+
+<style>
+	.ask-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--ask-icon-size);
+		height: var(--ask-icon-size);
+		flex-shrink: 0;
+	}
+	.ask-icon svg {
+		width: 100%;
+		height: 100%;
+	}
+</style>
