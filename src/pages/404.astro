@@ -1,0 +1,269 @@
+---
+import Icon from '../components/common/Icon.astro';
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+
+export const prerender = true;
+---
+
+<MarketingLayout
+	title="Page not found"
+	description="The page you were looking for does not exist in Wix CLI Bible."
+	canonicalPath="/404/"
+>
+	<section class="page-hero" style="text-align: center; padding-top: 6rem;">
+		<div style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: var(--wcb-radius-lg); border: 1px solid var(--wcb-border); background: var(--wcb-panel); margin-bottom: 1.5rem;">
+			<Icon name="search" size="1.5rem" />
+		</div>
+		<p class="eyebrow">404</p>
+		<h1>Lost in the cosmos.</h1>
+		<p style="max-width: 28rem; margin: 0 auto;">
+			This route drifted into the void. The docs, guides, and changelog are still in orbit.
+		</p>
+		<div class="button-row" style="margin-top: 1.25rem; justify-content: center;">
+			<a class="button" href="/docs/">
+				<Icon name="bookOpen" size="0.9rem" />
+				Docs
+			</a>
+			<a class="button-secondary" href="/">
+				<Icon name="arrowRight" size="0.9rem" />
+				Home
+			</a>
+		</div>
+	</section>
+
+	<section class="game-wrap">
+		<canvas id="runner"></canvas>
+	</section>
+</MarketingLayout>
+
+<style>
+	.game-wrap {
+		display: flex;
+		justify-content: center;
+		padding: 0 1rem 4rem;
+	}
+	#runner {
+		width: 100%;
+		max-width: 800px;
+		height: 300px;
+		border-radius: var(--wcb-radius-lg);
+		border: 1px solid var(--wcb-border);
+		cursor: pointer;
+		display: block;
+	}
+</style>
+
+<script is:inline>
+(function () {
+	const C = document.getElementById('runner');
+	const ctx = C.getContext('2d');
+	const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+	function resize() {
+		const r = C.getBoundingClientRect();
+		C.width = r.width * DPR;
+		C.height = r.height * DPR;
+		ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+	}
+	resize();
+	window.addEventListener('resize', resize);
+
+	const W = () => C.width / DPR;
+	const H = () => C.height / DPR;
+	const GREEN = '#34C787';
+	const CREAM = '#F8F7F2';
+	const GRAY = '#71717a';
+	const GROUND_Y = () => H() - 40;
+
+	const stars = Array.from({ length: 80 }, () => ({
+		x: Math.random(), y: Math.random() * 0.75,
+		r: Math.random() * 1.2 + 0.3,
+		s: Math.random() * 0.3 + 0.1,
+		c: Math.random() > 0.4 ? CREAM : '#fff',
+	}));
+
+	let state = 'idle'; // idle | running | dead
+	let score = 0, best = 0, frame = 0, speed = 3;
+	let py, vy, onGround;
+	const trail = [];
+	let obstacles = [];
+
+	function reset() {
+		py = GROUND_Y() - 10;
+		vy = 0;
+		onGround = true;
+		score = 0;
+		frame = 0;
+		speed = 3;
+		trail.length = 0;
+		obstacles = [];
+	}
+	reset();
+
+	function jump() {
+		if (state === 'idle') { state = 'running'; reset(); return; }
+		if (state === 'dead') { state = 'running'; reset(); return; }
+		if (onGround) { vy = -8.5; onGround = false; }
+	}
+
+	C.addEventListener('pointerdown', jump);
+	document.addEventListener('keydown', function (e) {
+		if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); jump(); }
+	});
+
+	function spawnObstacle() {
+		const w = W();
+		const sz = Math.random() * 10 + 10;
+		const sides = Math.floor(Math.random() * 3) + 5;
+		obstacles.push({ x: w + 20, sz, sides, passed: false });
+	}
+
+	function drawStars() {
+		const w = W(), h = H();
+		for (const s of stars) {
+			s.x -= s.s * 0.001 * speed;
+			if (s.x < 0) s.x += 1;
+			ctx.fillStyle = s.c;
+			ctx.globalAlpha = 0.5 + Math.sin(frame * 0.02 + s.r * 10) * 0.3;
+			ctx.beginPath();
+			ctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
+			ctx.fill();
+		}
+		ctx.globalAlpha = 1;
+	}
+
+	function drawNebula() {
+		const w = W(), h = H();
+		const g1 = ctx.createRadialGradient(w * 0.2, h * 0.3, 0, w * 0.2, h * 0.3, w * 0.35);
+		g1.addColorStop(0, 'rgba(52,199,135,0.04)');
+		g1.addColorStop(1, 'transparent');
+		ctx.fillStyle = g1;
+		ctx.fillRect(0, 0, w, h);
+		const g2 = ctx.createRadialGradient(w * 0.75, h * 0.5, 0, w * 0.75, h * 0.5, w * 0.3);
+		g2.addColorStop(0, 'rgba(248,247,242,0.025)');
+		g2.addColorStop(1, 'transparent');
+		ctx.fillStyle = g2;
+		ctx.fillRect(0, 0, w, h);
+	}
+
+	function drawGround() {
+		const gy = GROUND_Y();
+		ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+		ctx.lineWidth = 1;
+		ctx.beginPath();
+		ctx.moveTo(0, gy + 10);
+		ctx.lineTo(W(), gy + 10);
+		ctx.stroke();
+	}
+
+	function drawTrail() {
+		for (let i = 0; i < trail.length; i++) {
+			const t = trail[i];
+			const a = t.a * (i / trail.length);
+			ctx.fillStyle = GREEN;
+			ctx.globalAlpha = a;
+			ctx.beginPath();
+			ctx.arc(t.x, t.y, t.r, 0, Math.PI * 2);
+			ctx.fill();
+		}
+		ctx.globalAlpha = 1;
+	}
+
+	function drawPlayer(px) {
+		ctx.shadowColor = GREEN;
+		ctx.shadowBlur = 18;
+		ctx.fillStyle = GREEN;
+		ctx.beginPath();
+		ctx.arc(px, py, 10, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.shadowBlur = 0;
+	}
+
+	function drawObstacles() {
+		for (const o of obstacles) {
+			ctx.fillStyle = GRAY;
+			ctx.beginPath();
+			for (let i = 0; i < o.sides; i++) {
+				const ang = (Math.PI * 2 / o.sides) * i - Math.PI / 2;
+				const ox = o.x + Math.cos(ang) * o.sz * 0.5;
+				const oy = GROUND_Y() - o.sz * 0.45 + Math.sin(ang) * o.sz * 0.5;
+				i === 0 ? ctx.moveTo(ox, oy) : ctx.lineTo(ox, oy);
+			}
+			ctx.closePath();
+			ctx.fill();
+		}
+	}
+
+	function drawScore() {
+		ctx.fillStyle = '#f0f0f0';
+		ctx.font = '600 14px "JetBrains Mono", monospace';
+		ctx.textAlign = 'right';
+		ctx.fillText(String(score).padStart(5, '0'), W() - 16, 28);
+		if (best > 0) {
+			ctx.fillStyle = 'rgba(240,240,240,0.35)';
+			ctx.font = '500 10px "JetBrains Mono", monospace';
+			ctx.fillText('HI ' + String(best).padStart(5, '0'), W() - 16, 44);
+		}
+	}
+
+	function drawPrompt(text) {
+		ctx.fillStyle = '#f0f0f0';
+		ctx.font = '500 14px "JetBrains Mono", monospace';
+		ctx.textAlign = 'center';
+		ctx.globalAlpha = 0.6 + Math.sin(frame * 0.05) * 0.3;
+		ctx.fillText(text, W() / 2, H() / 2 + 4);
+		ctx.globalAlpha = 1;
+	}
+
+	const PX = 60;
+
+	function tick() {
+		const w = W(), h = H();
+		ctx.clearRect(0, 0, w, h);
+		ctx.fillStyle = '#000';
+		ctx.fillRect(0, 0, w, h);
+
+		drawNebula();
+		drawStars();
+		drawGround();
+
+		if (state === 'running') {
+			frame++;
+			speed = 3 + frame * 0.002;
+			vy += 0.45;
+			py += vy;
+			const gy = GROUND_Y() - 10;
+			if (py >= gy) { py = gy; vy = 0; onGround = true; }
+
+			trail.push({ x: PX, y: py, r: 5, a: 0.35 });
+			if (trail.length > 18) trail.shift();
+			for (const t of trail) { t.x -= speed * 0.4; t.a *= 0.94; }
+
+			if (frame % Math.max(40, 90 - Math.floor(frame / 60)) === 0) spawnObstacle();
+			for (const o of obstacles) {
+				o.x -= speed;
+				if (!o.passed && o.x + o.sz * 0.5 < PX) { o.passed = true; score++; }
+				const dx = PX - o.x, dy = py - (GROUND_Y() - o.sz * 0.45);
+				if (Math.sqrt(dx * dx + dy * dy) < 10 + o.sz * 0.38) {
+					state = 'dead';
+					if (score > best) best = score;
+				}
+			}
+			obstacles = obstacles.filter(o => o.x > -30);
+		} else {
+			frame++;
+		}
+
+		drawTrail();
+		drawPlayer(PX);
+		drawObstacles();
+		drawScore();
+
+		if (state === 'idle') drawPrompt('Tap to play  ·  Press Space');
+		if (state === 'dead') drawPrompt('Score: ' + score + '  ·  Tap to retry');
+
+		requestAnimationFrame(tick);
+	}
+	tick();
+})();
+</script>
