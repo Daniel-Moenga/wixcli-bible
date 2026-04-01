@@ -1,0 +1,207 @@
+---
+import { getCollection } from 'astro:content';
+import AskIcon from '../components/common/AskIcon.astro';
+import GitHubStarsBadge from '../components/common/GitHubStarsBadge.astro';
+import Icon from '../components/common/Icon.astro';
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+import { formatDisplayDate, site } from '../data/site';
+
+export const prerender = true;
+
+const guides = (await getCollection('guides'))
+	.sort((a, b) => a.data.order - b.data.order)
+	.slice(0, 3);
+const changelog = (await getCollection('changelog'))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.slice(0, 3);
+---
+
+<MarketingLayout canonicalPath="/" description={site.description}>
+	<section class="section landing-hero landing-hero--clean">
+		<div class="landing-hero__grid landing-hero__grid--clean">
+			<div class="landing-hero__copy landing-hero__copy--clean">
+				<span class="pill" data-hero-reveal>
+					<Icon name="globe" size="0.85rem" />
+					{site.hero.eyebrow}
+				</span>
+				<h1 data-hero-reveal>{site.hero.title}</h1>
+				<p data-hero-reveal>{site.hero.blurb}</p>
+				<div class="button-row" data-hero-reveal>
+					<a class="button" href="/docs/">
+						<Icon name="bookOpen" size="0.9rem" />
+						Read the Docs
+					</a>
+					<a class="button-secondary" href="/community/">
+						<Icon name="users" size="0.9rem" />
+						Community
+					</a>
+				</div>
+				<div class="signal-row" data-hero-reveal>
+					<GitHubStarsBadge />
+					<a class="signal-pill" href="/open-source/">
+						<Icon name="gitBranch" size="0.85rem" />
+						Open Source
+					</a>
+				</div>
+			</div>
+
+			<div class="hero-shell" data-hero-reveal>
+				<div class="hero-shell__topbar">
+					<span class="hero-shell__dot"></span>
+					<span class="hero-shell__dot"></span>
+					<span class="hero-shell__dot"></span>
+					<div class="hero-shell__search">
+						<Icon name="command" size="0.85rem" />
+						<span>Ctrl + K</span>
+					</div>
+				</div>
+				<div class="hero-shell__body">
+					<aside class="hero-shell__sidebar">
+						<span class="hero-shell__sidebar-title">Docs</span>
+						<span class="hero-shell__sidebar-item hero-shell__sidebar-item--active">Start Here</span>
+						<span class="hero-shell__sidebar-item">Mental Model</span>
+						<span class="hero-shell__sidebar-item">Workflow</span>
+						<span class="hero-shell__sidebar-item">Surfaces</span>
+					</aside>
+					<div class="hero-shell__content">
+						<div class="hero-shell__content-head">
+							<span class="meta-chip">Wix CLI</span>
+							<span class="meta-chip">Open Source</span>
+						</div>
+						<h2>The shortest path to the right mental model.</h2>
+						<p>
+							Structured docs. Practical guides. Grounded AI. One place to learn everything the official docs leave scattered.
+						</p>
+						<div class="hero-shell__line-group" aria-hidden="true">
+							<span></span><span></span><span></span><span></span>
+						</div>
+						<div class="hero-shell__chips" aria-hidden="true">
+							<span>dashboard</span>
+							<span>site</span>
+							<span>backend</span>
+							<span>release</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section section--open-source">
+		<div class="open-source-block" data-reveal="card">
+			<p class="eyebrow">Open source</p>
+			<h2>Everything is public. Contributions are welcome.</h2>
+			<p>
+				The code, docs, and guides are all on GitHub. If something is wrong or missing, you can fix it.
+			</p>
+			<div class="open-source-block__actions">
+				<GitHubStarsBadge />
+				<a class="button-secondary" href="/open-source/">
+					<Icon name="arrowRight" size="0.85rem" />
+					Learn more
+				</a>
+			</div>
+			<div class="open-source-points">
+				<div>
+					<Icon name="shieldCheck" size="0.85rem" />
+					<span>Wix docs stay canonical</span>
+				</div>
+				<div>
+					<Icon name="users" size="0.85rem" />
+					<span>PRs welcome</span>
+				</div>
+				<div>
+					<Icon name="gitBranch" size="0.85rem" />
+					<span>MIT + CC BY 4.0</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="product-grid" data-stagger>
+			<a class="product-card" href="/docs/" data-reveal="card">
+				<div class="feature-icon">
+					<Icon name="bookOpen" size="0.9rem" />
+				</div>
+				<h3>Docs</h3>
+				<p>Structured handbook. Read in order or jump to what you need.</p>
+				<span class="product-card__arrow"><Icon name="arrowRight" size="0.8rem" /></span>
+			</a>
+			<a class="product-card" href="/guides/" data-reveal="card">
+				<div class="feature-icon">
+					<Icon name="terminal" size="0.9rem" />
+				</div>
+				<h3>Guides</h3>
+				<p>Step-by-step walkthroughs for real build problems.</p>
+				<span class="product-card__arrow"><Icon name="arrowRight" size="0.8rem" /></span>
+			</a>
+			<a class="product-card" href="/ask/" data-reveal="card">
+				<div class="feature-icon ask-icon-wrap">
+					<AskIcon size="1.1rem" />
+				</div>
+				<h3>Ask <span class="nav-badge">Beta</span></h3>
+				<p>Grounded answers with citations from the handbook.</p>
+				<span class="product-card__arrow"><Icon name="arrowRight" size="0.8rem" /></span>
+			</a>
+			<a class="product-card" href="/community/" data-reveal="card">
+				<div class="feature-icon">
+					<Icon name="layers" size="0.9rem" />
+				</div>
+				<h3>Community</h3>
+				<p>Patterns, skills, and showcase from the developer community.</p>
+				<span class="product-card__arrow"><Icon name="arrowRight" size="0.8rem" /></span>
+			</a>
+		</div>
+	</section>
+
+	<section class="section home-feed">
+		<div class="feed-column">
+			<div class="section-heading">
+				<p class="eyebrow">Latest guides</p>
+				<h2>Practical help.</h2>
+			</div>
+			<div class="collection-grid collection-grid--single">
+				{
+					guides.map((guide) => (
+						<article class="collection-card" data-reveal="card">
+							<div class="collection-card__meta">
+								<span class="meta-chip">Guide</span>
+								<span class="meta-chip">{formatDisplayDate(guide.data.updatedAt)}</span>
+							</div>
+							<h3>
+								<a href={`/guides/${guide.id}/`}>{guide.data.title}</a>
+							</h3>
+							<p>{guide.data.summary}</p>
+						</article>
+					))
+				}
+			</div>
+		</div>
+
+		<div class="feed-column">
+			<div class="section-heading">
+				<p class="eyebrow">Recent changes</p>
+				<h2>What shipped.</h2>
+			</div>
+			<div class="changelog-list">
+				{
+					changelog.map((entry) => (
+						<article class="changelog-item" data-reveal="card">
+							<div class="changelog-item__meta">
+								<span class="meta-chip">{entry.data.type}</span>
+								<span class="meta-chip">{formatDisplayDate(entry.data.date)}</span>
+							</div>
+							<h2>{entry.data.title}</h2>
+							<p>{entry.data.summary}</p>
+							<a class="changelog-item__link" href={`/changelog/${entry.id}/`}>
+								Read update
+								<Icon name="arrowUpRight" size="0.85rem" />
+							</a>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+</MarketingLayout>
