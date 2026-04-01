@@ -1,0 +1,54 @@
+---
+import { site } from '../data/site';
+import MotionEnhancements from '../components/common/MotionEnhancements.astro';
+import SiteFooter from '../components/common/SiteFooter.astro';
+import SiteHeader from '../components/common/SiteHeader.astro';
+import ThemeDock from '../components/common/ThemeDock.astro';
+import ThemeBootScript from '../components/common/ThemeBootScript.astro';
+import '../styles/site.css';
+
+const {
+	title,
+	description = site.description,
+	canonicalPath = '/',
+	ogImage = '/brand/moenga-dark-background.png',
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${site.name}` : site.name;
+const canonicalUrl = new URL(canonicalPath, site.url).toString();
+const ogUrl = new URL(ogImage, site.url).toString();
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+		<meta name="theme-color" content="#121212" />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={ogUrl} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogUrl} />
+		<ThemeBootScript />
+		<slot name="head" />
+	</head>
+	<body class="marketing-shell">
+		<SiteHeader />
+		<main class="marketing-main">
+			<slot />
+		</main>
+		<SiteFooter />
+		<ThemeDock />
+		<MotionEnhancements />
+	</body>
+</html>
