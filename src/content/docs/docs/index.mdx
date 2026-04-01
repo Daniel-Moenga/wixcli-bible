@@ -20,7 +20,16 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import MentalModelDiagram from '../../../components/docs/MentalModelDiagram.astro';
+import WorkflowLoopDiagram from '../../../components/docs/WorkflowLoopDiagram.astro';
+
+## The Two Things To Internalize First
+
+<div class="docs-visual-grid docs-visual-grid--two">
+	<MentalModelDiagram compact={true} />
+	<WorkflowLoopDiagram compact={true} />
+</div>
 
 ## How to Use This
 

@@ -1,0 +1,78 @@
+---
+import DiagramFrame from './DiagramFrame.astro';
+
+interface Props {
+	focus?: 'all' | 'dashboard' | 'site' | 'backend';
+	compact?: boolean;
+}
+
+const { focus = 'all', compact = false } = Astro.props;
+
+const surfaces = [
+	{
+		id: 'dashboard',
+		label: 'Dashboard',
+		headline: 'Owner workspace',
+		copy: 'Admin-facing UI for settings, review, reporting, and management.',
+		examples: ['settings', 'reports', 'CRUD'],
+	},
+	{
+		id: 'site',
+		label: 'Site',
+		headline: 'Live experience',
+		copy: 'Placed or floating UI that belongs inside the site context itself.',
+		examples: ['widgets', 'floating UI', 'site scripts'],
+	},
+	{
+		id: 'backend',
+		label: 'Backend',
+		headline: 'Trusted logic',
+		copy: 'Validation, secrets, integrations, and protected business rules.',
+		examples: ['validation', 'secrets', 'APIs'],
+	},
+] as const;
+---
+
+<DiagramFrame
+	compact={compact}
+	eyebrow="Surface map"
+	title="Choose the surface before the file"
+	caption="Give each feature one center of gravity, then let the supporting layers do their jobs."
+>
+	<div class="surface-map" data-focus={focus}>
+		<div class="surface-map__prompt">
+			<span class="surface-map__prompt-dot" aria-hidden="true"></span>
+			Where does this feature spend most of its time?
+		</div>
+
+		<div class="surface-map__grid">
+			{
+				surfaces.map((surface) => (
+					<article
+						class:list={[
+							'surface-card',
+							`surface-card--${surface.id}`,
+							(focus === 'all' || focus === surface.id) && 'is-active',
+							focus !== 'all' && focus !== surface.id && 'is-muted',
+						]}
+					>
+						<p class="surface-card__eyebrow">{surface.label}</p>
+						<p class="surface-card__headline">{surface.headline}</p>
+						<p class="surface-card__copy">{surface.copy}</p>
+						<div class="surface-card__tags">
+							{surface.examples.map((example) => (
+								<span>{example}</span>
+							))}
+						</div>
+					</article>
+				))
+			}
+		</div>
+
+		<div class="surface-map__legend" aria-hidden="true">
+			<span>owner-facing</span>
+			<span>visitor-facing</span>
+			<span>trust boundary</span>
+		</div>
+	</div>
+</DiagramFrame>

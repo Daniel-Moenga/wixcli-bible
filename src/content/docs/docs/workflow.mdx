@@ -12,6 +12,8 @@ related:
   - docs/testing-and-debugging
 ---
 
+import WorkflowLoopDiagram from '../../../components/docs/WorkflowLoopDiagram.astro';
+
 The normal Wix CLI workflow is easier to remember when you stop treating commands as isolated facts.
 
 ## The sequence
@@ -23,6 +25,8 @@ create -> login -> dev -> generate -> code -> build -> preview -> release
 ```
 
 That is the full loop.
+
+<WorkflowLoopDiagram />
 
 Not every session needs every step, but almost every meaningful delivery path fits inside this sequence.
 

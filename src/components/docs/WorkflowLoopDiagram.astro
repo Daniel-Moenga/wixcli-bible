@@ -1,0 +1,50 @@
+---
+import DiagramFrame from './DiagramFrame.astro';
+
+interface Props {
+	compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+
+const steps = [
+	{ label: 'Create', detail: 'scaffold the project' },
+	{ label: 'Login', detail: 'connect the account' },
+	{ label: 'Dev', detail: 'iterate locally' },
+	{ label: 'Generate', detail: 'add the extension shell' },
+	{ label: 'Code', detail: 'build the feature' },
+	{ label: 'Build', detail: 'prepare the artifact' },
+	{ label: 'Preview', detail: 'share the hosted build', accent: true },
+	{ label: 'Release', detail: 'check registration state', accent: true },
+] as const;
+---
+
+<DiagramFrame
+	compact={compact}
+	eyebrow="Delivery loop"
+	title="The normal Wix CLI sequence"
+	caption="Preview answers “can people test this build?” Release answers “has Wix fully recognized the extension?”"
+>
+	<div class="workflow-map">
+		{
+			steps.map((step, index) => (
+				<div class:list={['workflow-step', step.accent && 'workflow-step--accent']}>
+					<span class="workflow-step__index">0{index + 1}</span>
+					<p class="workflow-step__label">{step.label}</p>
+					<p class="workflow-step__detail">{step.detail}</p>
+				</div>
+			))
+		}
+	</div>
+
+	<div class="workflow-map__notes">
+		<div>
+			<strong>Most daily work</strong>
+			<span>stays inside dev → code → test → repeat.</span>
+		</div>
+		<div>
+			<strong>Release checks</strong>
+			<span>matter when preview looks right but the platform still behaves half-wired.</span>
+		</div>
+	</div>
+</DiagramFrame>

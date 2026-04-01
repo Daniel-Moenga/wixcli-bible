@@ -23,6 +23,9 @@
 	--wcb-radius-lg: 12px;
 	--wcb-max-width: 76rem;
 	--wcb-content-width: 50rem;
+	--wcb-header-control-height: 2.35rem;
+	--wcb-header-control-radius: 8px;
+	--wcb-header-logo-height: 2.35rem;
 	--wcb-font-body: 'Wix Madefor Text Variable', system-ui, sans-serif;
 	--wcb-font-display: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
 	--wcb-font-accent: 'JetBrains Mono Variable', ui-monospace, monospace;
@@ -280,6 +283,7 @@ pre {
 	gap: 0.75rem;
 	max-width: var(--wcb-max-width);
 	margin: 0 auto;
+	min-height: 4rem;
 	padding: 0.75rem 1rem;
 }
 
@@ -299,7 +303,7 @@ pre {
 .site-mark__logo,
 .wcb-docs-title__logo {
 	width: auto;
-	height: 2rem;
+	height: var(--wcb-header-logo-height);
 	object-fit: contain;
 	border-radius: 0;
 	background: transparent;
@@ -322,12 +326,14 @@ pre {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.4rem;
-	padding: 0.45rem 0.7rem;
+	min-height: var(--wcb-header-control-height);
+	padding: 0 0.78rem;
 	border: 1px solid transparent;
-	border-radius: var(--wcb-radius-sm);
+	border-radius: var(--wcb-header-control-radius);
 	color: var(--wcb-text-muted);
 	font-size: 0.875rem;
 	font-weight: 500;
+	line-height: 1;
 	text-decoration: none;
 	transition:
 		border-color 180ms ease,
@@ -372,15 +378,17 @@ pre {
 .site-header site-search,
 .site-header .search-input,
 .site-header [data-pagefind-ui] input,
-.site-header button[data-open-modal] {
+.site-header button[data-open-modal],
+.wcb-docs-header__actions button[data-open-modal] {
 	border: 1px solid var(--wcb-border);
-	border-radius: var(--wcb-radius-sm);
+	border-radius: var(--wcb-header-control-radius);
 	background: var(--wcb-panel);
-	height: 2.25rem;
+	height: var(--wcb-header-control-height);
 	font-size: 0.8125rem;
 }
 
-.site-header button[data-open-modal] {
+.site-header button[data-open-modal],
+.wcb-docs-header__actions button[data-open-modal] {
 	min-width: 9.5rem;
 	padding-inline: 0.78rem;
 	white-space: nowrap;
@@ -708,8 +716,8 @@ pre {
 
 .signal-pill,
 .github-stars__link {
-	min-height: 2.65rem;
-	padding: 0.72rem 0.88rem;
+	min-height: 2.5rem;
+	padding: 0.62rem 0.88rem;
 	border: 1px solid var(--wcb-border);
 	border-radius: var(--wcb-radius-md);
 	background: var(--wcb-panel);
@@ -723,8 +731,10 @@ pre {
 }
 
 .github-stars.compact .github-stars__link {
-	min-height: 2.55rem;
-	padding-inline: 0.64rem;
+	min-height: var(--wcb-header-control-height);
+	height: var(--wcb-header-control-height);
+	padding-inline: 0.7rem;
+	border-radius: var(--wcb-header-control-radius);
 }
 
 .github-stars__logo,
@@ -1923,6 +1933,10 @@ pre {
 	grid-template-columns: auto 1fr auto;
 	align-items: center;
 	gap: 1rem;
+	max-width: var(--wcb-max-width);
+	margin: 0 auto;
+	min-height: 4rem;
+	padding: 0.75rem 1rem;
 	height: 100%;
 }
 

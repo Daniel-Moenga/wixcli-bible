@@ -1,0 +1,29 @@
+---
+interface Props {
+	eyebrow?: string;
+	title: string;
+	caption?: string;
+	compact?: boolean;
+	class?: string;
+}
+
+const {
+	eyebrow = 'Visual guide',
+	title,
+	caption,
+	compact = false,
+	class: className,
+} = Astro.props;
+---
+
+<section class:list={['docs-figure', compact && 'docs-figure--compact', className]}>
+	<div class="docs-figure__meta">
+		{eyebrow && <p class="eyebrow">{eyebrow}</p>}
+		<p class="docs-figure__title">{title}</p>
+		{caption && <p class="docs-figure__caption">{caption}</p>}
+	</div>
+
+	<div class="docs-figure__body">
+		<slot />
+	</div>
+</section>
