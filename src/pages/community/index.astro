@@ -1,0 +1,117 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from '../../components/common/Icon.astro';
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import { formatDisplayDate, site } from '../../data/site';
+
+export const prerender = true;
+
+const allEntries = await getCollection('community');
+
+const patterns = allEntries.filter((e) => e.data.type === 'pattern');
+const skills = allEntries.filter((e) => e.data.type === 'skill');
+const showcase = allEntries.filter((e) => e.data.type === 'showcase');
+const resources = allEntries.filter((e) => e.data.type === 'resource');
+
+const sections = [
+	{ label: 'Patterns', icon: 'layers' as const, entries: patterns },
+	{ label: 'Skills', icon: 'zap' as const, entries: skills },
+	{ label: 'Showcase', icon: 'star' as const, entries: showcase },
+	{ label: 'Resources', icon: 'bookOpen' as const, entries: resources },
+];
+---
+
+<MarketingLayout
+	title="Community"
+	description="Patterns, skills, and resources from the Wix CLI developer community."
+	canonicalPath="/community/"
+>
+	<section class="page-hero">
+		<p class="eyebrow">Community</p>
+		<h1>Patterns, skills, and resources from the developer community.</h1>
+		<p>
+			Reusable patterns, workflow skills, project showcases, and learning resources — contributed and maintained by developers building with the Wix CLI.
+		</p>
+	</section>
+
+	{
+		sections.map(
+			(section) =>
+				section.entries.length > 0 && (
+					<section class="section">
+						<div class="section-header" data-reveal="card">
+							<div class="section-header__icon">
+								<Icon name={section.icon} size="0.9rem" />
+							</div>
+							<h2>{section.label}</h2>
+						</div>
+						<div class="collection-grid">
+							{section.entries.map((entry) => (
+								<article class="collection-card" data-reveal="card">
+									<div class="collection-card__meta">
+										<span class="meta-chip">{entry.data.type}</span>
+										<span class="meta-chip">
+											{formatDisplayDate(entry.data.updatedAt)}
+										</span>
+									</div>
+									<h3>
+										<a href={`/community/${entry.id}/`}>{entry.data.title}</a>
+									</h3>
+									<p>{entry.data.summary}</p>
+									<div class="collection-card__footer">
+										<span class="meta-chip">
+											{entry.data.authorUrl ? (
+												<a
+													href={entry.data.authorUrl}
+													target="_blank"
+													rel="noreferrer"
+												>
+													{entry.data.author}
+												</a>
+											) : (
+												entry.data.author
+											)}
+										</span>
+										{entry.data.tags.length > 0 && (
+											<div class="tag-list">
+												{entry.data.tags.map((tag) => (
+													<span class="meta-chip meta-chip--subtle">
+														{tag}
+													</span>
+												))}
+											</div>
+										)}
+									</div>
+								</article>
+							))}
+						</div>
+					</section>
+				)
+		)
+	}
+
+	<section class="section">
+		<div class="support-surface support-surface--compact" data-reveal="card">
+			<div class="support-surface__copy">
+				<span class="pill">
+					<Icon name="users" size="0.85rem" />
+					Contribute
+				</span>
+				<h2>Share a pattern, skill, or project with the community.</h2>
+				<p>
+					Every contribution makes the ecosystem stronger. Submit a PR with your entry and help other developers build better Wix CLI apps.
+				</p>
+			</div>
+			<div class="support-surface__actions">
+				<a class="button" href={site.repoUrl} target="_blank" rel="noreferrer">
+					<Icon name="githubLogo" size="0.85rem" />
+					Contribute on GitHub
+				</a>
+				<a class="button-secondary" href="/community/contributing-patterns/">
+					<Icon name="arrowRight" size="0.85rem" />
+					Submission guidelines
+				</a>
+			</div>
+		</div>
+	</section>
+</MarketingLayout>

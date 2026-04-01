@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import { formatDisplayDate } from '../../data/site';
+
+export const prerender = true;
+
+const entries = (await getCollection('changelog')).sort(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<MarketingLayout
+	title="Changelog"
+	description="Project updates, content refreshes, and Ask AI changes for Wix CLI Bible."
+	canonicalPath="/changelog/"
+>
+	<section class="page-hero">
+		<p class="eyebrow">Changelog</p>
+		<h1>What changed in the handbook and platform.</h1>
+		<p>
+			Product changes, content refreshes, and Ask improvements in one stream.
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="changelog-list">
+			{
+				entries.map((entry) => (
+					<article class="changelog-item" data-reveal="card">
+						<div class="changelog-item__meta">
+							<span class="meta-chip">{entry.data.type}</span>
+							<span class="meta-chip">{formatDisplayDate(entry.data.date)}</span>
+						</div>
+						<h2>
+							<a href={`/changelog/${entry.id}/`}>{entry.data.title}</a>
+						</h2>
+						<p>{entry.data.summary}</p>
+						<a class="changelog-item__link" href={`/changelog/${entry.id}/`}>
+							Read update
+						</a>
+					</article>
+				))
+			}
+		</div>
+	</section>
+</MarketingLayout>

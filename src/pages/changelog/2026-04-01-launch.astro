@@ -1,0 +1,38 @@
+---
+import { getEntry, render } from 'astro:content';
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import { formatDisplayDate } from '../../data/site';
+
+export const prerender = true;
+
+const entry = await getEntry('changelog', '2026-04-01-launch');
+if (!entry) throw new Error('Changelog entry 2026-04-01-launch was not found.');
+
+const { Content } = await render(entry);
+---
+
+<MarketingLayout
+	title={entry.data.title}
+	description={entry.data.summary}
+	canonicalPath="/changelog/2026-04-01-launch/"
+	ogImage={entry.data.image ?? '/brand/moenga-dark-background.png'}
+>
+	<article class="article-shell">
+		<header class="article-header">
+			<div class="collection-card__meta">
+				<span class="meta-chip">{entry.data.type}</span>
+				<span class="meta-chip">{formatDisplayDate(entry.data.date)}</span>
+			</div>
+			<h1>{entry.data.title}</h1>
+			<p>{entry.data.summary}</p>
+		</header>
+		{entry.data.image && (
+			<div class="hero-card">
+				<img src={entry.data.image} alt={entry.data.title} />
+			</div>
+		)}
+		<section class="rich-content">
+			<Content />
+		</section>
+	</article>
+</MarketingLayout>
