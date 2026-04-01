@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wixclibible.moenga.space/sitemap-index.xml
