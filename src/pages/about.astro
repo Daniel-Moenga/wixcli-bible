@@ -13,17 +13,17 @@ export const prerender = true;
 >
 	<section class="page-hero">
 		<p class="eyebrow">About</p>
-		<h1>I kept getting lost in the Wix CLI docs. So I wrote better ones.</h1>
+		<h1>I Kept Getting Lost in the Wix CLI Docs. So I Wrote Better Ones.</h1>
 		<p>
-			The Wix CLI is genuinely good. But when I was learning it, the official docs felt scattered -- concepts spread across pages, old and new CLI generations mixed together, and no clear order to read things in. This project is my attempt to fix that for everyone else.
+			The Wix CLI is genuinely powerful. But when I was learning it, the official docs felt scattered -- concepts spread across pages, old and new CLI generations mixed together, and no clear reading order. This Open-Source project is my attempt to fix that for everyone else.
 		</p>
 	</section>
 
 	<section class="section">
 		<div class="story-surface" data-reveal="card">
 			<div class="story-surface__copy">
-				<p class="eyebrow">What this is</p>
-				<h2>A companion to the official docs, not a replacement.</h2>
+				<p class="eyebrow">What This Is</p>
+				<h2>A Companion to the Official Docs, Not a Replacement.</h2>
 				<p>
 					Wix is the source of truth for platform behavior. This handbook reorganizes that information into a learning path that makes more sense when you're starting from scratch -- structured docs, practical guides, and an AI assistant that cites its sources.
 				</p>
@@ -33,22 +33,57 @@ export const prerender = true;
 					<div class="feature-icon">
 						<Icon name="bookOpen" size="0.9rem" />
 					</div>
-					<h3>Structured docs</h3>
+					<h3>Structured Docs</h3>
 					<p>16 pages in a deliberate order. Start with the mental model, then surfaces, then workflow.</p>
 				</article>
 				<article class="callout-card">
 					<div class="feature-icon">
 						<Icon name="terminal" size="0.9rem" />
 					</div>
-					<h3>Practical guides</h3>
+					<h3>Practical Guides</h3>
 					<p>Step-by-step walkthroughs for the problems that actually come up when you're building.</p>
 				</article>
 				<article class="callout-card">
 					<div class="feature-icon">
 						<Icon name="users" size="0.9rem" />
 					</div>
-					<h3>Open to contributions</h3>
-					<p>If you've figured something out that isn't documented well, you can add it here.</p>
+					<h3>Open to Contributions</h3>
+					<p>Found a gap in the docs? Figured something out the hard way? You can add it here.</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="story-surface" data-reveal="card">
+			<div class="story-surface__copy">
+				<p class="eyebrow">What We Clarify</p>
+				<h2>Things the Official Docs Leave Ambiguous.</h2>
+				<p>
+					We're not here to criticize the Wix team -- they built the platform. But some things in the official docs are genuinely confusing, and we try to clarify them here so developers don't waste time.
+				</p>
+			</div>
+			<div class="story-surface__grid">
+				<article class="callout-card">
+					<div class="feature-icon">
+						<Icon name="alertTriangle" size="0.9rem" />
+					</div>
+					<h3>Three CLIs, One Name</h3>
+					<p>The unified CLI, legacy CLI for Apps, and CLI for Sites all exist under "Wix CLI." We map which is which so you don't read the wrong docs.</p>
+				</article>
+				<article class="callout-card">
+					<div class="feature-icon">
+						<Icon name="alertTriangle" size="0.9rem" />
+					</div>
+					<h3>Preview vs Release</h3>
+					<p>The official docs mention this, but it's easy to miss. Some extensions don't work until you release -- not just preview. We make that prominent.</p>
+				</article>
+				<article class="callout-card">
+					<div class="feature-icon">
+						<Icon name="alertTriangle" size="0.9rem" />
+					</div>
+					<h3>Registry File Naming</h3>
+					<p>The official project structure diagram shows "extension.ts" but the actual file is "extensions.ts" (plural). Small typo, real confusion.</p>
 				</article>
 			</div>
 		</div>
@@ -61,13 +96,13 @@ export const prerender = true;
 					<Icon name="gitBranch" size="0.85rem" />
 					Moenga Space
 				</span>
-				<h2>Built by Moenga Space. Open to everyone.</h2>
-				<p>This is a side project built because the need was real. Contributions, feedback, and corrections are welcome.</p>
+				<h2>Built by Moenga Space. Open-Source for Everyone.</h2>
+				<p>This is a side project built because the need was real. Contributions, feedback, and corrections are always welcome.</p>
 			</div>
 			<div class="support-surface__actions">
 				<a class="button" href={site.repoUrl} target="_blank" rel="noreferrer">
 					<Icon name="githubLogo" size="0.85rem" />
-					View source
+					View Source
 				</a>
 				<a class="button-secondary" href="/guides/contributing-a-guide/">
 					<Icon name="arrowRight" size="0.85rem" />

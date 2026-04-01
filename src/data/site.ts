@@ -5,25 +5,25 @@ export const site = {
 	repoUrl: 'https://github.com/Daniel-Moenga/wixcli-bible',
 	repoSlug: 'Daniel-Moenga/wixcli-bible',
 	githubSponsorsUrl: 'https://github.com/sponsors/Daniel-Moenga',
-	tagline: 'A clearer way to learn the Wix CLI.',
+	tagline: 'A Clearer Way to Learn the Wix CLI.',
 	description:
-		'Open-source docs and guides for the current Wix CLI. Structured for learning, not just reference.',
+		'Open-Source Docs and Guides for the Current Wix CLI. Structured for learning, not just reference.',
 	hero: {
-		eyebrow: 'Open source',
-		title: 'A clearer way to learn the Wix CLI.',
+		eyebrow: 'Open-Source',
+		title: 'A Clearer Way to Learn the Wix CLI.',
 		blurb:
-			'The official docs are the source of truth. This project organizes them into a path that makes more sense when you\'re starting out.',
+			'The official Wix docs are the source of truth. This Open-Source project organizes them into a learning path that actually makes sense when you\'re starting out.',
 	},
 	story: {
-		title: 'I kept getting lost in the docs. So I wrote better ones.',
+		title: 'I Kept Getting Lost in the Docs. So I Wrote Better Ones.',
 		blurb:
-			'Wix stays canonical. This is just a companion that makes the learning path shorter.',
+			'Wix stays canonical. This is an Open-Source companion that makes the learning path shorter.',
 	},
 	sponsorship: {
 		eyebrow: 'Support',
-		title: 'If this saves you time, consider sponsoring.',
+		title: 'If This Saves You Time, Consider Sponsoring.',
 		blurb:
-			'Sponsorship helps cover hosting, AI costs for the Ask feature, and the time it takes to keep the content current.',
+			'Sponsorship helps cover hosting and AI costs. Everything stays free and Open-Source either way.',
 	},
 	openSource: {
 		codeLicense: 'MIT',

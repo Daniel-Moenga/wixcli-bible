@@ -5,12 +5,12 @@
 <h1 align="center">Wix CLI Bible</h1>
 
 <p align="center">
-  A clearer way to learn the Wix CLI.<br />
-  Open-source docs, guides, and an AI assistant that cites its sources.
+  A Clearer Way to Learn the Wix CLI.<br />
+  Open-Source Docs, Guides, and an AI Assistant That Cites Its Sources.
 </p>
 
 <p align="center">
-  <a href="https://wixclibible.moenga.space">Live site</a> ·
+  <a href="https://wixclibible.moenga.space">Live Site</a> ·
   <a href="https://wixclibible.moenga.space/docs/">Docs</a> ·
   <a href="https://wixclibible.moenga.space/community/">Community</a> ·
   <a href="https://wixclibible.moenga.space/guides/contributing-a-guide/">Contribute</a>
@@ -18,16 +18,16 @@
 
 ---
 
-## What this is
+## What This Is
 
-The official Wix CLI docs are the source of truth. This project reorganizes that information into a learning path that makes more sense when you're starting out.
+The official Wix CLI docs are the source of truth. This Open-Source project reorganizes that information into a learning path that makes more sense when you're starting out.
 
-- **Docs** -- structured handbook covering mental models, surfaces, workflow, and architecture
-- **Guides** -- step-by-step walkthroughs for common problems
-- **Community** -- design patterns, CLI skills, and showcase entries
-- **Ask AI** -- answers grounded in the handbook with citations (beta)
+- **Docs** -- Structured handbook covering mental models, surfaces, workflow, and architecture
+- **Guides** -- Step-by-step walkthroughs for common problems
+- **Community** -- Design patterns, CLI skills, and showcase entries
+- **Ask AI** -- Answers grounded in the handbook with citations (Beta)
 
-## Local development
+## Local Development
 
 ```bash
 npm install
