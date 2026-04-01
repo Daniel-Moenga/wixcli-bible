@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import { formatDisplayDate } from '../../data/site';
+
+export const prerender = true;
+
+const guides = (await getCollection('guides')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<MarketingLayout
+	title="Guides"
+	description="Practical Wix CLI guides for first apps, release confusion, environment setup, and AI-safe workflows."
+	canonicalPath="/guides/"
+>
+	<section class="page-hero">
+		<p class="eyebrow">Guides</p>
+		<h1>Task-shaped help for real Wix CLI work.</h1>
+		<p>
+			Short, practical paths for setup, release, AI usage, and the questions that show up mid-build.
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="collection-grid">
+			{
+				guides.map((guide) => (
+					<article class="collection-card" data-reveal="card">
+						<div class="collection-card__meta">
+							<span class="meta-chip">{guide.data.featured ? 'Featured' : 'Guide'}</span>
+							<span class="meta-chip">{formatDisplayDate(guide.data.updatedAt)}</span>
+						</div>
+						<h3>
+							<a href={`/guides/${guide.id}/`}>{guide.data.title}</a>
+						</h3>
+						<p>{guide.data.summary}</p>
+					</article>
+				))
+			}
+		</div>
+	</section>
+</MarketingLayout>

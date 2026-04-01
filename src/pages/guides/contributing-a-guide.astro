@@ -1,0 +1,43 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import MarketingLayout from '../../layouts/MarketingLayout.astro';
+import { formatDisplayDate } from '../../data/site';
+
+export const prerender = true;
+
+const entry = await getEntry('guides', 'contributing-a-guide');
+if (!entry) throw new Error('Guide entry contributing-a-guide was not found.');
+
+const { Content } = await render(entry);
+const sourceLookup = new Map((await getCollection('officialSources')).map((source) => [source.id, source]));
+const sourceRefs = entry.data.sourceMapRefs.map((id) => sourceLookup.get(id)).filter(Boolean);
+---
+
+<MarketingLayout title={entry.data.title} description={entry.data.summary} canonicalPath="/guides/contributing-a-guide/">
+	<article class="article-shell">
+		<header class="article-header">
+			<div class="collection-card__meta">
+				<span class="meta-chip">Guide</span>
+				<span class="meta-chip">Updated {formatDisplayDate(entry.data.updatedAt)}</span>
+			</div>
+			<h1>{entry.data.title}</h1>
+			<p>{entry.data.summary}</p>
+		</header>
+		<div class="citation-callout">
+			<span class="pill">Outcome</span>
+			<span>{entry.data.outcome}</span>
+		</div>
+		<section class="rich-content">
+			<Content />
+		</section>
+		<section class="citation-list">
+			{sourceRefs.map((source) => (
+				<a href={source.data.url} target="_blank" rel="noreferrer">
+					<strong>{source.data.label}</strong>
+					<br />
+					<span>{source.data.owner}</span>
+				</a>
+			))}
+		</section>
+	</article>
+</MarketingLayout>
