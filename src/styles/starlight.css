@@ -1,0 +1,152 @@
+:root {
+	--sl-font: 'Wix Madefor Text Variable', system-ui, sans-serif;
+	--sl-font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+	--sl-color-white: var(--wcb-text);
+	--sl-color-gray-1: hsl(0 0% 90%);
+	--sl-color-gray-2: hsl(0 0% 71%);
+	--sl-color-gray-3: hsl(0 0% 54%);
+	--sl-color-gray-4: hsl(0 0% 40%);
+	--sl-color-gray-5: hsl(0 0% 18%);
+	--sl-color-gray-6: hsl(0 0% 12%);
+	--sl-color-black: var(--wcb-bg);
+	--sl-color-accent-low: hsl(0 0% 16%);
+	--sl-color-accent: hsl(0 0% 98%);
+	--sl-color-accent-high: hsl(0 0% 98%);
+	--sl-color-text: var(--wcb-text-muted);
+	--sl-color-text-accent: var(--wcb-accent);
+	--sl-color-text-invert: var(--wcb-bg);
+	--sl-color-bg: transparent;
+	--sl-color-bg-nav: var(--wcb-bg);
+	--sl-color-bg-sidebar: transparent;
+	--sl-color-bg-inline-code: hsl(0 0% 16%);
+	--sl-color-bg-accent: var(--wcb-accent);
+	--sl-color-hairline-light: var(--wcb-border);
+	--sl-color-hairline: transparent;
+	--sl-color-hairline-shade: var(--wcb-border);
+	--sl-color-backdrop-overlay: hsla(0 0% 0% / 0.6);
+	--sl-shadow-sm: var(--wcb-shadow-sm);
+	--sl-shadow-md: var(--wcb-shadow-sm);
+	--sl-shadow-lg: var(--wcb-shadow-sm);
+	--sl-text-body: 0.9375rem;
+	--sl-text-body-sm: 0.8125rem;
+	--sl-text-code: 0.8125rem;
+	--sl-text-code-sm: 0.75rem;
+	--sl-text-h1: 2.25rem;
+	--sl-text-h2: 1.625rem;
+	--sl-text-h3: 1.25rem;
+	--sl-text-h4: 1.0625rem;
+	--sl-line-height: 1.7;
+	--sl-sidebar-width: 16rem;
+	--sl-content-width: 48rem;
+	--sl-nav-height: 3.25rem;
+	--sl-nav-pad-x: 1rem;
+	--sl-content-pad-x: 1.25rem;
+}
+
+:root[data-theme='light'] {
+	--sl-color-white: var(--wcb-text);
+	--sl-color-gray-1: hsl(0 0% 18%);
+	--sl-color-gray-2: hsl(0 0% 32%);
+	--sl-color-gray-3: hsl(0 0% 40%);
+	--sl-color-gray-4: hsl(0 0% 54%);
+	--sl-color-gray-5: hsl(0 0% 90%);
+	--sl-color-gray-6: hsl(0 0% 96%);
+	--sl-color-gray-7: hsl(0 0% 99%);
+	--sl-color-black: var(--wcb-bg);
+	--sl-color-accent-low: hsl(0 0% 96%);
+	--sl-color-accent: hsl(0 0% 9%);
+	--sl-color-accent-high: hsl(0 0% 9%);
+	--sl-color-text: var(--wcb-text-muted);
+	--sl-color-text-accent: hsl(0 0% 9%);
+	--sl-color-text-invert: hsl(0 0% 99%);
+	--sl-color-bg-nav: var(--wcb-bg);
+	--sl-color-bg-inline-code: hsl(0 0% 94%);
+	--sl-color-backdrop-overlay: hsla(0 0% 0% / 0.25);
+}
+
+:root[data-theme='light'] .sl-markdown-content a {
+	text-decoration-color: hsl(0 0% 70%);
+}
+
+.sidebar-pane,
+.right-sidebar {
+	scrollbar-width: thin;
+}
+
+.sidebar-content {
+	padding-top: 1rem;
+}
+
+.content-panel {
+	padding-top: 0.75rem;
+	padding-bottom: 0;
+}
+
+.content-panel .sl-container {
+	max-width: var(--sl-content-width);
+	padding: 1.5rem;
+	border: 1px solid var(--wcb-border);
+	border-radius: var(--wcb-radius-md);
+	background: var(--wcb-panel);
+}
+
+:root[data-theme='light'] .content-panel .sl-container {
+	background: var(--wcb-panel);
+}
+
+.content-panel + .content-panel {
+	border-top: 0;
+}
+
+.sl-markdown-content :where(h1, h2, h3, h4) {
+	font-family: var(--wcb-font-display);
+	color: var(--wcb-text);
+	font-weight: 700;
+	letter-spacing: -0.025em;
+}
+
+.sl-markdown-content :where(p, li, td) {
+	color: var(--wcb-text-muted);
+}
+
+.sl-markdown-content blockquote {
+	border-inline-start: 2px solid var(--wcb-border-strong);
+	background: var(--wcb-panel);
+	border-radius: 0 var(--wcb-radius-sm) var(--wcb-radius-sm) 0;
+	padding: 0.75rem 1rem;
+}
+
+.sl-markdown-content :where(pre, table) {
+	border-radius: var(--wcb-radius-sm);
+}
+
+.sl-markdown-content code:not(pre code) {
+	padding: 0.15rem 0.3rem;
+	border-radius: var(--wcb-radius-xs);
+	font-family: var(--sl-font-mono);
+}
+
+.pagination-links a {
+	border-radius: var(--wcb-radius-sm);
+}
+
+@media (max-width: 60rem) {
+	.wcb-docs-header {
+		grid-template-columns: auto auto;
+	}
+
+	.wcb-docs-header__actions {
+		justify-self: end;
+	}
+
+	.wcb-docs-header__actions .header-link {
+		display: none;
+	}
+}
+
+@media (max-width: 44rem) {
+	.content-panel .sl-container {
+		padding: 1rem;
+		border-radius: var(--wcb-radius-sm);
+	}
+}
