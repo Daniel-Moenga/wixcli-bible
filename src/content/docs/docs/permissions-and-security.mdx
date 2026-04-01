@@ -1,0 +1,74 @@
+---
+title: Permissions and Security
+description: When frontend is not enough, how elevation works, and the checklist every secure endpoint should answer.
+section: surfaces
+sidebar:
+  order: 10
+sourceMapRefs:
+  - wix-backend-apis
+  - wix-self-hosted-backend
+related:
+  - docs/surfaces/backend-and-security
+  - docs/self-hosting-and-architecture
+---
+
+Some actions require elevated permissions. If the browser gets a 403, the action probably belongs in backend code.
+
+## The practical rule
+
+**Frontend asks. Backend performs. Backend elevates if needed.**
+
+```text
+frontend → backend endpoint → elevated action
+```
+
+This keeps privileged operations out of public code.
+
+## When frontend is not enough
+
+Move logic to the backend when:
+
+- The action requires permissions the browser should not have.
+- The response includes data that should be filtered before reaching the client.
+- The operation touches secrets, tokens, or credentials.
+- You need to validate input before it reaches a data layer.
+
+## Questions every secure route should answer
+
+Before shipping a backend endpoint, run through this checklist:
+
+1. **Who is calling?** -- Can you identify the caller?
+2. **Which instance or site is this for?** -- Is the request scoped correctly?
+3. **Is the caller allowed?** -- Does this caller have permission for this action?
+4. **Is the input valid?** -- Have you validated and sanitized everything?
+5. **Does the action need elevation?** -- Should this run with elevated permissions?
+
+## Elevation pattern
+
+When a backend endpoint needs to perform an action that requires higher permissions than the caller has:
+
+```ts
+// Pseudocode for the pattern
+export async function POST(request) {
+  // 1. Validate the caller
+  // 2. Validate the input
+  // 3. Perform the action with elevation
+  // 4. Return only what the caller should see
+}
+```
+
+The key idea: the frontend never holds elevated credentials. The backend decides whether to elevate based on validated context.
+
+## Common permission mistakes
+
+| Mistake | What happens | Fix |
+|---------|-------------|-----|
+| Calling a protected API from the browser | 403 error | Move the call to a backend endpoint |
+| Storing API keys in frontend code | Keys leak to anyone with dev tools | Use backend env vars and `wix env set` |
+| Trusting raw frontend requests | Spoofed data reaches your logic | Validate and verify on the backend |
+| Skipping input validation | Injection, malformed data | Validate early in every handler |
+
+## Official references
+
+- [About backend APIs](https://dev.wix.com/docs/wix-cli/guides/extensions/backend-extensions/api/about-backend-apis)
+- [Implement a self-hosted backend](https://dev.wix.com/docs/wix-cli/guides/development/app-development/implement-a-self-hosted-backend-for-your-app)

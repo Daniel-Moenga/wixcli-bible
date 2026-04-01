@@ -1,0 +1,80 @@
+---
+title: Testing and Debugging
+description: A layered way to debug the current Wix CLI without jumping straight to panic mode.
+section: operations
+sidebar:
+  order: 12
+sourceMapRefs:
+  - wix-cli-reference
+  - wix-release-notes
+  - wix-determine-cli
+related:
+  - docs/workflow
+  - docs/quick-reference
+---
+
+The fastest debugging improvements usually come from testing in layers instead of treating the whole app
+as one mysterious object.
+
+## Test in layers
+
+Use this order:
+
+1. **Auth**: is the correct Wix account active?
+2. **Surface choice**: is this even the right extension type?
+3. **Local workflow**: does it behave in `wix dev`?
+4. **Build stage**: does it build cleanly?
+5. **Preview vs release**: are you missing platform registration?
+6. **Docs track**: are you accidentally using legacy or site-specific docs?
+
+That layered approach catches a surprising number of issues quickly.
+
+## First things to check
+
+When something feels off, check these before rewriting code:
+
+- `wix whoami`
+- whether the extension is registered the way you expect
+- whether you are comparing preview behavior to release behavior incorrectly
+- whether the docs/tutorial you copied came from the current CLI
+
+## Debugging by symptom
+
+When layered thinking does not narrow the problem fast enough, use this table to jump straight from
+what you see to what is probably wrong.
+
+| Symptom | Likely cause | Quick check | Fix |
+|---------|-------------|-------------|-----|
+| Command fails unexpectedly | Wrong Wix account or wrong folder | Run `wix whoami` and check `pwd` | Switch account or `cd` to the project folder |
+| Feature does not appear | Missing registration or wrong extension wiring | Check `src/extensions.ts` | Fix the `.use()` path or regenerate the extension |
+| Looks like a code bug but only in preview | Preview is not enough for that feature | Compare preview vs release behavior | Run `wix build` then `wix release` |
+| 403 from the browser | Action needs backend or elevation | Check where the API call runs | Move it to a backend endpoint |
+| UI suddenly looks broken | Global CSS or override conflict | Disable custom global styles | Restore base styles, then reapply carefully |
+| Data or auth feels random | Missing env var or stale config | Check `.env.local` and remote env setup | Run `wix env pull` or reset the value |
+
+:::caution
+Most of these symptoms look like code bugs at first glance. Resist the urge to rewrite logic before
+ruling out account, registration, and environment problems.
+:::
+
+## Common failure pattern
+
+One of the most common failure patterns looks like this:
+
+- the code seems reasonable
+- preview partly works
+- the feature still does not appear or behaves inconsistently
+
+That often means the missing step is not "more frontend debugging." It is verifying release, registration,
+or the chosen extension type.
+
+## Keep one eye on release notes
+
+Because the platform evolves, good debugging discipline includes checking official release notes whenever
+the docs or behavior appear to have shifted.
+
+## Official references
+
+- [Wix CLI command reference](https://dev.wix.com/docs/wix-cli/command-reference/introduction)
+- [Build apps release notes](https://dev.wix.com/docs/build-apps/get-started/what-s-new/build-apps-release-notes)
+- [Determine which CLI your project uses](https://dev.wix.com/docs/wix-cli/guides/development/determine-which-cli-your-project-uses)

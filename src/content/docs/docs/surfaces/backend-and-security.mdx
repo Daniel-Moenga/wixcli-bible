@@ -1,0 +1,69 @@
+---
+title: Backend and Security
+description: Keep secrets, validation, permissions, and business logic where they belong.
+section: surfaces
+sidebar:
+  order: 9
+sourceMapRefs:
+  - wix-backend-apis
+  - wix-self-hosted-backend
+related:
+  - docs/mental-model
+  - docs/self-hosting-and-architecture
+---
+
+The frontend should not be the place where trust decisions are made.
+
+## Backend APIs first
+
+In the current Wix CLI, backend APIs are the main server-side pattern.
+
+Use them for:
+
+- validation
+- secret handling
+- third-party API calls
+- secure business rules
+- controlled data access
+
+The healthy request path usually looks like this:
+
+```text
+UI -> endpoint -> validation -> service/data layer -> response
+```
+
+That keeps the browser thinner and puts the important logic where it can be trusted.
+
+## Event extensions
+
+Events are useful when logic should run because something happened instead of because a user clicked a
+button.
+
+They are great for synchronization and reactive workflows, but they are not usually the first concept a
+beginner needs to internalize.
+
+## Permissions and elevation
+
+A helpful rule:
+
+If frontend access feels awkward, unsafe, or incomplete, the fix is often not a more clever client.
+The fix is moving the sensitive part into a backend layer where it can be validated properly.
+
+## Self-hosting changes the burden
+
+When you move backend work out of Wix-hosted flows, you take on more responsibility.
+
+That includes things like:
+
+- CORS
+- request validation
+- operational reliability
+- authentication boundaries
+
+Self-hosting can absolutely be the right decision. It just should not be treated as a “free flexibility”
+button with no tradeoffs.
+
+## Official references
+
+- [About backend APIs](https://dev.wix.com/docs/wix-cli/guides/extensions/backend-extensions/api/about-backend-apis)
+- [Implement a self-hosted backend](https://dev.wix.com/docs/wix-cli/guides/development/app-development/implement-a-self-hosted-backend-for-your-app)

@@ -1,0 +1,94 @@
+---
+title: Common Mistakes
+description: The mistakes that cost the most time and how to avoid them before they happen.
+section: operations
+sidebar:
+  order: 15
+sourceMapRefs:
+  - wix-cli-overview
+  - wix-determine-cli
+  - wix-design-system
+related:
+  - docs/start-here
+  - docs/testing-and-debugging
+  - docs/workflow
+---
+
+These are the patterns that cause the most confusion. Recognizing them early saves hours.
+
+## 1. Mixing old and new docs
+
+The unified CLI is the current path. Legacy pages for older Wix CLI versions still exist and can confuse you.
+
+**What happens:** You follow instructions that do not apply to your project. Commands fail or produce unexpected results.
+
+**Fix:** Always verify which doc set you are reading. Use the [determine which CLI](https://dev.wix.com/docs/wix-cli/guides/development/determine-which-cli-your-project-uses) page when in doubt.
+
+## 2. Treating boilerplate as architecture
+
+Generated code is a starting point, not the final design. The folder names and file structure from `wix generate` are scaffolding.
+
+**What happens:** Teams reorganize too early and break the registration chain, or they never reorganize and end up with a project that mirrors scaffolding instead of product thinking.
+
+**Fix:** Keep the generated shape at first. Learn the wiring. Reorganize later with intention and update references carefully.
+
+## 3. Putting secure work in the frontend
+
+This leaks secrets and causes permission errors.
+
+**What happens:** API keys appear in browser dev tools. Protected actions return 403. Users can tamper with logic.
+
+**Fix:** Move sensitive logic to backend endpoints. Use `wix env set` for secrets. Never trust the browser with privileged operations.
+
+## 4. Confusing dashboard and site UI
+
+One is an admin shell. One is public site UI. They have different design expectations.
+
+**What happens:** A dashboard page looks like a marketing landing page. A site widget looks like an admin tool. Neither feels right.
+
+**Fix:** Dashboard surfaces should feel operational: clear labels, steady spacing, standard controls. Site surfaces should feel experiential: match the live site context.
+
+## 5. Overriding Design System internals
+
+Small overrides are manageable. Total restyling usually becomes brittle.
+
+**What happens:** Fonts break. Layouts collapse. Components stop behaving as documented.
+
+**Fix:**
+- Check global CSS first.
+- Remove aggressive resets before blaming the component library.
+- Avoid overriding component internals unless there is no cleaner option.
+
+```css
+/* Risky: broad global override */
+body, button, input { font-family: MyFont, sans-serif; }
+
+/* Safer: scope typography to your own wrapper */
+.app-shell { font-family: Inter, sans-serif; }
+```
+
+## 6. Choosing self-hosting too early
+
+Simpler is often stronger. Self-hosting adds real operational burden.
+
+**What happens:** You take on CORS, request authentication, deployment, monitoring, and Wix API auth before you actually need to.
+
+**Fix:** Stay with Wix-hosted endpoints if simpler is enough. Go self-hosted only when there is a real technical reason. If you self-host, design authentication before you design convenience.
+
+## Quick self-check
+
+Before shipping a feature, ask:
+
+- Am I on the right surface?
+- Is the extension registered?
+- Am I reading docs for the current CLI?
+- Are secrets on the backend?
+- Have I tested preview *and* release?
+
+Those five questions prevent most of the mistakes above.
+
+## Official references
+
+- [Wix CLI overview](https://dev.wix.com/docs/wix-cli)
+- [Determine which CLI your project uses](https://dev.wix.com/docs/wix-cli/guides/development/determine-which-cli-your-project-uses)
+- [About the Wix Design System](https://dev.wix.com/docs/build-apps/develop-your-app/design/about-the-wix-design-system)

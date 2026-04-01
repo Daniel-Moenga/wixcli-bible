@@ -1,0 +1,60 @@
+---
+title: Self-Hosting and Architecture
+description: Know when Wix-hosted backend flows are enough and when self-hosting is worth the extra responsibility.
+section: operations
+sidebar:
+  order: 11
+sourceMapRefs:
+  - wix-self-hosted-backend
+  - wix-backend-apis
+related:
+  - docs/surfaces/backend-and-security
+  - docs/testing-and-debugging
+---
+
+Self-hosting is not the “advanced” option by default. It is the *different tradeoff* option.
+
+## Start with the simpler question
+
+Before self-hosting, ask:
+
+> Can this stay inside Wix-hosted backend patterns and still serve the product well?
+
+If the answer is yes, that simpler path often reduces risk, reduces operational overhead, and makes the
+system easier for teammates to understand.
+
+## When self-hosting can make sense
+
+Self-hosting becomes more compelling when you have requirements like:
+
+- infrastructure that must live outside Wix
+- custom networking constraints
+- integrations that depend on your own backend environment
+- operational patterns better served by your own services
+
+## What you take on
+
+The moment you self-host, you become more responsible for:
+
+- CORS behavior
+- request verification
+- authentication boundaries
+- runtime reliability
+- operational observability
+
+That is not a reason to avoid self-hosting forever. It is a reason to choose it intentionally.
+
+## Healthy architectural posture
+
+Even in more complex systems, the best architecture is usually still the clean one:
+
+- thin client
+- small, focused endpoints
+- explicit validation
+- clear separation between public UI and trusted logic
+- a strong understanding of which surface owns which responsibility
+
+## Official references
+
+- [Implement a self-hosted backend](https://dev.wix.com/docs/wix-cli/guides/development/app-development/implement-a-self-hosted-backend-for-your-app)
+- [About backend APIs](https://dev.wix.com/docs/wix-cli/guides/extensions/backend-extensions/api/about-backend-apis)

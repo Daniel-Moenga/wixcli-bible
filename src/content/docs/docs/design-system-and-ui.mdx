@@ -1,0 +1,133 @@
+---
+title: Design System and UI
+description: Know when Wix controls the UI system and how to make dashboard surfaces feel native.
+section: operations
+sidebar:
+  order: 10
+sourceMapRefs:
+  - wix-design-system
+  - wix-dashboard-pages
+related:
+  - docs/surfaces/dashboard-extensions
+---
+
+Many UI problems are really *system boundary* problems.
+
+The developer thinks they are styling a normal web app. In reality they are composing UI inside a Wix
+admin environment with its own expectations and supporting libraries.
+
+## What the Wix Design System gives you
+
+The Wix Design System exists so dashboard-facing experiences can feel coherent inside the broader Wix
+product environment.
+
+That matters because dashboard pages should feel:
+
+- native
+- stable
+- readable
+- efficient
+
+The goal is not to make every dashboard page visually loud. The goal is to make it feel like it belongs.
+
+## Design rule for dashboard work
+
+When dashboard UI feels wrong, simplify before you embellish.
+
+Good defaults usually include:
+
+- predictable page structure
+- legible labels
+- clear grouping
+- steady spacing
+- a strong distinction between primary and secondary actions
+
+## Design rule for site work
+
+Site extensions have more visual freedom because they belong to the live site context instead of the Wix
+admin shell.
+
+That does not mean they should ignore structure. It means their visual system should fit the site
+experience rather than mimic admin tooling.
+
+## The most common UI mistake
+
+The most common UI mistake is borrowing the wrong aesthetic for the wrong surface.
+
+- dashboard surfaces should usually feel operational
+- site surfaces should usually feel experiential
+
+Keeping that distinction clear improves both design quality and maintainability.
+
+## Why fonts break
+
+Font problems in Wix apps almost always come from one of two causes: loading a custom font incorrectly,
+or fighting the design system's built-in typography.
+
+Dashboard pages inherit font settings from the Wix admin shell. If you force a different font family
+with a global CSS rule, you can break the visual coherence of every text element on the page — including
+components from the Wix Design System that expect the default stack.
+
+:::caution
+Avoid blanket `font-family` overrides on `body` or `*` in dashboard extensions. If you need a custom
+font for a specific element, scope it tightly.
+:::
+
+```css
+/* Scoped font override — safe */
+.my-branded-header {
+  font-family: 'Your Custom Font', sans-serif;
+}
+
+/* Global override — breaks design system components */
+body {
+  font-family: 'Your Custom Font', sans-serif; /* don't do this */
+}
+```
+
+For site extensions, you have more freedom, but you should still load fonts through a proper `@font-face`
+declaration or a hosted stylesheet link rather than relying on fonts that may or may not be available in
+the visitor's browser.
+
+## Why layouts break
+
+Layout problems usually trace back to one of these:
+
+1. **Global CSS resets or overrides** that collide with the Wix Design System's own spacing and box model.
+2. **Assuming full viewport control** when the dashboard page is actually rendered inside an iframe or
+   a constrained panel.
+3. **Mixing layout systems** — for example, applying a CSS Grid to a container whose children are Wix
+   Design System components that expect flex-based flow.
+
+:::note
+The Wix admin shell controls the outer page chrome. Your dashboard extension controls only the content
+area inside it. Styles that assume full-page ownership (fixed positioning, `100vh` heights, global
+margin resets) will fight the shell instead of working with it.
+:::
+
+```css
+/* Works with the shell — uses the space you're given */
+.my-dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+/* Fights the shell — assumes full viewport ownership */
+.my-dashboard-content {
+  position: fixed;     /* don't do this in a dashboard extension */
+  top: 0;
+  left: 0;
+  width: 100vw;        /* you don't own the full viewport */
+  height: 100vh;
+}
+```
+
+When layout feels wrong, check whether your CSS is cooperating with the container you actually have,
+not the container you wish you had.
+
+## Official references
+
+- [About the Wix Design System](https://dev.wix.com/docs/build-apps/develop-your-app/design/about-the-wix-design-system)
+- [Dashboard page extension files and code](https://dev.wix.com/docs/build-apps/develop-your-app/frameworks/wix-cli/supported-extensions/dashboard-extensions/dashboard-pages/dashboard-page-extension-files-and-code)

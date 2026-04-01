@@ -1,0 +1,97 @@
+---
+title: Quick Reference
+description: The shortest possible recap when you do not want the long explanation.
+section: operations
+sidebar:
+  order: 13
+sourceMapRefs:
+  - wix-cli-reference
+  - wix-cli-overview
+related:
+  - docs/start-here
+  - docs/workflow
+---
+
+If you only remember five ideas, remember these.
+
+## 1. Think surfaces before code
+
+Every feature belongs mainly to dashboard, site, or backend.
+
+## 2. The CLI is a workflow, not just scaffolding
+
+The important loop is:
+
+```text
+create -> login -> dev -> generate -> code -> build -> preview -> release
+```
+
+## 3. Preview is not release
+
+Preview gives you a hosted test build. Release is the step that also matters for extension registration.
+
+## 4. Keep trust on the backend
+
+Secrets, validation, and critical business rules belong server-side.
+
+## 5. Use the official docs as the source of truth
+
+This handbook helps interpretation and learning, but Wix docs stay canonical.
+
+## Most useful commands
+
+```bash
+wix login
+wix whoami
+wix dev
+wix generate
+wix build
+wix preview
+wix release
+wix env set
+wix env pull
+wix env remove
+```
+
+## Five short examples
+
+The most common tasks, each in one or two lines.
+
+**Create an app:**
+
+```bash
+npm create @wix/new@latest app
+```
+
+**Start local development:**
+
+```bash
+wix dev
+```
+
+**Add a feature:**
+
+```bash
+wix generate
+```
+
+**Share a test build:**
+
+```bash
+wix build && wix preview
+```
+
+**Ship a registered build:**
+
+```bash
+wix build && wix release
+```
+
+:::note
+Every example above assumes you have already run `wix login` and are inside a Wix CLI project folder.
+:::
+
+## Official references
+
+- [Wix CLI overview](https://dev.wix.com/docs/wix-cli)
+- [Wix CLI command reference](https://dev.wix.com/docs/wix-cli/command-reference/introduction)

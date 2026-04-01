@@ -1,0 +1,51 @@
+---
+title: Wix CLI Bible
+description: Learn the current Wix CLI with a calmer structure, a better mental model, and source-aware guidance.
+template: splash
+editUrl: false
+section: overview
+sourceMapRefs:
+  - wix-cli-overview
+  - astro-content
+  - starlight-customization
+hero:
+  tagline: The open-source handbook for the current Wix CLI.
+  actions:
+    - text: Start learning
+      link: /docs/start-here/
+      icon: right-arrow
+    - text: Guides
+      link: /guides/
+      icon: right-arrow
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+## How to use this
+
+Pick the mode that fits where you are right now:
+
+- **Study mode** -- read the pages in order and build the mental model first.
+- **Reference mode** -- jump to setup, commands, surfaces, or debugging when you need them.
+- **Architecture mode** -- use the surface rules before creating new features.
+
+## The learning path
+
+<CardGrid>
+	<LinkCard title="Start Here" href="/docs/start-here/" description="What the current Wix CLI is and how to use this handbook." />
+	<LinkCard title="Mental Model" href="/docs/mental-model/" description="Dashboard, site, and backend -- the three surfaces that shape every decision." />
+	<LinkCard title="Setup and Commands" href="/docs/setup-and-core-commands/" description="Prerequisites, project creation, and the commands worth memorizing." />
+	<LinkCard title="Workflow" href="/docs/workflow/" description="The real loop: create, login, dev, generate, code, build, preview, release." />
+	<LinkCard title="Surfaces" href="/docs/surfaces/dashboard-extensions/" description="Dashboard pages, site widgets, embedded scripts, and backend APIs." />
+	<LinkCard title="Quick Reference" href="/docs/quick-reference/" description="Five ideas, seven commands, and the shortest possible recap." />
+</CardGrid>
+
+## What makes this different
+
+This handbook is built for the **current unified Wix CLI**, not a blend of old and new docs. It keeps Wix as the source of truth and says that clearly. It rewrites the subject for human learning instead of mirroring product docs verbatim. And it is open source so the community can correct, extend, and improve it.
+
+**Official references:**
+[Wix CLI overview](https://dev.wix.com/docs/wix-cli) ·
+[Astro content collections](https://docs.astro.build/en/reference/modules/astro-content/) ·
+[Starlight customization](https://starlight.astro.build/id/guides/customization/)

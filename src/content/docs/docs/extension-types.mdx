@@ -1,0 +1,81 @@
+---
+title: Extension Types
+description: A map of every extension family in the current Wix CLI and when to reach for each one.
+section: surfaces
+sidebar:
+  order: 7
+sourceMapRefs:
+  - wix-cli-overview
+  - wix-dashboard-pages
+  - wix-embedded-scripts
+  - wix-backend-apis
+related:
+  - docs/mental-model
+  - docs/surfaces/dashboard-extensions
+  - docs/surfaces/site-extensions
+  - docs/surfaces/backend-and-security
+---
+
+The CLI supports several extension families. Learn them in this order: dashboard, site, backend.
+
+## Extension families at a glance
+
+| Family | Extensions | When to use |
+|--------|-----------|-------------|
+| **Dashboard** | Pages, modals, plugins, menu plugins | Site owner needs to manage, configure, or review something |
+| **Site** | Widgets, embedded scripts, site plugins | Visitors or the editor need to see or interact with something on the live site |
+| **Backend** | HTTP endpoints, event extensions, service plugins | Logic that should not run in the browser |
+
+## Dashboard extensions
+
+- **Pages** -- full admin screens for settings, reports, onboarding, CRUD tools.
+- **Modals** -- short dialogs for confirmations, quick edits, focused forms.
+- **Plugins** -- extensions that plug into existing Wix dashboard flows or slots.
+- **Menu plugins** -- items inserted into predefined Wix dashboard menus.
+
+> Learn pages first. Most beginners do not need plugins immediately.
+
+## Site extensions
+
+- **Widgets** -- visible UI blocks placed on a page. Use when visitors should see the feature directly.
+- **Embedded scripts** -- code injected into the site DOM. Use for sitewide behavior, floating elements, cross-page enhancements.
+- **Site plugins** -- specialized integrations into Wix-owned slots or surfaces.
+
+### Widget vs embedded script
+
+| Question | Widget | Embedded script |
+|----------|--------|-----------------|
+| Should it appear in a specific page location? | Yes | No |
+| Should it follow the visitor across pages? | No | Yes |
+| Is it content-shaped or placement-shaped? | Yes | No |
+| Is it behavior-shaped or site-wide? | No | Yes |
+
+**Example:** A reviews block is a widget. A floating trust badge is an embedded script.
+
+## Backend extensions
+
+- **HTTP endpoints** -- the main backend API pattern. Use for secure logic, validation, data access, third-party APIs.
+- **Event extensions** -- code that runs when a defined event happens. Good for reactive workflows.
+- **Service plugins** -- APIs that inject custom logic into Wix business flows. Advanced; learn after endpoints.
+
+:::caution[One-handler rule]
+An app cannot have two event extensions listening to the same event. Keep this in mind before adding a second handler.
+:::
+
+## Decision shortcut
+
+```text
+Admin tool?         → Dashboard page
+Public block?       → Site widget
+Sitewide injection? → Embedded script
+Secure logic?       → Backend endpoint
+```
+
+Learn pages, widgets, and endpoints first. Reach for plugins only when your product truly needs those extension points.
+
+## Official references
+
+- [Wix CLI overview](https://dev.wix.com/docs/wix-cli)
+- [Dashboard page extension files and code](https://dev.wix.com/docs/build-apps/develop-your-app/frameworks/wix-cli/supported-extensions/dashboard-extensions/dashboard-pages/dashboard-page-extension-files-and-code)
+- [Add an embedded script extension](https://dev.wix.com/docs/wix-cli/guides/extensions/site-extensions/embedded-scripts/add-an-embedded-script-extension)
+- [About backend APIs](https://dev.wix.com/docs/wix-cli/guides/extensions/backend-extensions/api/about-backend-apis)

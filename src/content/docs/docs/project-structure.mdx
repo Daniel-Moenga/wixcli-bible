@@ -1,0 +1,88 @@
+---
+title: Project Structure
+description: Know which folders are real product code, which are generated support files, and why the registry matters.
+section: workflow
+sidebar:
+  order: 6
+sourceMapRefs:
+  - wix-dashboard-pages
+  - wix-backend-apis
+related:
+  - docs/workflow
+  - docs/surfaces/dashboard-extensions
+---
+
+Wix CLI projects stop feeling strange once you separate *real product code* from *generated support
+machinery*.
+
+## The usual top level
+
+You will commonly see entries such as:
+
+```text
+src/
+public/
+.astro/
+.wix/
+package.json
+astro.config.mjs
+tsconfig.json
+wix.config.json
+```
+
+## What each part means
+
+### `src/`
+
+Your real product code. This is the place to care about the most.
+
+### `public/`
+
+Static assets such as logos, images, and files that should be served directly.
+
+### `.astro/`
+
+Generated framework artifacts. Useful to know about, not usually the place you edit by hand.
+
+### `.wix/`
+
+Local Wix metadata and support material. Important to recognize, but not where the conceptual heart of
+your feature lives.
+
+### `wix.config.json`
+
+Project metadata that should not be edited casually. If you change it, know exactly why.
+
+## `src/extensions.ts`
+
+This is one of the most important files conceptually.
+
+It acts as the registration path for project extensions. The broad idea is:
+
+```ts
+app().use(...extensionBuilders)
+```
+
+That means the existence of code is not enough by itself. Wix still needs to know that the extension is
+registered as part of the app.
+
+This is why generated structure is worth respecting early on. Reorganize only after you understand the
+wiring you are changing.
+
+## Generated extension folders
+
+`wix generate` creates a default folder path based on the extension type you chose.
+
+Beginner-safe advice:
+
+- keep the generated shape at first
+- move things later only with intention
+- update references carefully when you reorganize
+
+The goal is not to preserve scaffolding forever. The goal is to avoid breaking the registration chain
+before you actually understand it.
+
+## Official references
+
+- [Dashboard page extension files and code](https://dev.wix.com/docs/build-apps/develop-your-app/frameworks/wix-cli/supported-extensions/dashboard-extensions/dashboard-pages/dashboard-page-extension-files-and-code)
+- [About backend APIs](https://dev.wix.com/docs/wix-cli/guides/extensions/backend-extensions/api/about-backend-apis)

@@ -1,0 +1,62 @@
+---
+title: Site Extensions
+description: Know when to choose a widget, an embedded script, or a more specialized site extension.
+section: surfaces
+sidebar:
+  order: 8
+sourceMapRefs:
+  - wix-embedded-scripts
+  - wix-cli-overview
+related:
+  - docs/mental-model
+  - docs/workflow
+---
+
+Site surfaces are for experiences that belong in the live site context.
+
+The key distinction is usually not technical first. It is experiential first.
+
+## Site widgets
+
+Use a widget when the feature is a visible, placed block on a page.
+
+Widgets are a good fit when:
+
+- visitors should see the feature directly
+- the feature belongs in a clear page location
+- the editor or site owner should place it visually
+
+Think of widgets as *content-shaped* or *placement-shaped* experiences.
+
+## Embedded scripts
+
+Use an embedded script when the behavior should follow the site rather than sit inside a placed block.
+
+Embedded scripts are a better fit for:
+
+- floating UI
+- sitewide enhancements
+- behavior that needs to attach to the DOM across pages
+- analytics-like or cross-page interactions
+
+Think of scripts as *site-behavior-shaped* experiences.
+
+## A quick example
+
+- Use a widget for a reviews block placed in a page layout.
+- Use an embedded script for a floating badge that follows the visitor around the site.
+
+That difference sounds small, but it changes the extension you should generate and often changes the
+release behavior you need to verify.
+
+## Why release matters here
+
+Site extensions are one of the places where the preview vs release distinction becomes especially visible.
+
+If a widget or script behaves strangely after preview, check whether the missing piece is full release and
+platform registration rather than your frontend code.
+
+## Official references
+
+- [Add an embedded script extension](https://dev.wix.com/docs/wix-cli/guides/extensions/site-extensions/embedded-scripts/add-an-embedded-script-extension)
+- [Wix CLI overview](https://dev.wix.com/docs/wix-cli)

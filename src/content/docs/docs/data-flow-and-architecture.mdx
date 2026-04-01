@@ -1,0 +1,77 @@
+---
+title: Data Flow and Architecture
+description: Healthy request flow, the draft/saved/published pattern, and how to choose the right surface before writing code.
+section: operations
+sidebar:
+  order: 11
+sourceMapRefs:
+  - wix-backend-apis
+  - wix-dashboard-pages
+related:
+  - docs/mental-model
+  - docs/surfaces/backend-and-security
+  - docs/permissions-and-security
+---
+
+Good architecture usually means choosing the right surface first, the right API path second, and the UI detail third. That order prevents many rebuilds.
+
+## Healthy request flow
+
+Keep business rules in the backend.
+
+```text
+UI → endpoint → validation → data/service → response
+```
+
+The frontend sends a request. The backend validates it, processes it, and returns only what the client should see. The browser never owns the logic.
+
+## Draft, saved, published
+
+Separate in-progress admin edits from what the public site reads. This prevents unstable public output.
+
+| State | Who sees it | Where it lives |
+|-------|------------|----------------|
+| **Draft** | Only the admin editing it | Dashboard surface, not yet saved |
+| **Saved** | Admin and collaborators | Stored but not public |
+| **Published** | Everyone on the live site | Public-facing, stable |
+
+If your app lets admins edit content that visitors will see, keep these states distinct. A visitor should never see half-finished work.
+
+## Choosing the right surface
+
+Use this decision table constantly:
+
+| Need | Surface | Extension type |
+|------|---------|---------------|
+| Admin tool for managing or configuring | Dashboard | Dashboard page |
+| Public block visitors interact with | Site | Widget |
+| Sitewide injection or floating behavior | Site | Embedded script |
+| Secure logic, validation, or data access | Backend | HTTP endpoint |
+| Reactive workflow triggered by an event | Backend | Event extension |
+
+Many features span more than one surface, but they still need a clear center of gravity.
+
+## Multi-surface example
+
+A typical feature that touches all three surfaces:
+
+1. A **dashboard page** lets the site owner edit a configuration.
+2. A **backend endpoint** validates and stores it.
+3. A **site widget** reads the stored result and displays it to visitors.
+
+Each layer does the job it is best suited for. The dashboard does not try to be the widget. The widget does not try to validate data.
+
+## Architecture shortcut
+
+When planning a new feature:
+
+1. Choose the **surface** first.
+2. Choose the **API path** second.
+3. Choose the **UI detail** third.
+
+This prevents the most common architectural mistake: building the wrong thing on the wrong surface and having to rewrite it later.
+
+## Official references
+
+- [About backend APIs](https://dev.wix.com/docs/wix-cli/guides/extensions/backend-extensions/api/about-backend-apis)
+- [Dashboard page extension files and code](https://dev.wix.com/docs/build-apps/develop-your-app/frameworks/wix-cli/supported-extensions/dashboard-extensions/dashboard-pages/dashboard-page-extension-files-and-code)

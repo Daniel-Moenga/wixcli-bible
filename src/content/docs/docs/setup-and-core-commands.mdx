@@ -1,0 +1,158 @@
+---
+title: Setup and Core Commands
+description: The commands worth memorizing first and the setup assumptions that make the rest easier.
+section: workflow
+sidebar:
+  order: 4
+sourceMapRefs:
+  - wix-cli-overview
+  - wix-cli-reference
+related:
+  - docs/workflow
+  - docs/project-structure
+---
+
+The current Wix CLI becomes much easier when you learn the real command set instead of copying random
+terminal snippets from older tutorials.
+
+## Prerequisites
+
+You want:
+
+- a current Node.js install
+- Git
+- a Wix account
+- a terminal you can navigate confidently
+
+You do **not** need advanced shell skills. You do need to stop guessing when moving between folders,
+opening files, and running the normal development loop.
+
+## Project creation
+
+Use the creator for the path you actually want:
+
+```bash
+npm create @wix/new@latest app
+```
+
+Use the headless path only when you know you need it:
+
+```bash
+npm create @wix/new@latest headless
+```
+
+## The commands to learn first
+
+### `wix login`
+
+Authenticate before project commands that need account access.
+
+```bash
+wix login
+```
+
+### `wix whoami`
+
+Use this when authentication feels wrong or when switching between accounts has left you unsure which
+account is active.
+
+```bash
+wix whoami
+```
+
+### `wix dev`
+
+Your most common command. This is the command that powers the normal local development loop.
+
+```bash
+wix dev
+```
+
+### `wix generate`
+
+Current official command for adding new extensions.
+
+```bash
+wix generate
+```
+
+If you see `npm run generate` in older material, treat it as a wrapper or a legacy habit, not the core
+concept you should memorize.
+
+### `wix build`
+
+Builds project assets before preview or release.
+
+```bash
+wix build
+```
+
+### `wix preview`
+
+Creates a hosted preview build for testing and sharing.
+
+```bash
+wix build
+wix preview
+```
+
+### `wix release`
+
+Releases the project and handles the registration behavior that some extensions depend on.
+
+```bash
+wix build
+wix release
+```
+
+### Environment commands
+
+These matter when onboarding machines or managing remote configuration:
+
+```bash
+wix env set
+wix env pull
+wix env remove
+```
+
+## Command reference table
+
+A wider view of the CLI surface, including commands that are easy to overlook.
+
+| Command | Does | When to use | Example |
+|---------|------|-------------|---------|
+| `wix login` | Authenticates your terminal session | Before any command that needs account access | `wix login` |
+| `wix logout` | Logs you out of the current Wix account | When switching accounts or cleaning up a shared machine | `wix logout` |
+| `wix whoami` | Shows the active Wix account | When auth feels wrong or after switching accounts | `wix whoami` |
+| `wix dev` | Starts the local development server | Normal daily development loop | `wix dev` |
+| `wix generate` | Adds a new extension to the project | When you need a dashboard page, backend endpoint, etc. | `wix generate` |
+| `wix build` | Compiles project assets | Before preview or release | `wix build` |
+| `wix preview` | Creates a hosted preview build | Sharing a test build with a teammate or stakeholder | `wix build && wix preview` |
+| `wix release` | Releases the project with registration | Shipping a build that needs platform registration | `wix build && wix release` |
+| `wix env set` | Sets an environment variable | Configuring secrets or feature flags | `wix env set MY_KEY my-value` |
+| `wix env pull` | Pulls remote env vars to local | Onboarding a new machine or syncing config | `wix env pull` |
+| `wix env remove` | Removes an environment variable | Cleaning up stale or unused config | `wix env remove MY_KEY` |
+| `skills add` / `skills update` | Adds or updates Wix skills for AI tools | Setting up or refreshing AI-assisted development | `wix skills add` |
+| `telemetry` | Turns anonymous telemetry on or off | Opting in or out of usage data collection | `wix telemetry disable` |
+| `connect` | Connects eligible headless projects to Wix Vibe | Linking a headless project to the visual Vibe editor | `wix connect` |
+
+:::note
+`skills add`, `skills update`, `telemetry`, and `connect` are newer additions. If your CLI version does not recognize them, update with `npm i -g @wix/cli@latest`.
+:::
+
+## The short memorization list
+
+If you only memorize seven commands first, memorize these:
+
+- `wix login`
+- `wix whoami`
+- `wix dev`
+- `wix generate`
+- `wix build`
+- `wix preview`
+- `wix release`
+
+## Official references
+
+- [Wix CLI overview](https://dev.wix.com/docs/wix-cli)
+- [Wix CLI command reference](https://dev.wix.com/docs/wix-cli/command-reference/introduction)

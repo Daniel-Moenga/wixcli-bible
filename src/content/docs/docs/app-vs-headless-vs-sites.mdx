@@ -1,0 +1,83 @@
+---
+title: App vs Headless vs Sites
+description: The distinction that saves you from mixing documentation tracks and building the wrong thing.
+section: foundations
+sidebar:
+  order: 3
+sourceMapRefs:
+  - wix-cli-overview
+  - wix-determine-cli
+related:
+  - docs/start-here
+  - docs/setup-and-core-commands
+---
+
+There are three concepts that people often blur together:
+
+- Wix app projects
+- Wix Headless projects
+- Wix CLI for Sites material
+
+The confusion is understandable, but the consequences are real. You can lose hours reading the wrong
+pages or generating the wrong expectations about what the project structure should look like.
+
+## App projects
+
+Choose the app path when you are building installable Wix functionality that lives *inside* the Wix
+platform.
+
+That usually means things like:
+
+- dashboard pages
+- dashboard modals
+- site widgets
+- embedded scripts
+- backend APIs
+- event extensions
+- advanced plugins
+
+If your product is fundamentally a Wix-native extension story, app is usually the correct track.
+
+## Headless projects
+
+Choose headless when Wix is providing business capabilities behind a frontend that lives somewhere else.
+
+That means Wix powers pieces such as commerce or content while your actual presentation layer can be
+fully separate from the traditional in-platform app surface model.
+
+Different goal, same CLI family.
+
+## Sites material
+
+Wix CLI for Sites is not the same conceptual layer as the app extension model.
+
+That does not mean the docs are useless. It means they answer different questions.
+
+The problem comes when you read site-development material while trying to understand installable app
+extensions, or when you expect dashboard extension behavior from site-specific tooling.
+
+## The beginner-safe shortcut
+
+If the feature is a registered extension that lives inside the Wix platform, you probably want the app
+path.
+
+If the feature is a separate frontend that consumes Wix capabilities, you probably want headless.
+
+If you are looking at site-development material, verify that it actually applies before borrowing it.
+
+## Why this matters operationally
+
+This distinction changes:
+
+- the project setup path
+- the docs you should trust
+- the folder structure you should expect
+- the extensions you can generate
+- the release behaviors you care about
+
+That is why this page appears so early in the handbook.
+
+## Official references
+
+- [Wix CLI overview](https://dev.wix.com/docs/wix-cli)
+- [Determine which CLI your project uses](https://dev.wix.com/docs/wix-cli/guides/development/determine-which-cli-your-project-uses)

@@ -1,0 +1,105 @@
+---
+title: The Mental Model
+description: The three surfaces that should shape almost every architecture decision in a Wix CLI app.
+section: foundations
+sidebar:
+  order: 2
+sourceMapRefs:
+  - wix-cli-overview
+  - wix-dashboard-pages
+  - wix-backend-apis
+related:
+  - docs/app-vs-headless-vs-sites
+  - docs/surfaces/dashboard-extensions
+  - docs/surfaces/backend-and-security
+---
+
+Most Wix CLI architecture mistakes happen before the first bug.
+
+They happen when a team puts the feature on the wrong surface.
+
+## The three surfaces
+
+Every meaningful feature in a Wix app belongs to one of three places:
+
+- **Dashboard**: admin-facing UI used by the site owner.
+- **Site**: live-site or editor-adjacent UI used by visitors or by the site owner in a placed context.
+- **Backend**: server-side logic used for validation, data access, integrations, secrets, and events.
+
+This is the lens to apply before thinking about components, routes, or folder names.
+
+## Dashboard
+
+Use dashboard surfaces when the site owner needs a workspace for thinking, editing, reviewing, or managing.
+
+Typical examples:
+
+- settings pages
+- onboarding flows
+- CRUD tools
+- reports
+- account or product management
+
+The dashboard should feel like an admin tool. Clear structure, predictable forms, and calm density usually
+win over visual drama.
+
+## Site
+
+Use site surfaces when the feature must be visible in the experience of the live site.
+
+Typical examples:
+
+- placed widgets
+- floating badges
+- blocks visitors can interact with
+- cross-page enhancements attached to the site itself
+
+The core question is simple: *should a visitor or site owner see this in the site context?*
+
+## Backend
+
+Use the backend for anything that should not be trusted to the browser.
+
+Typical examples:
+
+- validation
+- secret handling
+- third-party API calls
+- protected business rules
+- event-driven logic
+- data access that should be controlled centrally
+
+When in doubt, push sensitive logic server-side and keep the client thinner.
+
+## Why the registry matters
+
+In Wix CLI, extensions are not just folders of code. They are registered platform pieces.
+
+That means code can exist in your repository without Wix treating it as part of the app unless the
+extension is wired correctly through the project’s registration path.
+
+This is one reason the generated structure matters more than people expect during the early phase.
+
+## A fast test for feature placement
+
+Ask these three questions in order:
+
+1. Is this mainly for the site owner to manage or configure something? Use dashboard.
+2. Is this mainly for the live site experience? Use site.
+3. Does this involve trust, validation, secrets, or cross-system logic? Use backend.
+
+Many features span more than one surface, but they still need a clear *center of gravity*.
+
+Example:
+
+- A dashboard page edits a configuration.
+- A backend endpoint validates and stores it.
+- A site widget reads the result and displays it.
+
+That is a healthy multi-surface architecture because each layer is doing the job it is best suited for.
+
+## Official references
+
+- [Wix CLI overview](https://dev.wix.com/docs/wix-cli)
+- [Dashboard page extension files and code](https://dev.wix.com/docs/build-apps/develop-your-app/frameworks/wix-cli/supported-extensions/dashboard-extensions/dashboard-pages/dashboard-page-extension-files-and-code)
+- [About backend APIs](https://dev.wix.com/docs/wix-cli/guides/extensions/backend-extensions/api/about-backend-apis)
