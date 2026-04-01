@@ -1,0 +1,88 @@
+---
+import Icon from '../components/common/Icon.astro';
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+
+export const prerender = true;
+---
+
+<MarketingLayout
+	title="Ask AI Beta"
+	description="Ask questions about the current Wix CLI with answers grounded in the handbook and curated official sources."
+	canonicalPath="/ask/"
+>
+	<section class="page-hero">
+		<p class="eyebrow">Ask</p>
+		<h1>
+			Citations-first answers
+			<span class="nav-badge nav-badge--inline">Beta</span>
+		</h1>
+		<p>
+			Powered by Vercel AI Gateway and grounded in the handbook plus curated official sources.
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="ask-shell">
+			<form class="ask-form" data-ask-form>
+				<label for="question"><strong>Your question</strong></label>
+				<textarea
+					id="question"
+					name="question"
+					placeholder="Example: Why does a site widget sometimes still need release after a successful preview?"
+				></textarea>
+				<div class="button-row" style="margin-top: 1rem;">
+					<button class="button" type="submit">
+						<Icon name="sparkles" size="1rem" />
+						Ask the handbook
+					</button>
+				</div>
+			</form>
+
+			<section class="ask-output" aria-live="polite">
+				<p class="eyebrow">Response</p>
+				<h2 style="margin-top: 0.5rem;">Grounded output only</h2>
+				<p class="ask-output__answer" data-answer>
+					Ask a question to see a grounded answer here. Every usable answer should include citations.
+				</p>
+				<div class="citation-list" data-citations></div>
+			</section>
+		</div>
+	</section>
+
+	<script is:inline>
+		const form = document.querySelector('[data-ask-form]');
+		const answer = document.querySelector('[data-answer]');
+		const citations = document.querySelector('[data-citations]');
+
+		form?.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			const formData = new FormData(form);
+			const question = formData.get('question');
+			if (!question || typeof question !== 'string') return;
+
+			answer.textContent = 'Thinking with citations...';
+			citations.innerHTML = '';
+
+			try {
+				const response = await fetch('/api/ask', {
+					method: 'POST',
+					headers: { 'content-type': 'application/json' },
+					body: JSON.stringify({ question }),
+				});
+
+				const data = await response.json();
+				answer.textContent = data.answer || 'No answer returned.';
+				const citationMarkup = (data.citations || [])
+					.map(
+						(citation) =>
+							`<a href="${citation.url}" target="_blank" rel="noreferrer"><strong>${citation.title}</strong><br /><span>${citation.url}</span></a>`
+					)
+					.join('');
+				citations.innerHTML = citationMarkup;
+			} catch (error) {
+				answer.textContent =
+					'The Ask beta could not complete the request. Check your API key and try again.';
+			}
+		});
+	</script>
+</MarketingLayout>
