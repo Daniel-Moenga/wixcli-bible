@@ -323,9 +323,21 @@ pre {
 
 .site-header__actions,
 .wcb-docs-header__actions {
-	display: inline-flex;
+	display: flex;
 	align-items: center;
-	gap: 0.75rem;
+	gap: 0.5rem;
+	flex-shrink: 0;
+}
+
+.site-header site-search,
+.site-header .search-input,
+.site-header [data-pagefind-ui] input,
+.site-header button[data-open-modal] {
+	border: 1px solid var(--wcb-border);
+	border-radius: var(--wcb-radius-sm);
+	background: var(--wcb-panel);
+	height: 2rem;
+	font-size: 0.8125rem;
 }
 
 .header-icon-link {
@@ -1765,4 +1777,124 @@ pre {
 
 .product-card:hover {
 	transform: translateY(-2px);
+}
+
+.product-card__illustration {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	border: 1px solid var(--wcb-border);
+	border-radius: var(--wcb-radius-sm);
+	background: var(--wcb-bg);
+	overflow: hidden;
+	margin-bottom: 0.75rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.product-card__illustration svg {
+	width: 100%;
+	height: 100%;
+}
+
+.section-line {
+	max-width: var(--wcb-max-width);
+	margin: 1.5rem auto;
+	height: 1px;
+	background: var(--wcb-border);
+}
+
+.dot-grid-bg {
+	background-image: radial-gradient(circle, var(--wcb-border) 1px, transparent 1px);
+	background-size: 24px 24px;
+}
+
+.grid-plus {
+	position: relative;
+}
+
+.grid-plus::before {
+	content: '+';
+	position: absolute;
+	top: -8px;
+	left: -8px;
+	color: var(--wcb-text-soft);
+	font-family: var(--wcb-font-accent);
+	font-size: 0.65rem;
+	line-height: 1;
+	opacity: 0.4;
+}
+
+.clarify-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1rem;
+}
+
+.clarify-card {
+	padding: 1.25rem;
+	border: 1px solid var(--wcb-border);
+	border-radius: var(--wcb-radius-md);
+	background: var(--wcb-panel);
+}
+
+.clarify-card h3 {
+	margin: 0 0 0.5rem;
+	font-family: var(--wcb-font-display);
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.clarify-card p {
+	margin: 0;
+	color: var(--wcb-text-muted);
+	font-size: 0.875rem;
+}
+
+.workflow-section {
+	padding: 2rem 0;
+}
+
+.workflow-diagram {
+	width: 100%;
+	overflow-x: auto;
+	padding: 1rem 0;
+}
+
+.workflow-diagram svg {
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+	height: auto;
+}
+
+.cta-section {
+	padding: 3rem 0 2rem;
+	text-align: center;
+}
+
+.cta-section h2 {
+	margin-bottom: 0.75rem;
+}
+
+.cta-section p {
+	color: var(--wcb-text-muted);
+	max-width: 32rem;
+	margin: 0 auto 1.25rem;
+}
+
+.cta-section .button-row {
+	justify-content: center;
+}
+
+@media (max-width: 60rem) {
+	.clarify-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 44rem) {
+	.clarify-grid {
+		grid-template-columns: 1fr;
+	}
 }
