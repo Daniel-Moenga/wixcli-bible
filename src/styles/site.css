@@ -920,6 +920,11 @@ pre {
 	font-size: 1.02rem;
 }
 
+.hero-visual {
+	width: min(100%, 44rem);
+	justify-self: end;
+}
+
 .hero-shell {
 	position: relative;
 	width: min(100%, 43.5rem);

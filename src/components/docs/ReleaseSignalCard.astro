@@ -1,0 +1,177 @@
+---
+import DiagramFrame from './DiagramFrame.astro';
+---
+
+<DiagramFrame
+	compact={true}
+	eyebrow="Delivery loop"
+	title="Preview proves the build. Release proves the wiring."
+	caption="Most of the CLI loop is fast and local. The release checkpoint still matters when Wix needs to register the extension."
+>
+	<div class="release-signal" aria-hidden="true">
+		<svg viewBox="0 0 520 250" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
+			<defs>
+				<pattern id="release-signal-grid" width="18" height="18" patternUnits="userSpaceOnUse">
+					<circle cx="9" cy="9" r="0.9" fill="currentColor" opacity="0.08"></circle>
+				</pattern>
+			</defs>
+
+			<rect x="1" y="1" width="518" height="248" rx="18" class="release-signal__frame"></rect>
+			<rect x="1" y="1" width="518" height="248" rx="18" fill="url(#release-signal-grid)" opacity="0.42"></rect>
+
+			<rect x="34" y="34" width="180" height="32" rx="12" class="release-signal__command"></rect>
+			<text x="56" y="54" class="release-signal__command-text">wix app preview</text>
+
+			<path d="M52 174C94 174 102 122 150 122H238C290 122 294 198 344 198H448" class="release-signal__path"></path>
+			<circle cx="52" cy="174" r="7" class="release-signal__node release-signal__node--muted"></circle>
+			<circle cx="150" cy="122" r="7" class="release-signal__node release-signal__node--preview"></circle>
+			<circle cx="344" cy="198" r="7" class="release-signal__node release-signal__node--release"></circle>
+			<circle cx="448" cy="198" r="7" class="release-signal__node release-signal__node--muted"></circle>
+
+			<text x="38" y="204" class="release-signal__label">Create</text>
+			<text x="128" y="100" class="release-signal__label release-signal__label--active">Preview</text>
+			<text x="320" y="226" class="release-signal__label release-signal__label--active">Release</text>
+			<text x="432" y="226" class="release-signal__label">Live</text>
+
+			<rect x="248" y="78" width="224" height="92" rx="16" class="release-signal__note"></rect>
+			<text x="272" y="106" class="release-signal__eyebrow">When release matters</text>
+			<path d="M272 124H418" class="release-signal__copy"></path>
+			<path d="M272 142H402" class="release-signal__copy"></path>
+
+			<circle cx="150" cy="122" r="15" class="release-signal__pulse release-signal__pulse--preview"></circle>
+			<circle cx="344" cy="198" r="15" class="release-signal__pulse release-signal__pulse--release"></circle>
+		</svg>
+	</div>
+</DiagramFrame>
+
+<style>
+	.release-signal svg {
+		display: block;
+		width: 100%;
+		height: auto;
+		color: var(--wcb-text-soft);
+	}
+
+	.release-signal__frame,
+	.release-signal__command,
+	.release-signal__note {
+		fill: rgba(255, 255, 255, 0.015);
+		stroke: var(--wcb-border);
+	}
+
+	.release-signal__path,
+	.release-signal__copy {
+		fill: none;
+		stroke-linecap: round;
+	}
+
+	.release-signal__path {
+		stroke: rgba(255, 255, 255, 0.26);
+		stroke-width: 2;
+		stroke-dasharray: 6 8;
+		animation: releaseSignalDash 12s linear infinite;
+	}
+
+	.release-signal__copy {
+		stroke: var(--wcb-text-muted);
+		stroke-width: 6;
+		opacity: 0.72;
+	}
+
+	.release-signal__eyebrow,
+	.release-signal__label,
+	.release-signal__command-text {
+		font-family: var(--wcb-font-accent);
+	}
+
+	.release-signal__eyebrow,
+	.release-signal__label {
+		fill: var(--wcb-text-soft);
+		font-size: 12px;
+		font-weight: 650;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.release-signal__label--active,
+	.release-signal__command-text {
+		fill: var(--wcb-text);
+	}
+
+	.release-signal__command-text {
+		font-size: 13px;
+		font-weight: 650;
+		letter-spacing: 0.03em;
+	}
+
+	.release-signal__node {
+		stroke-width: 1.5;
+	}
+
+	.release-signal__node--muted {
+		fill: var(--wcb-panel-strong);
+		stroke: var(--wcb-border-strong);
+	}
+
+	.release-signal__node--preview,
+	.release-signal__node--release {
+		fill: rgba(62, 207, 142, 0.18);
+		stroke: rgba(62, 207, 142, 0.48);
+	}
+
+	.release-signal__pulse {
+		fill: rgba(62, 207, 142, 0.08);
+		transform-origin: center;
+		animation: releaseSignalPulse 2.8s ease-in-out infinite;
+	}
+
+	.release-signal__pulse--release {
+		animation-delay: 0.8s;
+	}
+
+	:root[data-theme='light'] .release-signal__frame,
+	:root[data-theme='light'] .release-signal__command,
+	:root[data-theme='light'] .release-signal__note {
+		fill: rgba(0, 0, 0, 0.02);
+	}
+
+	:root[data-theme='light'] .release-signal__node--preview,
+	:root[data-theme='light'] .release-signal__node--release {
+		fill: rgba(32, 166, 105, 0.16);
+		stroke: rgba(32, 166, 105, 0.35);
+	}
+
+	:root[data-theme='light'] .release-signal__path {
+		stroke: rgba(0, 0, 0, 0.2);
+	}
+
+	@keyframes releaseSignalDash {
+		from {
+			stroke-dashoffset: 0;
+		}
+
+		to {
+			stroke-dashoffset: -54;
+		}
+	}
+
+	@keyframes releaseSignalPulse {
+		0%,
+		100% {
+			transform: scale(1);
+			opacity: 0.44;
+		}
+
+		50% {
+			transform: scale(1.24);
+			opacity: 0.88;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.release-signal__path,
+		.release-signal__pulse {
+			animation: none;
+		}
+	}
+</style>

@@ -1,0 +1,176 @@
+---
+import DiagramFrame from './DiagramFrame.astro';
+---
+
+<DiagramFrame
+	compact={true}
+	eyebrow="Surface map"
+	title="Every feature needs one home."
+	caption="Decide whether the work belongs to Dashboard, Site, or Backend before you decide how to code it."
+>
+	<div class="surface-signal" aria-hidden="true">
+		<svg viewBox="0 0 520 250" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
+			<defs>
+				<pattern id="surface-signal-grid" width="18" height="18" patternUnits="userSpaceOnUse">
+					<circle cx="9" cy="9" r="0.9" fill="currentColor" opacity="0.08"></circle>
+				</pattern>
+			</defs>
+
+			<rect x="1" y="1" width="518" height="248" rx="18" class="surface-signal__frame"></rect>
+			<rect x="1" y="1" width="518" height="248" rx="18" fill="url(#surface-signal-grid)" opacity="0.48"></rect>
+			<path d="M46 48H474" class="surface-signal__beam"></path>
+
+			<circle cx="108" cy="48" r="6" class="surface-signal__node surface-signal__node--active"></circle>
+			<circle cx="260" cy="48" r="6" class="surface-signal__node"></circle>
+			<circle cx="412" cy="48" r="6" class="surface-signal__node"></circle>
+
+			<rect x="42" y="72" width="128" height="142" rx="18" class="surface-signal__panel surface-signal__panel--dashboard"></rect>
+			<rect x="196" y="72" width="128" height="142" rx="18" class="surface-signal__panel surface-signal__panel--site"></rect>
+			<rect x="350" y="72" width="128" height="142" rx="18" class="surface-signal__panel surface-signal__panel--backend"></rect>
+
+			<text x="64" y="102" class="surface-signal__eyebrow">Dashboard</text>
+			<text x="218" y="102" class="surface-signal__eyebrow">Site</text>
+			<text x="372" y="102" class="surface-signal__eyebrow">Backend</text>
+
+			<path d="M64 124H132" class="surface-signal__title"></path>
+			<path d="M218 124H272" class="surface-signal__title"></path>
+			<path d="M372 124H438" class="surface-signal__title"></path>
+
+			<path d="M64 150H146" class="surface-signal__copy"></path>
+			<path d="M64 168H140" class="surface-signal__copy"></path>
+			<path d="M218 150H292" class="surface-signal__copy"></path>
+			<path d="M218 168H286" class="surface-signal__copy"></path>
+			<path d="M372 150H444" class="surface-signal__copy"></path>
+			<path d="M372 168H436" class="surface-signal__copy"></path>
+
+			<rect x="64" y="188" width="46" height="18" rx="9" class="surface-signal__tag"></rect>
+			<rect x="118" y="188" width="36" height="18" rx="9" class="surface-signal__tag"></rect>
+			<rect x="218" y="188" width="42" height="18" rx="9" class="surface-signal__tag"></rect>
+			<rect x="268" y="188" width="38" height="18" rx="9" class="surface-signal__tag"></rect>
+			<rect x="372" y="188" width="44" height="18" rx="9" class="surface-signal__tag"></rect>
+			<rect x="424" y="188" width="32" height="18" rx="9" class="surface-signal__tag"></rect>
+
+			<circle cx="108" cy="48" r="13" class="surface-signal__pulse"></circle>
+		</svg>
+	</div>
+</DiagramFrame>
+
+<style>
+	.surface-signal svg {
+		display: block;
+		width: 100%;
+		height: auto;
+		color: var(--wcb-text-soft);
+	}
+
+	.surface-signal__frame,
+	.surface-signal__panel,
+	.surface-signal__tag {
+		fill: rgba(255, 255, 255, 0.015);
+		stroke: var(--wcb-border);
+	}
+
+	.surface-signal__beam,
+	.surface-signal__title,
+	.surface-signal__copy {
+		fill: none;
+		stroke-linecap: round;
+	}
+
+	.surface-signal__beam {
+		stroke: rgba(255, 255, 255, 0.18);
+		stroke-width: 2;
+		stroke-dasharray: 6 8;
+		animation: surfaceSignalDash 14s linear infinite;
+	}
+
+	.surface-signal__panel--dashboard,
+	.surface-signal__node--active {
+		stroke: rgba(62, 207, 142, 0.48);
+	}
+
+	.surface-signal__panel--dashboard {
+		fill: rgba(62, 207, 142, 0.06);
+	}
+
+	.surface-signal__node {
+		fill: var(--wcb-panel-strong);
+		stroke: var(--wcb-border-strong);
+		stroke-width: 1.5;
+	}
+
+	.surface-signal__node--active {
+		fill: rgba(62, 207, 142, 0.18);
+	}
+
+	.surface-signal__pulse {
+		fill: rgba(62, 207, 142, 0.08);
+		transform-origin: center;
+		animation: surfaceSignalPulse 2.9s ease-in-out infinite;
+	}
+
+	.surface-signal__eyebrow {
+		fill: var(--wcb-text-soft);
+		font-family: var(--wcb-font-accent);
+		font-size: 12px;
+		font-weight: 650;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.surface-signal__title {
+		stroke: var(--wcb-text);
+		stroke-width: 8;
+	}
+
+	.surface-signal__copy {
+		stroke: var(--wcb-text-muted);
+		stroke-width: 6;
+		opacity: 0.76;
+	}
+
+	:root[data-theme='light'] .surface-signal__frame,
+	:root[data-theme='light'] .surface-signal__panel,
+	:root[data-theme='light'] .surface-signal__tag {
+		fill: rgba(0, 0, 0, 0.02);
+	}
+
+	:root[data-theme='light'] .surface-signal__beam {
+		stroke: rgba(0, 0, 0, 0.16);
+	}
+
+	:root[data-theme='light'] .surface-signal__panel--dashboard {
+		fill: rgba(32, 166, 105, 0.06);
+		stroke: rgba(32, 166, 105, 0.35);
+	}
+
+	@keyframes surfaceSignalPulse {
+		0%,
+		100% {
+			transform: scale(1);
+			opacity: 0.48;
+		}
+
+		50% {
+			transform: scale(1.22);
+			opacity: 0.92;
+		}
+	}
+
+	@keyframes surfaceSignalDash {
+		from {
+			stroke-dashoffset: 0;
+		}
+
+		to {
+			stroke-dashoffset: -56;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.surface-signal__beam,
+		.surface-signal__pulse {
+			animation: none;
+		}
+	}
+</style>
