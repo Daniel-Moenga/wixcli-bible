@@ -71,6 +71,38 @@
 
 .sidebar-content {
 	padding-top: 1.5rem;
+	padding-bottom: 2rem;
+}
+
+.sidebar-content ul {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+}
+
+.sidebar-content li {
+	margin: 0;
+}
+
+.sidebar-content > ul > li > details > summary,
+.sidebar-content > ul > li > a {
+	padding-block: 0.45rem;
+}
+
+.sidebar-content a {
+	padding: 0.4rem 0.65rem;
+}
+
+.sidebar-content summary {
+	padding: 0.45rem 0.65rem;
+	font-weight: 600;
+	color: var(--wcb-text);
+}
+
+.sidebar-content details + details,
+.sidebar-content details + li,
+.sidebar-content li + details {
+	margin-top: 0.5rem;
 }
 
 .content-panel {
