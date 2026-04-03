@@ -1,41 +1,47 @@
 <script>
 	import { animate, inView, stagger, scroll } from 'motion';
 
+	declare global {
+		interface Window {
+			__wcbMotionReady?: boolean;
+		}
+	}
+
 	if (!window.__wcbMotionReady) {
 		window.__wcbMotionReady = true;
 
 		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		if (!reduceMotion) {
-			const fadeUp = (element, delay = 0) =>
+			const fadeUp = (el: HTMLElement, delay = 0) =>
 				animate(
-					element,
+					el,
 					{ opacity: [0, 1], y: [16, 0], filter: ['blur(6px)', 'blur(0px)'] },
-					{ duration: 0.55, delay, ease: 'ease-out' }
+					{ duration: 0.55, delay, ease: 'easeOut' }
 				);
 
 			document
-				.querySelectorAll('[data-stagger]')
+				.querySelectorAll<HTMLElement>('[data-stagger]')
 				.forEach((group) =>
 					animate(
-						Array.from(group.children),
+						Array.from(group.children) as HTMLElement[],
 						{ opacity: [0, 1], y: [18, 0] },
-						{ delay: stagger(0.08), duration: 0.45, ease: 'ease-out' }
+						{ delay: stagger(0.08), duration: 0.45, ease: 'easeOut' }
 					)
 				);
 
-			document.querySelectorAll('[data-hero-reveal]').forEach((element, index) => {
+			document.querySelectorAll<HTMLElement>('[data-hero-reveal]').forEach((element, index) => {
 				fadeUp(element, index * 0.08);
 			});
 
-			document.querySelectorAll('[data-reveal="dock"]').forEach((element) => {
+			document.querySelectorAll<HTMLElement>('[data-reveal="dock"]').forEach((element) => {
 				animate(
 					element,
 					{ opacity: [0, 1], y: [18, 0], scale: [0.96, 1] },
-					{ delay: 0.25, duration: 0.45, ease: 'ease-out' }
+					{ delay: 0.25, duration: 0.45, ease: 'easeOut' }
 				);
 			});
 
-			document.querySelectorAll('[data-reveal="card"]').forEach((element) => {
+			document.querySelectorAll<HTMLElement>('[data-reveal="card"]').forEach((element) => {
 				inView(
 					element,
 					() => {
@@ -45,23 +51,21 @@
 				);
 			});
 
-			// Clarify cards: staggered cascade on scroll
-			document.querySelectorAll('.clarify-grid').forEach((grid) => {
+			document.querySelectorAll<HTMLElement>('.clarify-grid').forEach((grid) => {
 				inView(
 					grid,
 					() => {
 						animate(
-							Array.from(grid.querySelectorAll('.clarify-card')),
+							Array.from(grid.querySelectorAll('.clarify-card')) as HTMLElement[],
 							{ opacity: [0, 1], y: [24, 0], filter: ['blur(4px)', 'blur(0px)'] },
-							{ delay: stagger(0.1), duration: 0.5, ease: 'ease-out' }
+							{ delay: stagger(0.1), duration: 0.5, ease: 'easeOut' }
 						);
 					},
 					{ margin: '-10% 0px' }
 				);
 			});
 
-			// Hero parallax fade on scroll
-			const heroShell = document.querySelector('.hero-shell');
+			const heroShell = document.querySelector<HTMLElement>('.hero-shell');
 			if (heroShell) {
 				let ticking = false;
 				window.addEventListener('scroll', () => {
@@ -78,32 +82,28 @@
 				});
 			}
 
-			// Doodle illustrations: subtle parallax drift on scroll
-			document.querySelectorAll('.product-card__illustration img').forEach((img) => {
+			document.querySelectorAll<HTMLElement>('.product-card__illustration img').forEach((img) => {
 				scroll(
 					animate(img, { y: [-4, 4] }, { ease: 'linear' }),
-					{ target: img.closest('.product-card') || img }
+					{ target: img.closest('.product-card') as HTMLElement || img }
 				);
 			});
 
-			// Hero doodle parallax
-			const heroDoodle = document.querySelector('.hero-docs-canvas img');
+			const heroDoodle = document.querySelector<HTMLElement>('.hero-docs-canvas img');
 			if (heroDoodle) {
 				scroll(
 					animate(heroDoodle, { y: [-8, 8], rotate: [-0.5, 0.5] }, { ease: 'linear' }),
-					{ target: heroDoodle.closest('.hero-visual') || heroDoodle }
+					{ target: heroDoodle.closest('.hero-visual') as HTMLElement || heroDoodle }
 				);
 			}
 
-			// Workflow diagram nodes: scale pulse on scroll into view
-			const workflowDiagram = document.querySelector('.workflow-diagram');
+			const workflowDiagram = document.querySelector<HTMLElement>('.workflow-diagram');
 			if (workflowDiagram) {
 				inView(
 					workflowDiagram,
 					() => {
-						const circles = workflowDiagram.querySelectorAll('circle');
 						animate(
-							Array.from(circles),
+							Array.from(workflowDiagram.querySelectorAll('circle')) as unknown as HTMLElement[],
 							{ opacity: [0, 1], scale: [0.6, 1] },
 							{ delay: stagger(0.06), duration: 0.4, ease: [0.22, 1, 0.36, 1] }
 						);
@@ -112,8 +112,7 @@
 				);
 			}
 
-			// Section line draw-on animation
-			document.querySelectorAll('.section-line').forEach((line) => {
+			document.querySelectorAll<HTMLElement>('.section-line').forEach((line) => {
 				inView(
 					line,
 					() => {
@@ -127,8 +126,7 @@
 				);
 			});
 
-			// Product card hover spring: gentle lift + border warmth
-			document.querySelectorAll('.product-card').forEach((card) => {
+			document.querySelectorAll<HTMLElement>('.product-card').forEach((card) => {
 				card.addEventListener('mouseenter', () => {
 					animate(card, { scale: 1.012 }, { type: 'spring', stiffness: 400, damping: 25 });
 				});
@@ -137,8 +135,7 @@
 				});
 			});
 
-			// Open source block reveal
-			const osBlock = document.querySelector('.open-source-block');
+			const osBlock = document.querySelector<HTMLElement>('.open-source-block');
 			if (osBlock) {
 				inView(
 					osBlock,
@@ -146,18 +143,17 @@
 						animate(
 							osBlock,
 							{ opacity: [0, 1], y: [20, 0] },
-							{ duration: 0.55, ease: 'ease-out' }
+							{ duration: 0.55, ease: 'easeOut' }
 						);
 					},
 					{ margin: '-10% 0px' }
 				);
 			}
 
-			// Wavy divider: gentle float animation
-			document.querySelectorAll('.section-line--wavy svg path').forEach((path) => {
+			document.querySelectorAll<HTMLElement>('.section-line--wavy svg path').forEach((path) => {
 				scroll(
 					animate(path, { x: [-6, 6] }, { ease: 'linear' }),
-					{ target: path.closest('.section-line--wavy') || path }
+					{ target: path.closest('.section-line--wavy') as HTMLElement || path }
 				);
 			});
 		}
