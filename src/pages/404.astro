@@ -10,10 +10,14 @@ export const prerender = true;
 	description="The page you were looking for does not exist in Wix CLI Bible."
 	canonicalPath="/404/"
 >
-	<section class="page-hero" style="text-align: center; padding-top: 6rem;">
-		<div style="display: inline-flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: var(--wcb-radius-lg); border: 1px solid var(--wcb-border); background: var(--wcb-panel); margin-bottom: 1.5rem;">
-			<Icon name="search" size="1.5rem" />
-		</div>
+	<section class="page-hero" style="text-align: center; padding-top: 4rem;">
+		<img
+			src="/doodles/lost.svg"
+			alt=""
+			width="200"
+			height="200"
+			style="display: block; margin: 0 auto 1.5rem; filter: sepia(0.08); opacity: 0.85;"
+		/>
 		<p class="eyebrow">404</p>
 		<h1>Lost in the cosmos.</h1>
 		<p style="max-width: 28rem; margin: 0 auto;">
@@ -70,16 +74,18 @@ export const prerender = true;
 
 	const W = () => C.width / DPR;
 	const H = () => C.height / DPR;
-	const GREEN = '#34C787';
-	const CREAM = '#F8F7F2';
-	const GRAY = '#71717a';
+	const BRAND = '#36995F';
+	const DOT_COLOR = '#D3D1CC';
+	const OBSTACLE_COLOR = '#9B9A97';
+	const BG = '#FBFAF8';
+	const TEXT_COLOR = '#37352F';
 	const GROUND_Y = () => H() - 40;
 
-	const stars = Array.from({ length: 80 }, () => ({
+	const dots = Array.from({ length: 50 }, () => ({
 		x: Math.random(), y: Math.random() * 0.75,
-		r: Math.random() * 1.2 + 0.3,
+		r: Math.random() * 1.0 + 0.3,
 		s: Math.random() * 0.3 + 0.1,
-		c: Math.random() > 0.4 ? CREAM : '#fff',
+		c: Math.random() > 0.5 ? DOT_COLOR : '#E8E5E0',
 	}));
 
 	let state = 'idle'; // idle | running | dead
@@ -118,49 +124,37 @@ export const prerender = true;
 		obstacles.push({ x: w + 20, sz, sides, passed: false });
 	}
 
-	function drawStars() {
+	function drawDots() {
 		const w = W(), h = H();
-		for (const s of stars) {
-			s.x -= s.s * 0.001 * speed;
-			if (s.x < 0) s.x += 1;
-			ctx.fillStyle = s.c;
-			ctx.globalAlpha = 0.5 + Math.sin(frame * 0.02 + s.r * 10) * 0.3;
+		for (const d of dots) {
+			d.x -= d.s * 0.001 * speed;
+			if (d.x < 0) d.x += 1;
+			ctx.fillStyle = d.c;
+			ctx.globalAlpha = 0.4 + Math.sin(frame * 0.02 + d.r * 10) * 0.2;
 			ctx.beginPath();
-			ctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
+			ctx.arc(d.x * w, d.y * h, d.r, 0, Math.PI * 2);
 			ctx.fill();
 		}
 		ctx.globalAlpha = 1;
 	}
 
-	function drawNebula() {
-		const w = W(), h = H();
-		const g1 = ctx.createRadialGradient(w * 0.2, h * 0.3, 0, w * 0.2, h * 0.3, w * 0.35);
-		g1.addColorStop(0, 'rgba(52,199,135,0.04)');
-		g1.addColorStop(1, 'transparent');
-		ctx.fillStyle = g1;
-		ctx.fillRect(0, 0, w, h);
-		const g2 = ctx.createRadialGradient(w * 0.75, h * 0.5, 0, w * 0.75, h * 0.5, w * 0.3);
-		g2.addColorStop(0, 'rgba(248,247,242,0.025)');
-		g2.addColorStop(1, 'transparent');
-		ctx.fillStyle = g2;
-		ctx.fillRect(0, 0, w, h);
-	}
-
 	function drawGround() {
 		const gy = GROUND_Y();
-		ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+		ctx.strokeStyle = 'rgba(55,53,47,0.08)';
 		ctx.lineWidth = 1;
+		ctx.setLineDash([4, 4]);
 		ctx.beginPath();
 		ctx.moveTo(0, gy + 10);
 		ctx.lineTo(W(), gy + 10);
 		ctx.stroke();
+		ctx.setLineDash([]);
 	}
 
 	function drawTrail() {
 		for (let i = 0; i < trail.length; i++) {
 			const t = trail[i];
 			const a = t.a * (i / trail.length);
-			ctx.fillStyle = GREEN;
+			ctx.fillStyle = BRAND;
 			ctx.globalAlpha = a;
 			ctx.beginPath();
 			ctx.arc(t.x, t.y, t.r, 0, Math.PI * 2);
@@ -170,18 +164,15 @@ export const prerender = true;
 	}
 
 	function drawPlayer(px) {
-		ctx.shadowColor = GREEN;
-		ctx.shadowBlur = 18;
-		ctx.fillStyle = GREEN;
+		ctx.fillStyle = BRAND;
 		ctx.beginPath();
 		ctx.arc(px, py, 10, 0, Math.PI * 2);
 		ctx.fill();
-		ctx.shadowBlur = 0;
 	}
 
 	function drawObstacles() {
 		for (const o of obstacles) {
-			ctx.fillStyle = GRAY;
+			ctx.fillStyle = OBSTACLE_COLOR;
 			ctx.beginPath();
 			for (let i = 0; i < o.sides; i++) {
 				const ang = (Math.PI * 2 / o.sides) * i - Math.PI / 2;
@@ -195,22 +186,22 @@ export const prerender = true;
 	}
 
 	function drawScore() {
-		ctx.fillStyle = '#f0f0f0';
+		ctx.fillStyle = TEXT_COLOR;
 		ctx.font = '600 14px "JetBrains Mono", monospace';
 		ctx.textAlign = 'right';
 		ctx.fillText(String(score).padStart(5, '0'), W() - 16, 28);
 		if (best > 0) {
-			ctx.fillStyle = 'rgba(240,240,240,0.35)';
+			ctx.fillStyle = 'rgba(55,53,47,0.35)';
 			ctx.font = '500 10px "JetBrains Mono", monospace';
 			ctx.fillText('HI ' + String(best).padStart(5, '0'), W() - 16, 44);
 		}
 	}
 
 	function drawPrompt(text) {
-		ctx.fillStyle = '#f0f0f0';
+		ctx.fillStyle = TEXT_COLOR;
 		ctx.font = '500 14px "JetBrains Mono", monospace';
 		ctx.textAlign = 'center';
-		ctx.globalAlpha = 0.6 + Math.sin(frame * 0.05) * 0.3;
+		ctx.globalAlpha = 0.5 + Math.sin(frame * 0.05) * 0.2;
 		ctx.fillText(text, W() / 2, H() / 2 + 4);
 		ctx.globalAlpha = 1;
 	}
@@ -220,11 +211,10 @@ export const prerender = true;
 	function tick() {
 		const w = W(), h = H();
 		ctx.clearRect(0, 0, w, h);
-		ctx.fillStyle = '#000';
+		ctx.fillStyle = BG;
 		ctx.fillRect(0, 0, w, h);
 
-		drawNebula();
-		drawStars();
+		drawDots();
 		drawGround();
 
 		if (state === 'running') {

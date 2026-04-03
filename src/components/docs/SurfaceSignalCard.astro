@@ -66,7 +66,7 @@ import DiagramFrame from './DiagramFrame.astro';
 	.surface-signal__frame,
 	.surface-signal__panel,
 	.surface-signal__tag {
-		fill: rgba(255, 255, 255, 0.015);
+		fill: rgba(0, 0, 0, 0.02);
 		stroke: var(--wcb-border);
 	}
 
@@ -78,7 +78,7 @@ import DiagramFrame from './DiagramFrame.astro';
 	}
 
 	.surface-signal__beam {
-		stroke: rgba(255, 255, 255, 0.18);
+		stroke: rgba(0, 0, 0, 0.16);
 		stroke-width: 2;
 		stroke-dasharray: 6 8;
 		animation: surfaceSignalDash 14s linear infinite;
@@ -86,11 +86,11 @@ import DiagramFrame from './DiagramFrame.astro';
 
 	.surface-signal__panel--dashboard,
 	.surface-signal__node--active {
-		stroke: rgba(62, 207, 142, 0.48);
+		stroke: hsl(153 50% 42% / 0.35);
 	}
 
 	.surface-signal__panel--dashboard {
-		fill: rgba(62, 207, 142, 0.06);
+		fill: hsl(153 50% 42% / 0.06);
 	}
 
 	.surface-signal__node {
@@ -100,11 +100,11 @@ import DiagramFrame from './DiagramFrame.astro';
 	}
 
 	.surface-signal__node--active {
-		fill: rgba(62, 207, 142, 0.18);
+		fill: hsl(153 50% 42% / 0.16);
 	}
 
 	.surface-signal__pulse {
-		fill: rgba(62, 207, 142, 0.08);
+		fill: hsl(153 50% 42% / 0.08);
 		transform-origin: center;
 		animation: surfaceSignalPulse 2.9s ease-in-out infinite;
 	}
@@ -127,21 +127,6 @@ import DiagramFrame from './DiagramFrame.astro';
 		stroke: var(--wcb-text-muted);
 		stroke-width: 6;
 		opacity: 0.76;
-	}
-
-	:root[data-theme='light'] .surface-signal__frame,
-	:root[data-theme='light'] .surface-signal__panel,
-	:root[data-theme='light'] .surface-signal__tag {
-		fill: rgba(0, 0, 0, 0.02);
-	}
-
-	:root[data-theme='light'] .surface-signal__beam {
-		stroke: rgba(0, 0, 0, 0.16);
-	}
-
-	:root[data-theme='light'] .surface-signal__panel--dashboard {
-		fill: rgba(32, 166, 105, 0.06);
-		stroke: rgba(32, 166, 105, 0.35);
 	}
 
 	@keyframes surfaceSignalPulse {

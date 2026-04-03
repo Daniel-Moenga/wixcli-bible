@@ -1,393 +1,119 @@
 <div class="hero-canvas" aria-hidden="true">
-	<svg viewBox="0 0 860 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
-		<defs>
-			<pattern id="hero-canvas-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-				<circle cx="10" cy="10" r="1" fill="currentColor" opacity="0.08"></circle>
+	<div class="hero-canvas__frame">
+		<!-- Warm dot grid background -->
+		<svg class="hero-canvas__grid" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+			<pattern id="hero-warm-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+				<circle cx="10" cy="10" r="0.8" fill="#D3D1CC" />
 			</pattern>
-			<linearGradient id="hero-canvas-top" x1="430" y1="28" x2="430" y2="112" gradientUnits="userSpaceOnUse">
-				<stop stop-color="rgba(255,255,255,0.05)"></stop>
-				<stop offset="1" stop-color="rgba(255,255,255,0.01)"></stop>
-			</linearGradient>
-			<radialGradient id="hero-canvas-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(742 108) rotate(90) scale(220 260)">
-				<stop stop-color="var(--wcb-brand)" stop-opacity="0.16"></stop>
-				<stop offset="1" stop-color="var(--wcb-brand)" stop-opacity="0"></stop>
-			</radialGradient>
-		</defs>
+			<rect width="200" height="200" fill="url(#hero-warm-dots)" />
+		</svg>
 
-		<rect x="14" y="18" width="832" height="524" rx="28" class="hero-canvas__frame"></rect>
-		<rect x="14" y="18" width="832" height="524" rx="28" fill="url(#hero-canvas-grid)" opacity="0.35"></rect>
-		<rect x="14" y="18" width="832" height="524" rx="28" fill="url(#hero-canvas-glow)"></rect>
+		<!-- Doodle illustration -->
+		<img src="/doodles/hero.svg" alt="" class="hero-canvas__doodle" loading="eager" />
 
-		<rect x="14" y="18" width="832" height="70" rx="28" class="hero-canvas__topbar"></rect>
-		<circle cx="44" cy="53" r="4" class="hero-canvas__dot"></circle>
-		<circle cx="60" cy="53" r="4" class="hero-canvas__dot"></circle>
-		<circle cx="76" cy="53" r="4" class="hero-canvas__dot"></circle>
-		<text x="102" y="57" class="hero-canvas__window">wixcli-bible/docs</text>
-
-		<rect x="632" y="34" width="186" height="36" rx="12" class="hero-canvas__search"></rect>
-		<path d="M662 48.5a7.5 7.5 0 1 0 5.42 12.68l3.68 3.68" class="hero-canvas__search-icon"></path>
-		<text x="682" y="58" class="hero-canvas__search-text">Search</text>
-		<rect x="742" y="42" width="62" height="20" rx="10" class="hero-canvas__keycap"></rect>
-		<text x="752" y="56" class="hero-canvas__keycap-text">Ctrl + K</text>
-
-		<rect x="36" y="108" width="168" height="392" rx="20" class="hero-canvas__rail"></rect>
-		<text x="62" y="146" class="hero-canvas__eyebrow">handbook</text>
-		<rect x="56" y="166" width="128" height="42" rx="12" class="hero-canvas__nav hero-canvas__nav--active"></rect>
-		<text x="74" y="193" class="hero-canvas__nav-text hero-canvas__nav-text--active">Start Here</text>
-		<text x="74" y="248" class="hero-canvas__nav-text">Mental Model</text>
-		<text x="74" y="302" class="hero-canvas__nav-text">Workflow</text>
-		<text x="74" y="356" class="hero-canvas__nav-text">Surfaces</text>
-		<text x="74" y="410" class="hero-canvas__nav-text">Ask Beta</text>
-
-		<rect x="228" y="108" width="594" height="392" rx="24" class="hero-canvas__workspace"></rect>
-		<line x1="228" y1="108" x2="228" y2="500" class="hero-canvas__divider"></line>
-		<rect x="258" y="144" width="58" height="28" rx="8" class="hero-canvas__chip"></rect>
-		<rect x="326" y="144" width="70" height="28" rx="8" class="hero-canvas__chip hero-canvas__chip--muted"></rect>
-		<text x="278" y="162" class="hero-canvas__chip-text">Docs</text>
-		<text x="345" y="162" class="hero-canvas__chip-text hero-canvas__chip-text--muted">Wix CLI</text>
-
-		<path d="M258 196h202" class="hero-canvas__headline hero-canvas__headline--strong"></path>
-		<path d="M258 226h166" class="hero-canvas__headline hero-canvas__headline--strong"></path>
-		<path d="M258 256h146" class="hero-canvas__headline hero-canvas__headline--strong"></path>
-		<path d="M258 304h252" class="hero-canvas__copy"></path>
-		<path d="M258 332h236" class="hero-canvas__copy"></path>
-		<path d="M258 360h170" class="hero-canvas__copy"></path>
-
-		<rect x="258" y="392" width="320" height="84" rx="18" class="hero-canvas__panel hero-canvas__panel--command"></rect>
-		<text x="282" y="420" class="hero-canvas__panel-label">command flow</text>
-		<rect x="282" y="434" width="110" height="22" rx="8" class="hero-canvas__command"></rect>
-		<rect x="404" y="434" width="82" height="22" rx="8" class="hero-canvas__command hero-canvas__command--muted"></rect>
-		<rect x="498" y="434" width="56" height="22" rx="8" class="hero-canvas__command hero-canvas__command--active"></rect>
-		<circle cx="286" cy="470" r="5" class="hero-canvas__status-dot"></circle>
-		<text x="300" y="474" class="hero-canvas__panel-note">preview connected</text>
-
-		<rect x="600" y="196" width="192" height="280" rx="18" class="hero-canvas__panel hero-canvas__panel--signal"></rect>
-		<text x="624" y="224" class="hero-canvas__panel-label">release signal</text>
-		<path d="M636 390C666 390 676 320 712 320H726C758 320 764 370 790 370" class="hero-canvas__path"></path>
-		<circle cx="636" cy="390" r="8" class="hero-canvas__node hero-canvas__node--muted"></circle>
-		<circle cx="712" cy="320" r="8" class="hero-canvas__node hero-canvas__node--active"></circle>
-		<circle cx="790" cy="370" r="8" class="hero-canvas__node hero-canvas__node--muted"></circle>
-		<text x="622" y="414" class="hero-canvas__mini-label">preview</text>
-		<text x="694" y="298" class="hero-canvas__mini-label">install</text>
-		<text x="774" y="394" class="hero-canvas__mini-label">release</text>
-		<path d="M624 254h136" class="hero-canvas__copy hero-canvas__copy--short"></path>
-		<path d="M624 274h124" class="hero-canvas__copy hero-canvas__copy--short"></path>
-		<path d="M624 294h110" class="hero-canvas__copy hero-canvas__copy--short"></path>
-
-		<rect x="258" y="144" width="290" height="332" rx="24" class="hero-canvas__sweep"></rect>
-
-		<circle cx="702" cy="154" r="3.5" class="hero-canvas__particle hero-canvas__particle--a"></circle>
-		<circle cx="742" cy="176" r="2.5" class="hero-canvas__particle hero-canvas__particle--b"></circle>
-		<circle cx="768" cy="150" r="2.5" class="hero-canvas__particle hero-canvas__particle--c"></circle>
-	</svg>
+		<!-- Decorative elements -->
+		<div class="hero-canvas__badge hero-canvas__badge--top">
+			<span class="hero-canvas__badge-dot"></span>
+			<span>16 docs</span>
+		</div>
+		<div class="hero-canvas__badge hero-canvas__badge--mid">
+			<span class="hero-canvas__badge-dot hero-canvas__badge-dot--brand"></span>
+			<span>step-by-step</span>
+		</div>
+		<div class="hero-canvas__badge hero-canvas__badge--bottom">
+			<span>open-source</span>
+		</div>
+	</div>
 </div>
 
 <style>
 	.hero-canvas {
-		display: block;
+		position: relative;
 		width: 100%;
-	}
-
-	.hero-canvas svg {
-		display: block;
-		width: 100%;
-		height: auto;
-		color: var(--wcb-text-soft);
 	}
 
 	.hero-canvas__frame {
-		fill: var(--wcb-panel);
-		stroke: var(--wcb-border);
+		position: relative;
+		overflow: hidden;
+		border: 1px solid var(--wcb-border);
+		border-radius: calc(var(--wcb-radius-lg) + 4px);
+		background: var(--wcb-bg-elevated);
+		aspect-ratio: 4 / 3;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
-	.hero-canvas__topbar,
-	.hero-canvas__rail,
-	.hero-canvas__workspace,
-	.hero-canvas__search,
-	.hero-canvas__panel,
-	.hero-canvas__command,
-	.hero-canvas__chip,
-	.hero-canvas__keycap {
-		fill: rgba(255, 255, 255, 0.02);
-		stroke: var(--wcb-border);
+	.hero-canvas__grid {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0.5;
 	}
 
-	.hero-canvas__rail {
-		fill: rgba(0, 0, 0, 0.22);
+	.hero-canvas__doodle {
+		position: relative;
+		z-index: 1;
+		width: 65%;
+		max-width: 320px;
+		height: auto;
+		opacity: 0.82;
+		filter: sepia(0.05) saturate(0.85);
 	}
 
-	.hero-canvas__workspace {
-		fill: rgba(255, 255, 255, 0.01);
-	}
-
-	.hero-canvas__divider,
-	.hero-canvas__headline,
-	.hero-canvas__copy,
-	.hero-canvas__path {
-		fill: none;
-		stroke-linecap: round;
-	}
-
-	.hero-canvas__divider {
-		stroke: rgba(255, 255, 255, 0.03);
-	}
-
-	.hero-canvas__headline {
-		stroke: var(--wcb-text);
-		stroke-width: 18;
-	}
-
-	.hero-canvas__headline--strong {
-		filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.02));
-	}
-
-	.hero-canvas__copy {
-		stroke: var(--wcb-text-muted);
-		stroke-width: 10;
-		opacity: 0.8;
-	}
-
-	.hero-canvas__copy--short {
-		stroke-width: 7;
-		opacity: 0.52;
-	}
-
-	.hero-canvas__window,
-	.hero-canvas__eyebrow,
-	.hero-canvas__panel-label,
-	.hero-canvas__mini-label,
-	.hero-canvas__keycap-text {
-		fill: var(--wcb-text-soft);
+	.hero-canvas__badge {
+		position: absolute;
+		z-index: 2;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.4rem 0.7rem;
+		border: 1px solid var(--wcb-border);
+		border-radius: 999px;
+		background: var(--wcb-panel);
+		color: var(--wcb-text-muted);
 		font-family: var(--wcb-font-accent);
-		font-size: 13px;
-		font-weight: 650;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+		font-size: 0.68rem;
+		font-weight: 600;
+		letter-spacing: 0.03em;
 	}
 
-	.hero-canvas__search-text,
-	.hero-canvas__panel-note,
-	.hero-canvas__nav-text,
-	.hero-canvas__chip-text,
-	.hero-canvas__nav-text--active {
-		fill: var(--wcb-text-muted);
-		font-family: var(--wcb-font-body);
-		font-size: 15px;
-		font-weight: 500;
+	.hero-canvas__badge--top {
+		top: 12%;
+		right: 10%;
 	}
 
-	.hero-canvas__nav-text--active,
-	.hero-canvas__chip-text,
-	.hero-canvas__search-text,
-	.hero-canvas__keycap-text {
-		fill: var(--wcb-text);
+	.hero-canvas__badge--mid {
+		bottom: 32%;
+		left: 6%;
 	}
 
-	.hero-canvas__chip-text,
-	.hero-canvas__chip-text--muted {
-		font-size: 13px;
-		font-family: var(--wcb-font-accent);
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
+	.hero-canvas__badge--bottom {
+		bottom: 10%;
+		right: 14%;
 	}
 
-	.hero-canvas__chip-text--muted {
-		fill: var(--wcb-text-soft);
+	.hero-canvas__badge-dot {
+		width: 0.42rem;
+		height: 0.42rem;
+		border-radius: 999px;
+		background: var(--wcb-text-soft);
 	}
 
-	.hero-canvas__search-icon {
-		fill: none;
-		stroke: var(--wcb-text-soft);
-		stroke-width: 1.6;
-		stroke-linecap: round;
-		stroke-linejoin: round;
+	.hero-canvas__badge-dot--brand {
+		background: var(--wcb-brand);
 	}
 
-	.hero-canvas__dot {
-		fill: var(--wcb-text-soft);
-		opacity: 0.72;
-	}
-
-	.hero-canvas__nav {
-		fill: rgba(255, 255, 255, 0.02);
-		stroke: transparent;
-	}
-
-	.hero-canvas__nav--active {
-		fill: rgba(255, 255, 255, 0.06);
-		stroke: rgba(255, 255, 255, 0.08);
-	}
-
-	.hero-canvas__command {
-		fill: rgba(255, 255, 255, 0.015);
-	}
-
-	.hero-canvas__command--muted {
-		opacity: 0.68;
-	}
-
-	.hero-canvas__command--active {
-		fill: rgba(62, 207, 142, 0.09);
-		stroke: rgba(62, 207, 142, 0.48);
-	}
-
-	.hero-canvas__status-dot {
-		fill: var(--wcb-brand);
-		transform-origin: center;
-		animation: heroCanvasPulse 2.8s ease-in-out infinite;
-	}
-
-	.hero-canvas__node {
-		stroke-width: 1.5;
-		transform-origin: center;
-	}
-
-	.hero-canvas__node--muted {
-		fill: var(--wcb-panel-strong);
-		stroke: var(--wcb-border-strong);
-	}
-
-	.hero-canvas__node--active {
-		fill: rgba(62, 207, 142, 0.14);
-		stroke: var(--wcb-brand);
-		animation: heroCanvasPulse 3.1s ease-in-out infinite;
-	}
-
-	.hero-canvas__path {
-		stroke: rgba(255, 255, 255, 0.34);
-		stroke-width: 1.5;
-		stroke-dasharray: 5 7;
-		animation: heroCanvasDash 14s linear infinite;
-	}
-
-	.hero-canvas__sweep {
-		fill: url(#hero-canvas-top);
-		mix-blend-mode: screen;
-		opacity: 0.24;
-		transform-origin: center;
-		animation: heroCanvasSweep 9s ease-in-out infinite;
-	}
-
-	.hero-canvas__particle {
-		fill: var(--wcb-brand);
-		opacity: 0.6;
-	}
-
-	.hero-canvas__particle--a {
-		animation: heroCanvasFloatA 6.4s ease-in-out infinite;
-	}
-
-	.hero-canvas__particle--b {
-		animation: heroCanvasFloatB 7.2s ease-in-out infinite;
-	}
-
-	.hero-canvas__particle--c {
-		animation: heroCanvasFloatA 8.1s ease-in-out infinite reverse;
-	}
-
-	@keyframes heroCanvasPulse {
-		0%,
-		100% {
-			transform: scale(1);
-			opacity: 0.88;
-		}
-
-		50% {
-			transform: scale(1.18);
-			opacity: 1;
+	@media (max-width: 72rem) {
+		.hero-canvas__frame {
+			aspect-ratio: 16 / 10;
 		}
 	}
 
-	@keyframes heroCanvasDash {
-		from {
-			stroke-dashoffset: 0;
-		}
-
-		to {
-			stroke-dashoffset: -72;
-		}
-	}
-
-	@keyframes heroCanvasSweep {
-		0%,
-		100% {
-			transform: translateX(-16px);
-			opacity: 0.14;
-		}
-
-		50% {
-			transform: translateX(22px);
-			opacity: 0.32;
-		}
-	}
-
-	@keyframes heroCanvasFloatA {
-		0%,
-		100% {
-			transform: translateY(0);
-			opacity: 0.46;
-		}
-
-		50% {
-			transform: translateY(-10px);
-			opacity: 0.9;
-		}
-	}
-
-	@keyframes heroCanvasFloatB {
-		0%,
-		100% {
-			transform: translate(0, 0);
-			opacity: 0.4;
-		}
-
-		50% {
-			transform: translate(-8px, 8px);
-			opacity: 0.82;
-		}
-	}
-
-	:root[data-theme='light'] .hero-canvas__topbar,
-	:root[data-theme='light'] .hero-canvas__workspace,
-	:root[data-theme='light'] .hero-canvas__search,
-	:root[data-theme='light'] .hero-canvas__panel,
-	:root[data-theme='light'] .hero-canvas__command,
-	:root[data-theme='light'] .hero-canvas__chip,
-	:root[data-theme='light'] .hero-canvas__keycap {
-		fill: rgba(0, 0, 0, 0.02);
-	}
-
-	:root[data-theme='light'] .hero-canvas__rail {
-		fill: rgba(0, 0, 0, 0.02);
-	}
-
-	:root[data-theme='light'] .hero-canvas__nav--active {
-		fill: rgba(0, 0, 0, 0.05);
-		stroke: rgba(0, 0, 0, 0.09);
-	}
-
-	:root[data-theme='light'] .hero-canvas__command--active {
-		fill: rgba(32, 166, 105, 0.08);
-		stroke: rgba(32, 166, 105, 0.35);
-	}
-
-	:root[data-theme='light'] .hero-canvas__divider {
-		stroke: rgba(0, 0, 0, 0.05);
-	}
-
-	:root[data-theme='light'] .hero-canvas__frame {
-		fill: var(--wcb-panel);
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.hero-canvas__status-dot,
-		.hero-canvas__node--active,
-		.hero-canvas__path,
-		.hero-canvas__sweep,
-		.hero-canvas__particle--a,
-		.hero-canvas__particle--b,
-		.hero-canvas__particle--c {
-			animation: none;
+	@media (max-width: 44rem) {
+		.hero-canvas__badge--mid {
+			display: none;
 		}
 	}
 </style>

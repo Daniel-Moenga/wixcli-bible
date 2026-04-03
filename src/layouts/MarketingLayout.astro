@@ -3,7 +3,6 @@ import { site } from '../data/site';
 import MotionEnhancements from '../components/common/MotionEnhancements.astro';
 import SiteFooter from '../components/common/SiteFooter.astro';
 import SiteHeader from '../components/common/SiteHeader.astro';
-import ThemeDock from '../components/common/ThemeDock.astro';
 import ThemeBootScript from '../components/common/ThemeBootScript.astro';
 import '../styles/site.css';
 
@@ -11,7 +10,7 @@ const {
 	title,
 	description = site.description,
 	canonicalPath = '/',
-	ogImage = '/brand/moenga-dark-background.png',
+	ogImage = '/brand/moenga-light-background.png',
 } = Astro.props;
 
 const pageTitle = title ? `${title} | ${site.name}` : site.name;
@@ -20,7 +19,7 @@ const ogUrl = new URL(ogImage, site.url).toString();
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,7 +28,7 @@ const ogUrl = new URL(ogImage, site.url).toString();
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalUrl} />
-		<meta name="theme-color" content="#121212" />
+		<meta name="theme-color" content="#FFFFFF" />
 		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
@@ -48,7 +47,6 @@ const ogUrl = new URL(ogImage, site.url).toString();
 			<slot />
 		</main>
 		<SiteFooter />
-		<ThemeDock />
 		<MotionEnhancements />
 	</body>
 </html>

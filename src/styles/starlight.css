@@ -2,31 +2,32 @@
 	--sl-font: 'Wix Madefor Text Variable', system-ui, sans-serif;
 	--sl-font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
 	--sl-color-white: var(--wcb-text);
-	--sl-color-gray-1: hsl(0 0% 90%);
-	--sl-color-gray-2: hsl(0 0% 74%);
-	--sl-color-gray-3: hsl(0 0% 58%);
-	--sl-color-gray-4: hsl(0 0% 42%);
-	--sl-color-gray-5: hsl(0 0% 18%);
-	--sl-color-gray-6: hsl(0 0% 12%);
+	--sl-color-gray-1: hsl(30 4% 14%);
+	--sl-color-gray-2: hsl(30 3% 22%);
+	--sl-color-gray-3: hsl(30 2% 34%);
+	--sl-color-gray-4: hsl(30 2% 48%);
+	--sl-color-gray-5: hsl(30 6% 86%);
+	--sl-color-gray-6: hsl(30 10% 95%);
+	--sl-color-gray-7: hsl(30 10% 99%);
 	--sl-color-black: var(--wcb-bg);
-	--sl-color-accent-low: hsl(0 0% 16%);
-	--sl-color-accent: hsl(0 0% 98%);
-	--sl-color-accent-high: hsl(0 0% 98%);
+	--sl-color-accent-low: #F1EEEA;
+	--sl-color-accent: #37352F;
+	--sl-color-accent-high: #37352F;
 	--sl-color-text: var(--wcb-text-muted);
 	--sl-color-text-accent: var(--wcb-accent);
-	--sl-color-text-invert: var(--wcb-bg);
+	--sl-color-text-invert: #FFFFFF;
 	--sl-color-bg: transparent;
 	--sl-color-bg-nav: var(--wcb-bg);
 	--sl-color-bg-sidebar: transparent;
-	--sl-color-bg-inline-code: hsl(0 0% 14%);
+	--sl-color-bg-inline-code: #F1EEEA;
 	--sl-color-bg-accent: var(--wcb-accent);
 	--sl-color-hairline-light: var(--wcb-border);
 	--sl-color-hairline: transparent;
 	--sl-color-hairline-shade: var(--wcb-border);
-	--sl-color-backdrop-overlay: hsla(0 0% 0% / 0.6);
-	--sl-shadow-sm: var(--wcb-shadow-sm);
-	--sl-shadow-md: var(--wcb-shadow-sm);
-	--sl-shadow-lg: var(--wcb-shadow-sm);
+	--sl-color-backdrop-overlay: hsla(30 10% 10% / 0.2);
+	--sl-shadow-sm: none;
+	--sl-shadow-md: none;
+	--sl-shadow-lg: none;
 	--sl-text-body: 0.9375rem;
 	--sl-text-body-sm: 0.8125rem;
 	--sl-text-code: 0.8125rem;
@@ -35,37 +36,27 @@
 	--sl-text-h2: 1.625rem;
 	--sl-text-h3: 1.25rem;
 	--sl-text-h4: 1.0625rem;
-	--sl-line-height: 1.7;
+	--sl-line-height: 1.75;
 	--sl-sidebar-width: 14rem;
 	--sl-content-width: 68rem;
 	--sl-nav-height: 4.25rem;
 	--sl-nav-pad-x: 1rem;
-	--sl-content-pad-x: 1.5rem;
+	--sl-content-pad-x: 2rem;
+
+	--sl-color-green-low: hsl(153 30% 94%);
+	--sl-color-green-high: hsl(153 40% 28%);
+	--sl-color-blue-low: hsl(30 20% 94%);
+	--sl-color-blue-high: hsl(30 10% 34%);
+	--sl-color-orange-low: hsl(35 50% 94%);
+	--sl-color-orange-high: hsl(35 40% 34%);
+	--sl-color-red-low: hsl(10 40% 95%);
+	--sl-color-red-high: hsl(10 40% 38%);
+	--sl-color-purple-low: hsl(280 20% 94%);
+	--sl-color-purple-high: hsl(280 20% 36%);
 }
 
-:root[data-theme='light'] {
-	--sl-color-white: var(--wcb-text);
-	--sl-color-gray-1: hsl(0 0% 14%);
-	--sl-color-gray-2: hsl(0 0% 22%);
-	--sl-color-gray-3: hsl(0 0% 34%);
-	--sl-color-gray-4: hsl(0 0% 48%);
-	--sl-color-gray-5: hsl(0 0% 86%);
-	--sl-color-gray-6: hsl(0 0% 95%);
-	--sl-color-gray-7: hsl(0 0% 99%);
-	--sl-color-black: var(--wcb-bg);
-	--sl-color-accent-low: hsl(0 0% 95%);
-	--sl-color-accent: hsl(0 0% 8%);
-	--sl-color-accent-high: hsl(0 0% 8%);
-	--sl-color-text: var(--wcb-text-muted);
-	--sl-color-text-accent: hsl(0 0% 8%);
-	--sl-color-text-invert: hsl(0 0% 99%);
-	--sl-color-bg-nav: var(--wcb-bg);
-	--sl-color-bg-inline-code: hsl(0 0% 95%);
-	--sl-color-backdrop-overlay: hsla(0 0% 0% / 0.2);
-}
-
-:root[data-theme='light'] .sl-markdown-content a {
-	text-decoration-color: hsl(0 0% 62%);
+.sl-markdown-content a {
+	text-decoration-color: var(--wcb-border-strong);
 }
 
 .main-pane {
@@ -79,7 +70,7 @@
 }
 
 .sidebar-content {
-	padding-top: 1rem;
+	padding-top: 1.5rem;
 }
 
 .content-panel {
@@ -90,7 +81,7 @@
 .content-panel .sl-container {
 	max-width: min(100%, var(--sl-content-width));
 	margin-inline: auto;
-	padding: 0 1.9rem 0 1.75rem;
+	padding: 0 2.25rem 0 1.75rem;
 	border: 0;
 	border-radius: 0;
 	background: transparent;
@@ -132,7 +123,7 @@ html[data-has-hero] .hero .actions {
 }
 
 .sl-link-button.primary {
-	background: var(--wcb-text);
+	background: var(--wcb-accent);
 	border-color: transparent;
 	color: var(--wcb-bg);
 }
@@ -152,7 +143,7 @@ html[data-has-hero] .hero .actions {
 .sl-link-button.primary:hover,
 .sl-link-button.primary:focus-visible,
 .sl-link-button.primary:active {
-	background: var(--wcb-text-muted);
+	background: #4B4A45;
 	border-color: transparent;
 	color: var(--wcb-bg);
 }
@@ -219,8 +210,10 @@ html[data-has-hero] .hero .actions {
 }
 
 .sidebar-content a[aria-current='page'] {
-	background: var(--wcb-text);
-	color: var(--wcb-bg);
+	background: var(--wcb-accent-soft);
+	color: var(--wcb-text);
+	font-weight: 600;
+	border-left: 2px solid var(--wcb-brand);
 }
 
 .right-sidebar,
@@ -241,20 +234,26 @@ mobile-starlight-toc a {
 
 .right-sidebar a:hover,
 .right-sidebar a:focus-visible,
+mobile-starlight-toc a:hover,
+mobile-starlight-toc a:focus-visible {
+	color: var(--wcb-text);
+}
+
 .right-sidebar a[aria-current='true'],
 .right-sidebar a[aria-current='location'],
-mobile-starlight-toc a:hover,
-mobile-starlight-toc a:focus-visible,
 mobile-starlight-toc a[aria-current='true'],
 mobile-starlight-toc a[aria-current='location'] {
 	color: var(--wcb-text);
+	border-left: 2px solid var(--wcb-brand);
+	padding-left: 0.5rem;
+	margin-left: -0.5rem;
 }
 
 .sl-markdown-content :where(h1, h2, h3, h4) {
 	font-family: var(--wcb-font-display);
 	color: var(--wcb-text);
 	font-weight: 700;
-	letter-spacing: -0.025em;
+	letter-spacing: -0.02em;
 }
 
 .sl-markdown-content :where(p, li, td) {
@@ -263,7 +262,7 @@ mobile-starlight-toc a[aria-current='location'] {
 
 .sl-markdown-content blockquote {
 	border-inline-start: 2px solid var(--wcb-border-strong);
-	background: var(--wcb-panel);
+	background: var(--wcb-bg-elevated);
 	border-radius: 0 var(--wcb-radius-sm) var(--wcb-radius-sm) 0;
 	padding: 0.75rem 1rem;
 }
@@ -338,9 +337,7 @@ html[data-has-hero] .right-sidebar-container {
 	padding: 1rem;
 	border: 1px solid var(--wcb-border);
 	border-radius: var(--wcb-radius-md);
-	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 34%),
-		var(--wcb-panel);
+	background: var(--wcb-panel);
 }
 
 .docs-figure--compact {
@@ -394,7 +391,7 @@ html[data-has-hero] .right-sidebar-container {
 	height: 0.5rem;
 	border-radius: 999px;
 	background: var(--wcb-brand);
-	box-shadow: 0 0 0 0.18rem rgba(54, 214, 141, 0.12);
+	box-shadow: 0 0 0 0.18rem hsl(153 50% 42% / 0.12);
 }
 
 .surface-map__grid {
@@ -417,8 +414,8 @@ html[data-has-hero] .right-sidebar-container {
 }
 
 .surface-card.is-active {
-	border-color: rgba(54, 214, 141, 0.34);
-	background: linear-gradient(180deg, rgba(54, 214, 141, 0.08), transparent 72%), var(--wcb-bg-elevated);
+	border-color: hsl(153 50% 42% / 0.28);
+	background: hsl(153 50% 42% / 0.05);
 }
 
 .surface-card.is-muted {
@@ -551,8 +548,8 @@ html[data-has-hero] .right-sidebar-container {
 }
 
 .workflow-step--accent {
-	border-color: rgba(54, 214, 141, 0.34);
-	background: linear-gradient(180deg, rgba(54, 214, 141, 0.08), transparent 76%), var(--wcb-bg-elevated);
+	border-color: hsl(153 50% 42% / 0.28);
+	background: hsl(153 50% 42% / 0.05);
 }
 
 .workflow-map__notes {
@@ -587,20 +584,6 @@ html[data-has-hero] .right-sidebar-container {
 	}
 }
 
-@media (max-width: 60rem) {
-	.wcb-docs-header {
-		grid-template-columns: auto auto;
-	}
-
-	.wcb-docs-header__actions {
-		justify-self: end;
-	}
-
-	.wcb-docs-header__actions .header-link {
-		display: none;
-	}
-}
-
 @media (max-width: 44rem) {
 	.content-panel .sl-container,
 	html[data-has-hero] .content-panel .sl-container {
@@ -620,33 +603,4 @@ html[data-has-hero] .right-sidebar-container {
 	.workflow-step::before {
 		display: none;
 	}
-}
-
-:root[data-theme='light'] .sl-link-button.primary {
-	background: var(--wcb-accent);
-	color: var(--wcb-bg);
-}
-
-:root[data-theme='light'] .sl-link-button.primary:hover,
-:root[data-theme='light'] .sl-link-button.primary:focus-visible,
-:root[data-theme='light'] .sl-link-button.primary:active {
-	background: hsl(0 0% 14%);
-	color: var(--wcb-bg);
-}
-
-:root[data-theme='light'] .sidebar-content a[aria-current='page'] {
-	background: var(--wcb-accent);
-	color: var(--wcb-bg);
-}
-
-:root[data-theme='light'] .docs-figure {
-	background:
-		linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 34%),
-		var(--wcb-panel);
-}
-
-:root[data-theme='light'] .surface-card.is-active,
-:root[data-theme='light'] .workflow-step--accent {
-	border-color: rgba(32, 166, 105, 0.28);
-	background: linear-gradient(180deg, rgba(32, 166, 105, 0.08), transparent 72%), var(--wcb-bg-elevated);
 }

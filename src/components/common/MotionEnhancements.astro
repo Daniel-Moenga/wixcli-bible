@@ -1,5 +1,5 @@
 <script>
-	import { animate, inView, stagger } from 'motion';
+	import { animate, inView, stagger, scroll } from 'motion';
 
 	if (!window.__wcbMotionReady) {
 		window.__wcbMotionReady = true;
@@ -35,32 +35,131 @@
 				);
 			});
 
-		document.querySelectorAll('[data-reveal="card"]').forEach((element) => {
-			inView(
-				element,
-				() => {
-					fadeUp(element);
-				},
-				{ margin: '-15% 0px -10% 0px' }
-			);
-		});
+			document.querySelectorAll('[data-reveal="card"]').forEach((element) => {
+				inView(
+					element,
+					() => {
+						fadeUp(element);
+					},
+					{ margin: '-15% 0px -10% 0px' }
+				);
+			});
 
-		const heroShell = document.querySelector('.hero-shell');
-		if (heroShell) {
-			let ticking = false;
-			window.addEventListener('scroll', () => {
-				if (!ticking) {
-					requestAnimationFrame(() => {
-						const y = window.scrollY * 0.08;
-						const o = Math.max(0, 1 - window.scrollY / 600);
-						heroShell.style.transform = `translateY(${y}px)`;
-						heroShell.style.opacity = String(o);
-						ticking = false;
-					});
-					ticking = true;
-				}
+			// Clarify cards: staggered cascade on scroll
+			document.querySelectorAll('.clarify-grid').forEach((grid) => {
+				inView(
+					grid,
+					() => {
+						animate(
+							Array.from(grid.querySelectorAll('.clarify-card')),
+							{ opacity: [0, 1], y: [24, 0], filter: ['blur(4px)', 'blur(0px)'] },
+							{ delay: stagger(0.1), duration: 0.5, ease: 'ease-out' }
+						);
+					},
+					{ margin: '-10% 0px' }
+				);
+			});
+
+			// Hero parallax fade on scroll
+			const heroShell = document.querySelector('.hero-shell');
+			if (heroShell) {
+				let ticking = false;
+				window.addEventListener('scroll', () => {
+					if (!ticking) {
+						requestAnimationFrame(() => {
+							const y = window.scrollY * 0.08;
+							const o = Math.max(0, 1 - window.scrollY / 600);
+							heroShell.style.transform = `translateY(${y}px)`;
+							heroShell.style.opacity = String(o);
+							ticking = false;
+						});
+						ticking = true;
+					}
+				});
+			}
+
+			// Doodle illustrations: subtle parallax drift on scroll
+			document.querySelectorAll('.product-card__illustration img').forEach((img) => {
+				scroll(
+					animate(img, { y: [-4, 4] }, { ease: 'linear' }),
+					{ target: img.closest('.product-card') || img }
+				);
+			});
+
+			// Hero doodle parallax
+			const heroDoodle = document.querySelector('.hero-docs-canvas img');
+			if (heroDoodle) {
+				scroll(
+					animate(heroDoodle, { y: [-8, 8], rotate: [-0.5, 0.5] }, { ease: 'linear' }),
+					{ target: heroDoodle.closest('.hero-visual') || heroDoodle }
+				);
+			}
+
+			// Workflow diagram nodes: scale pulse on scroll into view
+			const workflowDiagram = document.querySelector('.workflow-diagram');
+			if (workflowDiagram) {
+				inView(
+					workflowDiagram,
+					() => {
+						const circles = workflowDiagram.querySelectorAll('circle');
+						animate(
+							Array.from(circles),
+							{ opacity: [0, 1], scale: [0.6, 1] },
+							{ delay: stagger(0.06), duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+						);
+					},
+					{ margin: '-5% 0px' }
+				);
+			}
+
+			// Section line draw-on animation
+			document.querySelectorAll('.section-line').forEach((line) => {
+				inView(
+					line,
+					() => {
+						animate(
+							line,
+							{ scaleX: [0, 1], opacity: [0, 1] },
+							{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+						);
+					},
+					{ margin: '-5% 0px' }
+				);
+			});
+
+			// Product card hover spring: gentle lift + border warmth
+			document.querySelectorAll('.product-card').forEach((card) => {
+				card.addEventListener('mouseenter', () => {
+					animate(card, { scale: 1.012 }, { type: 'spring', stiffness: 400, damping: 25 });
+				});
+				card.addEventListener('mouseleave', () => {
+					animate(card, { scale: 1 }, { type: 'spring', stiffness: 300, damping: 20 });
+				});
+			});
+
+			// Open source block reveal
+			const osBlock = document.querySelector('.open-source-block');
+			if (osBlock) {
+				inView(
+					osBlock,
+					() => {
+						animate(
+							osBlock,
+							{ opacity: [0, 1], y: [20, 0] },
+							{ duration: 0.55, ease: 'ease-out' }
+						);
+					},
+					{ margin: '-10% 0px' }
+				);
+			}
+
+			// Wavy divider: gentle float animation
+			document.querySelectorAll('.section-line--wavy svg path').forEach((path) => {
+				scroll(
+					animate(path, { x: [-6, 6] }, { ease: 'linear' }),
+					{ target: path.closest('.section-line--wavy') || path }
+				);
 			});
 		}
 	}
-}
 </script>

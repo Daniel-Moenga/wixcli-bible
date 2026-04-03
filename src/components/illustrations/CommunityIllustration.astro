@@ -1,36 +1,24 @@
-<svg viewBox="0 0 280 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-	<!-- dot grid -->
-	<pattern id="comm-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-		<circle cx="10" cy="10" r="0.7" fill="currentColor" opacity="0.15" />
-	</pattern>
-	<rect width="280" height="160" fill="url(#comm-dots)" />
+<div class="doodle-illustration">
+	<img src="/doodles/community.svg" alt="" aria-hidden="true" class="doodle-img" loading="lazy" />
+</div>
 
-	<!-- network connections -->
-	<line x1="100" y1="50" x2="180" y2="50" stroke="currentColor" stroke-width="0.75" opacity="0.2" />
-	<line x1="140" y1="50" x2="140" y2="110" stroke="currentColor" stroke-width="0.75" opacity="0.2" />
-	<line x1="100" y1="50" x2="70" y2="100" stroke="currentColor" stroke-width="0.75" opacity="0.2" />
-	<line x1="180" y1="50" x2="210" y2="100" stroke="currentColor" stroke-width="0.75" opacity="0.2" />
-	<line x1="70" y1="100" x2="140" y2="110" stroke="currentColor" stroke-width="0.75" opacity="0.15" />
-	<line x1="210" y1="100" x2="140" y2="110" stroke="currentColor" stroke-width="0.75" opacity="0.15" />
+<style>
+	.doodle-illustration {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.75rem;
+		background:
+			radial-gradient(circle, var(--wcb-border) 0.8px, transparent 0.8px) 0 0 / 20px 20px;
+	}
 
-	<!-- nodes -->
-	<circle cx="100" cy="50" r="12" stroke="currentColor" stroke-width="1" fill="var(--wcb-panel, #1f1f1f)" opacity="0.8" />
-	<circle cx="180" cy="50" r="12" stroke="currentColor" stroke-width="1" fill="var(--wcb-panel, #1f1f1f)" opacity="0.8" />
-	<circle cx="140" cy="110" r="14" stroke="var(--wcb-brand, #3ecf8e)" stroke-width="1.5" fill="var(--wcb-panel, #1f1f1f)" opacity="0.8" />
-	<circle cx="70" cy="100" r="10" stroke="currentColor" stroke-width="1" fill="var(--wcb-panel, #1f1f1f)" opacity="0.6" />
-	<circle cx="210" cy="100" r="10" stroke="currentColor" stroke-width="1" fill="var(--wcb-panel, #1f1f1f)" opacity="0.6" />
-	<circle cx="140" cy="50" r="8" stroke="currentColor" stroke-width="1" fill="var(--wcb-panel, #1f1f1f)" opacity="0.5" />
-
-	<!-- inner dots in nodes -->
-	<circle cx="100" cy="50" r="3" fill="currentColor" opacity="0.2" />
-	<circle cx="180" cy="50" r="3" fill="currentColor" opacity="0.2" />
-	<circle cx="140" cy="110" r="4" fill="var(--wcb-brand, #3ecf8e)" opacity="0.3" />
-	<circle cx="70" cy="100" r="2.5" fill="currentColor" opacity="0.2" />
-	<circle cx="210" cy="100" r="2.5" fill="currentColor" opacity="0.2" />
-
-	<!-- plus markers -->
-	<text x="24" y="28" fill="currentColor" font-family="monospace" font-size="8" opacity="0.25">+</text>
-	<text x="250" y="28" fill="currentColor" font-family="monospace" font-size="8" opacity="0.25">+</text>
-	<text x="24" y="148" fill="currentColor" font-family="monospace" font-size="8" opacity="0.25">+</text>
-	<text x="250" y="148" fill="currentColor" font-family="monospace" font-size="8" opacity="0.25">+</text>
-</svg>
+	.doodle-img {
+		width: 100%;
+		max-width: 160px;
+		height: auto;
+		opacity: 0.8;
+		filter: sepia(0.06) saturate(0.9);
+	}
+</style>

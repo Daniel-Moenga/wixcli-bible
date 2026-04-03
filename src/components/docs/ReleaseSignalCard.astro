@@ -55,7 +55,7 @@ import DiagramFrame from './DiagramFrame.astro';
 	.release-signal__frame,
 	.release-signal__command,
 	.release-signal__note {
-		fill: rgba(255, 255, 255, 0.015);
+		fill: rgba(0, 0, 0, 0.02);
 		stroke: var(--wcb-border);
 	}
 
@@ -66,7 +66,7 @@ import DiagramFrame from './DiagramFrame.astro';
 	}
 
 	.release-signal__path {
-		stroke: rgba(255, 255, 255, 0.26);
+		stroke: rgba(0, 0, 0, 0.2);
 		stroke-width: 2;
 		stroke-dasharray: 6 8;
 		animation: releaseSignalDash 12s linear infinite;
@@ -115,34 +115,18 @@ import DiagramFrame from './DiagramFrame.astro';
 
 	.release-signal__node--preview,
 	.release-signal__node--release {
-		fill: rgba(62, 207, 142, 0.18);
-		stroke: rgba(62, 207, 142, 0.48);
+		fill: hsl(153 50% 42% / 0.16);
+		stroke: hsl(153 50% 42% / 0.35);
 	}
 
 	.release-signal__pulse {
-		fill: rgba(62, 207, 142, 0.08);
+		fill: hsl(153 50% 42% / 0.08);
 		transform-origin: center;
 		animation: releaseSignalPulse 2.8s ease-in-out infinite;
 	}
 
 	.release-signal__pulse--release {
 		animation-delay: 0.8s;
-	}
-
-	:root[data-theme='light'] .release-signal__frame,
-	:root[data-theme='light'] .release-signal__command,
-	:root[data-theme='light'] .release-signal__note {
-		fill: rgba(0, 0, 0, 0.02);
-	}
-
-	:root[data-theme='light'] .release-signal__node--preview,
-	:root[data-theme='light'] .release-signal__node--release {
-		fill: rgba(32, 166, 105, 0.16);
-		stroke: rgba(32, 166, 105, 0.35);
-	}
-
-	:root[data-theme='light'] .release-signal__path {
-		stroke: rgba(0, 0, 0, 0.2);
 	}
 
 	@keyframes releaseSignalDash {
