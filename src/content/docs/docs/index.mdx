@@ -1,6 +1,6 @@
 ---
 title: Wix CLI Bible
-description: Learn the current Wix CLI with a calmer structure, a better mental model, and source-aware guidance.
+description: The missing handbook for building with the current Wix CLI. Real examples, clear explanations, no guesswork.
 template: splash
 editUrl: false
 section: overview
@@ -9,7 +9,7 @@ sourceMapRefs:
   - astro-content
   - starlight-customization
 hero:
-  tagline: The Open-Source Handbook for the Current Wix CLI.
+  tagline: "The missing handbook for building with Wix CLI."
   actions:
     - text: Start Learning
       link: /docs/start-here/
@@ -21,42 +21,67 @@ hero:
 ---
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
-import SurfaceSignalCard from '../../../components/docs/SurfaceSignalCard.astro';
-import ReleaseSignalCard from '../../../components/docs/ReleaseSignalCard.astro';
 
-## The Two Things To Internalize First
+## Pick Your Starting Point
 
-<div class="docs-visual-grid docs-visual-grid--two">
-	<SurfaceSignalCard />
-	<ReleaseSignalCard />
-</div>
-
-## How to Use This
-
-Pick the mode that fits where you are right now:
-
-- **Study Mode** -- Read the pages in order and build the mental model first.
-- **Reference Mode** -- Jump to setup, commands, surfaces, or debugging when you need them.
-- **Architecture Mode** -- Use the surface rules before creating new features.
-
-## The Learning Path
+Not sure where to begin? Choose the path that matches where you are right now.
 
 <CardGrid>
-	<LinkCard title="Start Here" href="/docs/start-here/" description="What the current Wix CLI is and how to use this handbook." />
-	<LinkCard title="Mental Model" href="/docs/mental-model/" description="Dashboard, Site, and Backend -- the three surfaces that shape every decision." />
-	<LinkCard title="Setup and Commands" href="/docs/setup-and-core-commands/" description="Prerequisites, project creation, and the commands worth memorizing." />
-	<LinkCard title="Workflow" href="/docs/workflow/" description="The real loop: create, login, dev, generate, code, build, preview, release." />
-	<LinkCard title="Surfaces" href="/docs/surfaces/dashboard-extensions/" description="Dashboard Pages, Site Widgets, Embedded Scripts, and Backend APIs." />
-	<LinkCard title="Quick Reference" href="/docs/quick-reference/" description="Five ideas, seven commands, and the shortest possible recap." />
+	<LinkCard title="I'm just getting started" href="/docs/start-here/" description="Learn what the Wix CLI actually is, how the workflow works, and what to focus on first." />
+	<LinkCard title="I need to build something" href="/docs/surfaces/dashboard-extensions/" description="Jump straight to Dashboard Pages, Site Widgets, or Backend APIs." />
+	<LinkCard title="Something isn't working" href="/docs/common-mistakes/" description="Common mistakes, debugging tips, and why things behave differently than expected." />
 </CardGrid>
 
-## What Makes This Different
+## What You'll Learn
 
-This handbook is built for the **current unified Wix CLI**, not a blend of old and new docs. It keeps Wix as the source of truth and says that clearly. It rewrites the subject for human learning instead of mirroring product docs verbatim. And it is Open-Source so the community can correct, extend, and improve it.
+This handbook covers the things that trip people up most:
 
-We also clarify things the official docs leave ambiguous -- like the difference between the three products all called "Wix CLI," why `preview` isn't the same as `release`, and the `extension.ts` vs `extensions.ts` naming inconsistency in the official project structure docs.
+- **Where your code runs** -- Dashboard, Site, or Backend. Pick wrong and everything feels broken.
+- **The 7 commands that do 90% of the work** -- `login`, `dev`, `generate`, `build`, `preview`, `release`, and `whoami`.
+- **Why preview and release are different** -- Preview hosts a build. Release registers extensions with Wix.
+- **How to stop fighting the Wix Design System** -- When to use it, when you have freedom, and what breaks when you override it.
+- **Project structure that actually makes sense** -- Which files you edit vs which files are generated machinery.
 
-**Official References:**
-[Wix CLI Overview](https://dev.wix.com/docs/wix-cli) ·
-[Astro Content Collections](https://docs.astro.build/en/reference/modules/astro-content/) ·
-[Starlight Customization](https://starlight.astro.build/id/guides/customization/)
+## Browse by Topic
+
+### Foundations
+
+<CardGrid>
+	<LinkCard title="Start Here" href="/docs/start-here/" description="One page to read before touching code." />
+	<LinkCard title="The Mental Model" href="/docs/mental-model/" description="Dashboard, Site, Backend -- the three surfaces behind every decision." />
+	<LinkCard title="App vs Headless vs Sites" href="/docs/app-vs-headless-vs-sites/" description="Three products share the name 'Wix CLI.' Know which one you're using." />
+</CardGrid>
+
+### Building
+
+<CardGrid>
+	<LinkCard title="Setup and Commands" href="/docs/setup-and-core-commands/" description="Install, create a project, and learn the commands worth memorizing." />
+	<LinkCard title="The Real Workflow" href="/docs/workflow/" description="Create, dev, build, preview, release -- the loop that runs every session." />
+	<LinkCard title="Project Structure" href="/docs/project-structure/" description="Which folders matter, which are generated, and what wix.config.json does." />
+	<LinkCard title="Extension Types" href="/docs/extension-types/" description="Dashboard pages, site widgets, embedded scripts, backend APIs." />
+</CardGrid>
+
+### Surfaces
+
+<CardGrid>
+	<LinkCard title="Dashboard Extensions" href="/docs/surfaces/dashboard-extensions/" description="Pages and modals inside the Wix admin." />
+	<LinkCard title="Site Extensions" href="/docs/surfaces/site-extensions/" description="Widgets and scripts on the live site." />
+	<LinkCard title="Backend and Security" href="/docs/surfaces/backend-and-security/" description="Server-side logic, secrets, and protected APIs." />
+</CardGrid>
+
+### Operations
+
+<CardGrid>
+	<LinkCard title="Design System and UI" href="/docs/design-system-and-ui/" description="The Wix component library, when to use it, and a live playground." />
+	<LinkCard title="Data Flow" href="/docs/data-flow-and-architecture/" description="How data moves between surfaces and where to put business logic." />
+	<LinkCard title="Permissions" href="/docs/permissions-and-security/" description="Who can do what, and how to lock things down." />
+	<LinkCard title="Testing and Debugging" href="/docs/testing-and-debugging/" description="How to test locally and debug preview vs release differences." />
+</CardGrid>
+
+### Reference
+
+<CardGrid>
+	<LinkCard title="Quick Reference" href="/docs/quick-reference/" description="Seven commands, five ideas, one page." />
+	<LinkCard title="Common Mistakes" href="/docs/common-mistakes/" description="The errors everyone makes and how to fix them." />
+	<LinkCard title="Official Source Map" href="/docs/official-source-map/" description="Every official Wix link this handbook references, in one place." />
+</CardGrid>

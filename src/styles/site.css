@@ -27,7 +27,7 @@
 	--wcb-header-control-height: 2.2rem;
 	--wcb-header-control-radius: 8px;
 	--wcb-header-logo-width: clamp(5.7rem, 7.2vw, 6.7rem);
-	--wcb-header-logo-max-height: calc(var(--wcb-header-height) - 0.7rem);
+	--wcb-header-logo-max-height: calc(var(--wcb-header-height) - 1.2rem);
 	--wcb-font-body: 'Wix Madefor Text Variable', system-ui, sans-serif;
 	--wcb-font-display: 'Plus Jakarta Sans Variable', system-ui, sans-serif;
 	--wcb-font-accent: 'JetBrains Mono Variable', ui-monospace, monospace;

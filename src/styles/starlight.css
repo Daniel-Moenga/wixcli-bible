@@ -41,6 +41,7 @@
 	--sl-content-width: 68rem;
 	--sl-nav-height: 4.25rem;
 	--sl-nav-pad-x: 1rem;
+	--sl-nav-pad-y: 0.5rem;
 	--sl-content-pad-x: 2rem;
 
 	--sl-color-green-low: hsl(153 30% 94%);
@@ -349,7 +350,7 @@ html[data-has-hero] .right-sidebar-container {
 .header {
 	border-bottom: 1px solid var(--wcb-border);
 	background: var(--wcb-bg);
-	overflow: clip;
+	overflow: visible;
 }
 
 .wcb-docs-header {

@@ -1,6 +1,6 @@
 ---
 title: The Real Workflow
-description: Internalize the normal loop so Wix CLI feels predictable instead of mysterious.
+description: The normal Wix CLI loop, step by step. Learn it once and the whole platform feels predictable.
 section: workflow
 sidebar:
   order: 5
@@ -12,71 +12,89 @@ related:
   - docs/testing-and-debugging
 ---
 
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import WorkflowLoopDiagram from '../../../components/docs/WorkflowLoopDiagram.astro';
 
-The normal Wix CLI workflow is easier to remember when you stop treating commands as isolated facts.
+The Wix CLI workflow is easier to remember when you stop treating commands as isolated facts.
 
-## The sequence
+## The full loop
 
 Study this until it feels automatic:
 
-```text
-create -> login -> dev -> generate -> code -> build -> preview -> release
-```
+<Steps>
 
-That is the full loop.
+1. **Create** -- Scaffold the project with `npm create @wix/new@latest app`.
+
+2. **Login** -- Authenticate your terminal with `wix login`.
+
+3. **Dev** -- Start the local development server with `wix dev`.
+
+4. **Generate** -- Add new extensions (dashboard pages, widgets, APIs) with `wix generate`.
+
+5. **Code** -- Build the feature in your editor.
+
+6. **Build** -- Compile project assets with `wix build`.
+
+7. **Preview** -- Upload a hosted build for testing with `wix preview`.
+
+8. **Release** -- Register extensions with Wix and go live with `wix release`.
+
+</Steps>
 
 <WorkflowLoopDiagram />
 
-Not every session needs every step, but almost every meaningful delivery path fits inside this sequence.
+Not every session needs every step, but almost every meaningful delivery fits inside this sequence.
 
 ## What most daily work looks like
 
-Most real sessions are shorter than the full loop:
+<Tabs>
+	<TabItem label="Daily loop">
+		Most real sessions are shorter than the full loop:
 
-```text
-dev -> code -> test -> repeat
-```
+		```bash
+		wix dev
+		# code, test, repeat
+		```
 
-The later steps matter when you want a stable preview, a handoff build, or actual extension registration.
+		You stay in `dev` mode, make changes, see them reflected. The later steps matter when you're ready to share or ship.
+	</TabItem>
+	<TabItem label="Full release">
+		When you're shipping to production, you need the full sequence:
 
-## Why preview is not release
+		```bash
+		wix build
+		wix preview   # test the hosted build
+		wix release    # register everything with Wix
+		```
 
-This is one of the biggest practical distinctions in the handbook.
+		Don't skip `build` before `preview` or `release` -- they need compiled assets.
+	</TabItem>
+</Tabs>
 
-`preview` uploads and hosts the build so you can test it.
+## Preview vs release
 
-`release` also handles platform registration behavior that some extensions depend on.
+:::tip[The mental shortcut]
+**Preview** = "Can other people test this build?"
+**Release** = "Has Wix fully recognized and registered the pieces?"
+:::
 
-This matters most when:
+This distinction matters most when:
 
-- a site widget feels half-wired
-- an embedded script behaves differently than expected
-- a generated extension exists locally but is not showing up the way you expect inside Wix
+- A site widget feels half-wired
+- An embedded script behaves differently than expected
+- A generated extension exists locally but doesn't show up inside Wix
 
-When something looks strange after a successful preview, release is often the next thing to check.
+When something looks strange after a successful preview, `release` is usually the next thing to check.
 
-## Minimal healthy loop
+## The operational mindset
 
-```bash
-wix login
-wix dev
-wix generate
-wix build
-wix preview
-wix release
-```
+Think of these stages as different questions:
 
-Again, this is not the sequence for every single coding session. It is the sequence you should understand
-well enough to diagnose where you are in the lifecycle of the feature.
-
-## Operational mindset
-
-Treat these stages as different questions:
-
-- `dev`: Can I build and iterate locally?
-- `preview`: Can other people test this build?
-- `release`: Has Wix fully recognized and registered the pieces that need platform registration?
+| Stage | Question it answers |
+|-------|-------------------|
+| `dev` | Can I build and iterate locally? |
+| `preview` | Can other people test this build? |
+| `release` | Has Wix fully recognized the extensions? |
 
 That mental separation prevents a lot of confusion.
 

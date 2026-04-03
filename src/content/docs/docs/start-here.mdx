@@ -12,75 +12,74 @@ related:
   - docs/setup-and-core-commands
 ---
 
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 import WorkflowLoopDiagram from '../../../components/docs/WorkflowLoopDiagram.astro';
 
-If you only read one page before touching code, read this one.
+If you read one page before writing code, make it this one.
 
-## What the current Wix CLI is
+## What the Wix CLI actually is
 
-The current Wix CLI is the unified command-line workflow for creating, developing, previewing, and
-releasing Wix app projects and Wix Headless projects.
+The Wix CLI is a command-line workflow for creating, developing, previewing, and releasing Wix apps and Wix Headless projects.
 
-The most important mindset shift is this:
+The key mindset shift:
 
-> Think workflow, not scaffolding.
+> Think **workflow**, not scaffolding.
 
-The CLI is not just a project generator. It is the system that carries you through project creation,
-local development, extension generation, build output, preview URLs, release behavior, and environment
-management.
+It's not just a project generator. It's the system that carries you through the entire lifecycle -- from creating a project to registering extensions with Wix.
 
 <WorkflowLoopDiagram />
 
-## What this handbook covers first
+## What this handbook covers
 
-This handbook is deliberately app-first.
+This handbook is app-first. It focuses on the areas where people get stuck most:
 
-That means it focuses on the surface area where most people get stuck:
+- Dashboard pages and modals
+- Site widgets and embedded scripts
+- Backend APIs and secure logic
+- Release behavior and extension registration
+- Environment variables, permissions, and self-hosting
 
-- dashboard pages and modals
-- site widgets and embedded scripts
-- backend APIs and secure logic
-- release behavior and extension registration
-- environment variables, permissions, and self-hosting
+Headless is part of the CLI family, but it's not the best first learning path unless you already know your frontend lives outside Wix.
 
-Headless is still part of the CLI family, but it is not the best first learning path unless you already
-know that your frontend will live outside Wix.
-
-## What this handbook is not
+## What this is not
 
 This project is not a replacement for the official Wix docs.
 
-Wix changes. Product teams rename things. commands evolve. release notes matter. The official docs stay
-canonical. This handbook exists to make those docs easier to understand and easier to navigate.
+Wix changes. Product teams rename things. Commands evolve. The official docs stay canonical. This handbook exists to make them easier to understand and navigate.
 
-## How to use it well
+## How to use it
 
-Use it in one of three modes:
+<Tabs>
+	<TabItem label="Study">
+		Read the pages in order. Start with the mental model, then move through setup, workflow, and surfaces. Build the big picture before you optimize for speed.
+	</TabItem>
+	<TabItem label="Build">
+		Keep the docs open while working. Jump straight to the surface you're building on -- dashboard, site, or backend -- and use the quick reference when you need a command.
+	</TabItem>
+	<TabItem label="Troubleshoot">
+		Start with Common Mistakes or the Guides section. Use the Ask AI when something behaves differently than expected.
+	</TabItem>
+</Tabs>
 
-1. Study mode: read the pages in order and build the model before you optimize for speed.
-2. Build mode: keep the docs open while working and jump straight to setup, workflow, or the surface you are building.
-3. Troubleshooting mode: use the guides, quick reference, and Ask AI Beta when something behaves differently from what you expected.
+:::tip[Which Wix CLI are you using?]
+There are three products that share the name "Wix CLI." This handbook covers the **current unified Wix CLI** -- not the older CLI for Apps or CLI for Sites. If you're unsure which one your project uses, [check here](https://dev.wix.com/docs/wix-cli/guides/development/determine-which-cli-your-project-uses) before going further.
+:::
 
-## The beginner-safe rule
+## Check yourself
 
-If you are unsure which Wix documentation track applies to your project, verify that first.
+After the next few pages, you should be able to answer these confidently:
 
-One of the fastest ways to get lost is mixing:
+<Steps>
 
-- the current unified Wix CLI
-- older Wix CLI for Apps material
-- Wix CLI for Sites material
+1. **Which surface does this feature belong to?** Dashboard, Site, or Backend -- every feature has a home.
 
-The handbook repeats that distinction on purpose because it causes real confusion in practice.
+2. **Am I using the right Wix CLI?** Current unified CLI, older CLI for Apps, or CLI for Sites -- they're different products.
 
-## What success looks like
+3. **What are the 7 commands in the normal loop?** Login, dev, generate, build, preview, release, whoami.
 
-After the next few pages, you should be able to answer these questions clearly:
+4. **Why would preview differ from release?** Preview hosts a build. Release also handles platform registration.
 
-- Which surface does this feature belong to?
-- Am I building a Wix app project, a headless project, or looking at site-specific docs?
-- Which commands matter in the normal loop?
-- Why would preview differ from release?
+</Steps>
 
 If you can answer those, the rest of the platform becomes much easier.
 

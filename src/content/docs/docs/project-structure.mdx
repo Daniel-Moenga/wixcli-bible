@@ -1,6 +1,6 @@
 ---
 title: Project Structure
-description: Know which folders are real product code, which are generated support files, and why the registry matters.
+description: Which folders are real product code, which are generated support files, and why the registry matters.
 section: workflow
 sidebar:
   order: 6
@@ -12,75 +12,85 @@ related:
   - docs/surfaces/dashboard-extensions
 ---
 
-Wix CLI projects stop feeling strange once you separate *real product code* from *generated support
-machinery*.
+import { Tabs, TabItem, FileTree } from '@astrojs/starlight/components';
 
-## The usual top level
+Wix CLI projects stop feeling strange once you separate your real code from the generated machinery.
 
-You will commonly see entries such as:
+## The project at a glance
 
-```text
-src/
-public/
-.astro/
-.wix/
-package.json
-astro.config.mjs
-tsconfig.json
-wix.config.json
-```
+<FileTree>
 
-## What each part means
+- src/
+  - dashboard/
+    - pages/ Your dashboard page extensions
+  - site/
+    - widgets/ Your site widget extensions
+    - embedded-scripts/ Embedded scripts
+  - backend/ Server-side logic and APIs
+  - **extensions.ts** The registration file -- wires extensions to Wix
+- public/ Static assets (logos, images, files served directly)
+- .wix/ Local Wix metadata (don't edit by hand)
+- .astro/ Generated framework artifacts
+- wix.config.json Project metadata (edit carefully)
+- astro.config.mjs Framework configuration
+- tsconfig.json TypeScript settings
+- package.json Dependencies and scripts
 
-### `src/`
+</FileTree>
 
-Your real product code. This is the place to care about the most.
+## What you edit vs what's generated
 
-### `public/`
+<Tabs>
+	<TabItem label="Your code">
+		These are the folders that contain your actual product logic:
 
-Static assets such as logos, images, and files that should be served directly.
+		- **`src/dashboard/`** -- Dashboard pages, modals, settings screens
+		- **`src/site/`** -- Widgets, embedded scripts, anything visitors see
+		- **`src/backend/`** -- Validation, API calls, secrets, event handlers
+		- **`src/extensions.ts`** -- The registration file that tells Wix what you built
+		- **`public/`** -- Static assets served directly
 
-### `.astro/`
+		This is where your time should go.
+	</TabItem>
+	<TabItem label="Generated files">
+		These are created and maintained by the framework:
 
-Generated framework artifacts. Useful to know about, not usually the place you edit by hand.
+		- **`.wix/`** -- Local Wix metadata and support material. Recognize it, don't edit it.
+		- **`.astro/`** -- Generated framework artifacts. Useful to know about, rarely edited by hand.
+		- **`wix.config.json`** -- Project metadata. Don't change this unless you know exactly why.
+		- **`node_modules/`** -- Dependencies. Managed by your package manager.
 
-### `.wix/`
+		You can safely ignore these until something specific requires attention.
+	</TabItem>
+</Tabs>
 
-Local Wix metadata and support material. Important to recognize, but not where the conceptual heart of
-your feature lives.
+## The registration file
 
-### `wix.config.json`
+`src/extensions.ts` is the most important file to understand conceptually.
 
-Project metadata that should not be edited casually. If you change it, know exactly why.
-
-## `src/extensions.ts`
-
-This is one of the most important files conceptually.
-
-It acts as the registration path for project extensions. The broad idea is:
+It tells Wix which extensions your project provides:
 
 ```ts
 app().use(...extensionBuilders)
 ```
 
-That means the existence of code is not enough by itself. Wix still needs to know that the extension is
-registered as part of the app.
+The existence of code is not enough by itself. Wix still needs to know that the extension is registered as part of the app. This is why the generated structure is worth respecting early on.
 
-This is why generated structure is worth respecting early on. Reorganize only after you understand the
-wiring you are changing.
+:::caution
+Reorganize your project only after you understand the wiring you're changing. Moving extension folders without updating the registration chain will silently break things.
+:::
 
 ## Generated extension folders
 
-`wix generate` creates a default folder path based on the extension type you chose.
+`wix generate` creates default folder paths based on the extension type you chose.
 
 Beginner-safe advice:
 
-- keep the generated shape at first
-- move things later only with intention
-- update references carefully when you reorganize
+1. Keep the generated shape at first
+2. Move things later only with intention
+3. Update references carefully when you reorganize
 
-The goal is not to preserve scaffolding forever. The goal is to avoid breaking the registration chain
-before you actually understand it.
+The goal isn't to preserve scaffolding forever. The goal is to avoid breaking the registration chain before you understand it.
 
 ## Official references
 

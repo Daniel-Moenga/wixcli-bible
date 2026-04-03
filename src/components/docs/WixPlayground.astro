@@ -1,0 +1,69 @@
+<div class="wix-playground">
+	<div class="wix-playground__header">
+		<span class="wix-playground__label">Live Playground</span>
+		<a class="wix-playground__link" href="https://www.wix-pages.com/wix-design-system/" target="_blank" rel="noreferrer">
+			Open in new tab &rarr;
+		</a>
+	</div>
+	<div class="wix-playground__frame">
+		<iframe
+			src="https://www.wix-pages.com/wix-design-system/"
+			title="Wix Design System Playground"
+			loading="lazy"
+			allow="clipboard-write"
+		></iframe>
+	</div>
+</div>
+
+<style>
+	.wix-playground {
+		margin: 1.5rem 0;
+		border: 1px solid var(--wcb-border);
+		border-radius: var(--wcb-radius-md, 12px);
+		overflow: hidden;
+		background: var(--wcb-bg-elevated, #FBFAF8);
+	}
+
+	.wix-playground__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.6rem 1rem;
+		border-bottom: 1px solid var(--wcb-border);
+		background: var(--wcb-panel-strong, #F7F6F3);
+	}
+
+	.wix-playground__label {
+		font-family: var(--wcb-font-accent, monospace);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--wcb-text-muted, #6B6966);
+	}
+
+	.wix-playground__link {
+		font-size: 0.8rem;
+		color: var(--wcb-brand, hsl(153 50% 42%));
+		text-decoration: none;
+	}
+
+	.wix-playground__link:hover {
+		text-decoration: underline;
+	}
+
+	.wix-playground__frame {
+		position: relative;
+		width: 100%;
+		height: 0;
+		padding-bottom: 65%;
+	}
+
+	.wix-playground__frame iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+</style>

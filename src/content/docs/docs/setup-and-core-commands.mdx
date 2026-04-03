@@ -1,6 +1,6 @@
 ---
 title: Setup and Core Commands
-description: The commands worth memorizing first and the setup assumptions that make the rest easier.
+description: Install the CLI, create a project, and learn the commands worth memorizing first.
 section: workflow
 sidebar:
   order: 4
@@ -12,145 +12,139 @@ related:
   - docs/project-structure
 ---
 
-The current Wix CLI becomes much easier when you learn the real command set instead of copying random
-terminal snippets from older tutorials.
+import { Tabs, TabItem, Steps, FileTree, Badge } from '@astrojs/starlight/components';
+
+The Wix CLI becomes much easier once you learn the real command set instead of copying random terminal snippets from older tutorials.
 
 ## Prerequisites
 
-You want:
+<Steps>
 
-- a current Node.js install
-- Git
-- a Wix account
-- a terminal you can navigate confidently
+1. **Install Node.js** -- Use a current LTS version. The CLI needs it.
 
-You do **not** need advanced shell skills. You do need to stop guessing when moving between folders,
-opening files, and running the normal development loop.
+2. **Install Git** -- For version control and project collaboration.
 
-## Project creation
+3. **Create a Wix account** -- You'll need one to authenticate and connect your project.
 
-Use the creator for the path you actually want:
+4. **Open a terminal** -- Any terminal works. You don't need advanced shell skills, just the ability to navigate folders and run commands.
 
-```bash
-npm create @wix/new@latest app
-```
+</Steps>
 
-Use the headless path only when you know you need it:
+## Create a project
 
-```bash
-npm create @wix/new@latest headless
-```
+<Tabs>
+	<TabItem label="App project">
+		The most common path. Creates a Wix app with dashboard pages, site extensions, and backend APIs.
+
+		```bash
+		npm create @wix/new@latest app
+		```
+
+		This scaffolds the full project structure with extension registration already wired.
+	</TabItem>
+	<TabItem label="Headless project">
+		Use this only when you know your frontend lives outside Wix.
+
+		```bash
+		npm create @wix/new@latest headless
+		```
+
+		Headless projects connect to Wix APIs but don't use the Wix admin shell for UI.
+	</TabItem>
+</Tabs>
+
+After scaffolding, your project looks like this:
+
+<FileTree>
+
+- src/
+  - dashboard/
+    - pages/ Dashboard page extensions
+  - backend/ Server-side logic
+  - **extensions.ts** Extension registration
+- public/ Static assets
+- .wix/ Wix metadata
+- wix.config.json Project config
+- package.json Dependencies
+- tsconfig.json TypeScript config
+
+</FileTree>
 
 ## The commands to learn first
 
-### `wix login`
+These seven commands cover 90% of what you'll do:
 
-Authenticate before project commands that need account access.
+### `wix login` <Badge text="Auth" variant="note" />
+
+Authenticate before running commands that need account access.
 
 ```bash
 wix login
 ```
 
-### `wix whoami`
+### `wix whoami` <Badge text="Auth" variant="note" />
 
-Use this when authentication feels wrong or when switching between accounts has left you unsure which
-account is active.
+Check which account is active. Use this when auth feels wrong or after switching accounts.
 
 ```bash
 wix whoami
 ```
 
-### `wix dev`
+### `wix dev` <Badge text="Dev" variant="success" />
 
-Your most common command. This is the command that powers the normal local development loop.
+Start the local development server. This is your most common command.
 
 ```bash
 wix dev
 ```
 
-### `wix generate`
+### `wix generate` <Badge text="Dev" variant="success" />
 
-Current official command for adding new extensions.
+Add new extensions to your project -- dashboard pages, widgets, backend APIs.
 
 ```bash
 wix generate
 ```
 
-If you see `npm run generate` in older material, treat it as a wrapper or a legacy habit, not the core
-concept you should memorize.
+### `wix build` <Badge text="Deploy" variant="tip" />
 
-### `wix build`
-
-Builds project assets before preview or release.
+Compile project assets before preview or release.
 
 ```bash
 wix build
 ```
 
-### `wix preview`
+### `wix preview` <Badge text="Deploy" variant="tip" />
 
-Creates a hosted preview build for testing and sharing.
-
-```bash
-wix build
-wix preview
-```
-
-### `wix release`
-
-Releases the project and handles the registration behavior that some extensions depend on.
+Create a hosted preview build for testing and sharing.
 
 ```bash
-wix build
-wix release
+wix build && wix preview
 ```
 
-### Environment commands
+### `wix release` <Badge text="Deploy" variant="tip" />
 
-These matter when onboarding machines or managing remote configuration:
+Release the project and handle extension registration with Wix.
 
 ```bash
-wix env set
-wix env pull
-wix env remove
+wix build && wix release
 ```
 
-## Command reference table
+## More commands
 
-A wider view of the CLI surface, including commands that are easy to overlook.
-
-| Command | Does | When to use | Example |
-|---------|------|-------------|---------|
-| `wix login` | Authenticates your terminal session | Before any command that needs account access | `wix login` |
-| `wix logout` | Logs you out of the current Wix account | When switching accounts or cleaning up a shared machine | `wix logout` |
-| `wix whoami` | Shows the active Wix account | When auth feels wrong or after switching accounts | `wix whoami` |
-| `wix dev` | Starts the local development server | Normal daily development loop | `wix dev` |
-| `wix generate` | Adds a new extension to the project | When you need a dashboard page, backend endpoint, etc. | `wix generate` |
-| `wix build` | Compiles project assets | Before preview or release | `wix build` |
-| `wix preview` | Creates a hosted preview build | Sharing a test build with a teammate or stakeholder | `wix build && wix preview` |
-| `wix release` | Releases the project with registration | Shipping a build that needs platform registration | `wix build && wix release` |
-| `wix env set` | Sets an environment variable | Configuring secrets or feature flags | `wix env set MY_KEY my-value` |
-| `wix env pull` | Pulls remote env vars to local | Onboarding a new machine or syncing config | `wix env pull` |
-| `wix env remove` | Removes an environment variable | Cleaning up stale or unused config | `wix env remove MY_KEY` |
-| `skills add` / `skills update` | Adds or updates Wix skills for AI tools | Setting up or refreshing AI-assisted development | `wix skills add` |
-| `telemetry` | Turns anonymous telemetry on or off | Opting in or out of usage data collection | `wix telemetry disable` |
-| `connect` | Connects eligible headless projects to Wix Vibe | Linking a headless project to the visual Vibe editor | `wix connect` |
+| Command | What it does | When to use it |
+|---------|-------------|---------------|
+| `wix logout` | Logs you out | Switching accounts or cleaning up a shared machine |
+| `wix env set` | Sets an environment variable | Configuring secrets or feature flags |
+| `wix env pull` | Pulls remote env vars to local | Onboarding a new machine |
+| `wix env remove` | Removes an environment variable | Cleaning up stale config |
+| `wix skills add` | Adds AI tool integrations | Setting up AI-assisted development |
+| `wix telemetry` | Toggles anonymous telemetry | Opting in or out of usage data |
+| `wix connect` | Connects headless projects to Vibe | Linking to the visual Vibe editor |
 
 :::note
-`skills add`, `skills update`, `telemetry`, and `connect` are newer additions. If your CLI version does not recognize them, update with `npm i -g @wix/cli@latest`.
+`skills add`, `telemetry`, and `connect` are newer additions. If your CLI doesn't recognize them, update with `npm i -g @wix/cli@latest`.
 :::
-
-## The short memorization list
-
-If you only memorize seven commands first, memorize these:
-
-- `wix login`
-- `wix whoami`
-- `wix dev`
-- `wix generate`
-- `wix build`
-- `wix preview`
-- `wix release`
 
 ## Official references
 
