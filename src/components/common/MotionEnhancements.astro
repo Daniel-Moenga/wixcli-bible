@@ -1,161 +1,156 @@
 <script>
 	import { animate, inView, stagger, scroll } from 'motion';
 
-	declare global {
-		interface Window {
-			__wcbMotionReady?: boolean;
-		}
-	}
-
-	if (!window.__wcbMotionReady) {
-		window.__wcbMotionReady = true;
-
+	function initMotion() {
 		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		if (!reduceMotion) {
-			const fadeUp = (el: HTMLElement, delay = 0) =>
-				animate(
-					el,
-					{ opacity: [0, 1], y: [16, 0], filter: ['blur(6px)', 'blur(0px)'] },
-					{ duration: 0.55, delay, ease: 'easeOut' }
-				);
+		if (reduceMotion) return;
 
-			document
-				.querySelectorAll<HTMLElement>('[data-stagger]')
-				.forEach((group) =>
+		const fadeUp = (el: HTMLElement, delay = 0) =>
+			animate(
+				el,
+				{ opacity: [0, 1], y: [16, 0], filter: ['blur(6px)', 'blur(0px)'] },
+				{ duration: 0.55, delay, ease: 'easeOut' }
+			);
+
+		document
+			.querySelectorAll<HTMLElement>('[data-stagger]')
+			.forEach((group) =>
+				animate(
+					Array.from(group.children) as HTMLElement[],
+					{ opacity: [0, 1], y: [18, 0] },
+					{ delay: stagger(0.08), duration: 0.45, ease: 'easeOut' }
+				)
+			);
+
+		document.querySelectorAll<HTMLElement>('[data-hero-reveal]').forEach((element, index) => {
+			fadeUp(element, index * 0.08);
+		});
+
+		document.querySelectorAll<HTMLElement>('[data-reveal="dock"]').forEach((element) => {
+			animate(
+				element,
+				{ opacity: [0, 1], y: [18, 0], scale: [0.96, 1] },
+				{ delay: 0.25, duration: 0.45, ease: 'easeOut' }
+			);
+		});
+
+		document.querySelectorAll<HTMLElement>('[data-reveal="card"]').forEach((element) => {
+			inView(
+				element,
+				() => {
+					fadeUp(element);
+				},
+				{ margin: '-15% 0px -10% 0px' }
+			);
+		});
+
+		document.querySelectorAll<HTMLElement>('.clarify-grid').forEach((grid) => {
+			inView(
+				grid,
+				() => {
 					animate(
-						Array.from(group.children) as HTMLElement[],
-						{ opacity: [0, 1], y: [18, 0] },
-						{ delay: stagger(0.08), duration: 0.45, ease: 'easeOut' }
-					)
-				);
+						Array.from(grid.querySelectorAll('.clarify-card')) as HTMLElement[],
+						{ opacity: [0, 1], y: [24, 0], filter: ['blur(4px)', 'blur(0px)'] },
+						{ delay: stagger(0.1), duration: 0.5, ease: 'easeOut' }
+					);
+				},
+				{ margin: '-10% 0px' }
+			);
+		});
 
-			document.querySelectorAll<HTMLElement>('[data-hero-reveal]').forEach((element, index) => {
-				fadeUp(element, index * 0.08);
-			});
-
-			document.querySelectorAll<HTMLElement>('[data-reveal="dock"]').forEach((element) => {
-				animate(
-					element,
-					{ opacity: [0, 1], y: [18, 0], scale: [0.96, 1] },
-					{ delay: 0.25, duration: 0.45, ease: 'easeOut' }
-				);
-			});
-
-			document.querySelectorAll<HTMLElement>('[data-reveal="card"]').forEach((element) => {
-				inView(
-					element,
-					() => {
-						fadeUp(element);
-					},
-					{ margin: '-15% 0px -10% 0px' }
-				);
-			});
-
-			document.querySelectorAll<HTMLElement>('.clarify-grid').forEach((grid) => {
-				inView(
-					grid,
-					() => {
-						animate(
-							Array.from(grid.querySelectorAll('.clarify-card')) as HTMLElement[],
-							{ opacity: [0, 1], y: [24, 0], filter: ['blur(4px)', 'blur(0px)'] },
-							{ delay: stagger(0.1), duration: 0.5, ease: 'easeOut' }
-						);
-					},
-					{ margin: '-10% 0px' }
-				);
-			});
-
-			const heroShell = document.querySelector<HTMLElement>('.hero-shell');
-			if (heroShell) {
-				let ticking = false;
-				window.addEventListener('scroll', () => {
-					if (!ticking) {
-						requestAnimationFrame(() => {
-							const y = window.scrollY * 0.08;
-							const o = Math.max(0, 1 - window.scrollY / 600);
-							heroShell.style.transform = `translateY(${y}px)`;
-							heroShell.style.opacity = String(o);
-							ticking = false;
-						});
-						ticking = true;
-					}
-				});
-			}
-
-			document.querySelectorAll<HTMLElement>('.product-card__illustration img').forEach((img) => {
-				scroll(
-					animate(img, { y: [-4, 4] }, { ease: 'linear' }),
-					{ target: img.closest('.product-card') as HTMLElement || img }
-				);
-			});
-
-			const heroDoodle = document.querySelector<HTMLElement>('.hero-docs-canvas img');
-			if (heroDoodle) {
-				scroll(
-					animate(heroDoodle, { y: [-8, 8], rotate: [-0.5, 0.5] }, { ease: 'linear' }),
-					{ target: heroDoodle.closest('.hero-visual') as HTMLElement || heroDoodle }
-				);
-			}
-
-			const workflowDiagram = document.querySelector<HTMLElement>('.workflow-diagram');
-			if (workflowDiagram) {
-				inView(
-					workflowDiagram,
-					() => {
-						animate(
-							Array.from(workflowDiagram.querySelectorAll('circle')) as unknown as HTMLElement[],
-							{ opacity: [0, 1], scale: [0.6, 1] },
-							{ delay: stagger(0.06), duration: 0.4, ease: [0.22, 1, 0.36, 1] }
-						);
-					},
-					{ margin: '-5% 0px' }
-				);
-			}
-
-			document.querySelectorAll<HTMLElement>('.section-line').forEach((line) => {
-				inView(
-					line,
-					() => {
-						animate(
-							line,
-							{ scaleX: [0, 1], opacity: [0, 1] },
-							{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-						);
-					},
-					{ margin: '-5% 0px' }
-				);
-			});
-
-			document.querySelectorAll<HTMLElement>('.product-card').forEach((card) => {
-				card.addEventListener('mouseenter', () => {
-					animate(card, { scale: 1.012 }, { type: 'spring', stiffness: 400, damping: 25 });
-				});
-				card.addEventListener('mouseleave', () => {
-					animate(card, { scale: 1 }, { type: 'spring', stiffness: 300, damping: 20 });
-				});
-			});
-
-			const osBlock = document.querySelector<HTMLElement>('.open-source-block');
-			if (osBlock) {
-				inView(
-					osBlock,
-					() => {
-						animate(
-							osBlock,
-							{ opacity: [0, 1], y: [20, 0] },
-							{ duration: 0.55, ease: 'easeOut' }
-						);
-					},
-					{ margin: '-10% 0px' }
-				);
-			}
-
-			document.querySelectorAll<HTMLElement>('.section-line--wavy svg path').forEach((path) => {
-				scroll(
-					animate(path, { x: [-6, 6] }, { ease: 'linear' }),
-					{ target: path.closest('.section-line--wavy') as HTMLElement || path }
-				);
-			});
+		const heroShell = document.querySelector<HTMLElement>('.hero-shell');
+		if (heroShell) {
+			let ticking = false;
+			const onScroll = () => {
+				if (!ticking) {
+					requestAnimationFrame(() => {
+						const y = window.scrollY * 0.08;
+						const o = Math.max(0, 1 - window.scrollY / 600);
+						heroShell.style.transform = `translateY(${y}px)`;
+						heroShell.style.opacity = String(o);
+						ticking = false;
+					});
+					ticking = true;
+				}
+			};
+			window.addEventListener('scroll', onScroll, { passive: true });
 		}
+
+		document.querySelectorAll<HTMLElement>('.product-card__illustration img').forEach((img) => {
+			scroll(
+				animate(img, { y: [-4, 4] }, { ease: 'linear' }),
+				{ target: img.closest('.product-card') as HTMLElement || img }
+			);
+		});
+
+		const heroDoodle = document.querySelector<HTMLElement>('.hero-docs-canvas img');
+		if (heroDoodle) {
+			scroll(
+				animate(heroDoodle, { y: [-8, 8], rotate: [-0.5, 0.5] }, { ease: 'linear' }),
+				{ target: heroDoodle.closest('.hero-visual') as HTMLElement || heroDoodle }
+			);
+		}
+
+		const workflowDiagram = document.querySelector<HTMLElement>('.workflow-diagram');
+		if (workflowDiagram) {
+			inView(
+				workflowDiagram,
+				() => {
+					animate(
+						Array.from(workflowDiagram.querySelectorAll('circle')) as unknown as HTMLElement[],
+						{ opacity: [0, 1], scale: [0.6, 1] },
+						{ delay: stagger(0.06), duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+					);
+				},
+				{ margin: '-5% 0px' }
+			);
+		}
+
+		document.querySelectorAll<HTMLElement>('.section-line').forEach((line) => {
+			inView(
+				line,
+				() => {
+					animate(
+						line,
+						{ scaleX: [0, 1], opacity: [0, 1] },
+						{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+					);
+				},
+				{ margin: '-5% 0px' }
+			);
+		});
+
+		document.querySelectorAll<HTMLElement>('.product-card').forEach((card) => {
+			card.addEventListener('mouseenter', () => {
+				animate(card, { scale: 1.012 }, { type: 'spring', stiffness: 400, damping: 25 });
+			});
+			card.addEventListener('mouseleave', () => {
+				animate(card, { scale: 1 }, { type: 'spring', stiffness: 300, damping: 20 });
+			});
+		});
+
+		const osBlock = document.querySelector<HTMLElement>('.open-source-block');
+		if (osBlock) {
+			inView(
+				osBlock,
+				() => {
+					animate(
+						osBlock,
+						{ opacity: [0, 1], y: [20, 0] },
+						{ duration: 0.55, ease: 'easeOut' }
+					);
+				},
+				{ margin: '-10% 0px' }
+			);
+		}
+
+		document.querySelectorAll<HTMLElement>('.section-line--wavy svg path').forEach((path) => {
+			scroll(
+				animate(path, { x: [-6, 6] }, { ease: 'linear' }),
+				{ target: path.closest('.section-line--wavy') as HTMLElement || path }
+			);
+		});
 	}
+
+	document.addEventListener('astro:page-load', initMotion);
 </script>

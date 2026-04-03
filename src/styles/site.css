@@ -401,18 +401,25 @@ pre {
 	color: var(--wcb-text);
 }
 
-site-search button[data-open-modal] kbd {
+site-search button[data-open-modal] > kbd {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.1rem;
-	padding: 0.15rem 0.35rem;
-	border: 1px solid var(--wcb-border);
-	border-radius: var(--wcb-radius-xs);
-	background: var(--wcb-bg-elevated);
+	gap: 0.15rem;
+	margin-inline-start: auto;
+	padding: 0;
+	border: none;
+	background: transparent;
 	font-family: var(--wcb-font-accent);
 	font-size: 0.7rem;
 	line-height: 1;
 	color: var(--wcb-text-soft);
+}
+
+site-search button[data-open-modal] > kbd kbd {
+	padding: 0.15rem 0.35rem;
+	border: 1px solid var(--wcb-border);
+	border-radius: var(--wcb-radius-xs);
+	background: var(--wcb-bg-elevated);
 }
 
 .site-header wcb-github-stars,
@@ -2284,4 +2291,38 @@ site-search button[data-open-modal] kbd {
 
 .skip-link:focus {
 	top: 1rem;
+}
+
+/* ── Smooth interaction globals ── */
+
+:where(a):not([class*="button"]):not([class*="card"]) {
+	transition:
+		color 150ms ease,
+		opacity 150ms ease;
+}
+
+/* ── View Transitions ── */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+::view-transition-old(root) {
+	animation-name: vt-fade-out;
+}
+
+::view-transition-new(root) {
+	animation-name: vt-fade-in;
+}
+
+@keyframes vt-fade-out {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+@keyframes vt-fade-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
 }

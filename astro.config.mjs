@@ -68,13 +68,14 @@ export default defineConfig({
 			},
 			customCss: ['/src/styles/site.css', '/src/styles/starlight.css'],
 			disable404Route: true,
-			components: {
-				Header: './src/components/starlight/Header.astro',
-				Footer: './src/components/starlight/Footer.astro',
-				SiteTitle: './src/components/starlight/SiteTitle.astro',
-				ThemeProvider: './src/components/starlight/ThemeProvider.astro',
-				ThemeSelect: './src/components/starlight/ThemeSelect.astro',
-			},
+		components: {
+			Head: './src/components/starlight/Head.astro',
+			Header: './src/components/starlight/Header.astro',
+			Footer: './src/components/starlight/Footer.astro',
+			SiteTitle: './src/components/starlight/SiteTitle.astro',
+			ThemeProvider: './src/components/starlight/ThemeProvider.astro',
+			ThemeSelect: './src/components/starlight/ThemeSelect.astro',
+		},
 		}),
 	],
 });
